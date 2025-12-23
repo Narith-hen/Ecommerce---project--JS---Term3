@@ -4,9 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <h1>Hello world! in class B 2026</h1>
-    <h2>Hello world in class b 2026</h2>
+    <header class="topbar">
+        <div class="topbar-inner container">
+            <div class="logo"><img src="/images/logo website/logo.png" alt=""></div>
+            <!-- <div class="logo"><h1>SUSU-KOKO</h1></div> -->
+
+            <div class="search">
+                <select aria-label="Search category">
+                    <option>All</option>
+                    <option>Cars</option>
+                    <option>Motors</option>
+                    <option>Bicycles</option>
+                </select>
+                <input type="search" placeholder="Search SUSU-KOKO" aria-label="Search SUSU-KOKO">
+                <button class="btn" aria-label="Search">🔍</button>
+            </div>
+
+            <div class="user-actions">
+                <div class="account">Hello, sign in<br><strong>Account & Lists</strong></div>
+                <div class="orders">Returns<br><strong>& Orders</strong></div>
+                <div class="cart">🛒 <span class="cart-count">0</span></div>
+            </div>
+        </div>
+        <nav class="main-nav container">
+            <button class="menu">☰ All</button>
+            <ul>
+                <button class="menu">Today's Deals</button>
+                <button class="menu">All Categories</button>
+                <button class="menu">Customer Service</button>
+                <button class="menu">About Us</button>
+                <button class="menu">Customer Service</button>
+                <button class="menu">Sell</button>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero container" aria-label="Hero banner">
+            <button class="hero-nav prev" aria-label="Previous">‹</button>
+            <div class="hero-slide" id="heroSlide">
+                <div class="hero-content">
+                    <h1>Shop holiday gift guides</h1>
+                </div>
+            </div>
+            <button class="hero-nav next" aria-label="Next">›</button>
+        </section>
+
+        <section class="panels-section">
+            <div class="container">
+                <div class="panels">
+            <article class="panel">
+                <h2>Shop gifts by price</h2>
+                <div class="panel-grid">
+                    <figure>
+                        <img src="https://images.unsplash.com/photo-1585386959984-a4155222d3f0?auto=format&fit=crop&w=400&q=60" alt="Under $10">
+                        <figcaption>Under $10</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://images.unsplash.com/photo-1518544881499-5f651f1693d3?auto=format&fit=crop&w=400&q=60" alt="Under $25">
+                        <figcaption>Under $25</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://images.unsplash.com/photo-1526178612752-49b91b226aaa?auto=format&fit=crop&w=400&q=60" alt="Under $50">
+                        <figcaption>Under $50</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=60" alt="Deals">
+                        <figcaption>Deals</figcaption>
+                    </figure>
+                </div>
+            </article>
+
+            <article class="panel">
+                <h2>Shop gifts by recipient</h2>
+                <div class="panel-grid">
+                    <figure>
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=60" alt="For him">
+                        <figcaption>For him</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=400&q=60" alt="For her">
+                        <figcaption>For her</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://images.unsplash.com/photo-1598032892251-b4a6b0e14818?auto=format&fit=crop&w=400&q=60" alt="For kids">
+                        <figcaption>For kids</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://images.unsplash.com/photo-1533777324565-a040eb52fac2?auto=format&fit=crop&w=400&q=60" alt="For teens">
+                        <figcaption>For teens</figcaption>
+                    </figure>
+                </div>
+            </article>
+
+            <article class="panel highlight">
+                <h2>Get your game on</h2>
+                <div class="panel-feature">
+                    <img src="https://images.unsplash.com/photo-1603781695999-0ec3a10b34bb?auto=format&fit=crop&w=800&q=60" alt="Gaming PC">
+                </div>
+            </article>
+
+            <article class="panel">
+                <h2>Shop Fashion for less</h2>
+                <div class="panel-grid">
+                    <figure>
+                        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=400&q=60" alt="Jeans under $50">
+                        <figcaption>Jeans under $50</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?auto=format&fit=crop&w=400&q=60" alt="Tops under $25">
+                        <figcaption>Tops under $25</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://images.unsplash.com/photo-1520975913487-0a1a8cda0c2f?auto=format&fit=crop&w=400&q=60" alt="Dresses under $30">
+                        <figcaption>Dresses under $30</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=400&q=60" alt="Shoes under $50">
+                        <figcaption>Shoes under $50</figcaption>
+                    </figure>
+                </div>
+            </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
