@@ -47,14 +47,18 @@ body {
 
 /* Topbar */
 .topbar {
-    background: var(--color-secondary);
-    color: #fff
+    background: var(--color-primary-hover);
+    /* color: #fff */
 }
 
 .topbar-inner {
+    background: var(--color-primary);
+    max-width: 1400px;
+    margin: 0px 40px 0px ;
+    padding: 0px 0px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    /* gap: 16px; */
     padding: 14px 
 }
 
