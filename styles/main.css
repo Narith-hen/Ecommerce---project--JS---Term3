@@ -179,7 +179,7 @@ body {
 }
 
 .hero .hero-content {
-    background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.45));
+    /* background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.45)); */
     color: #fff;
     padding: 28px;
     border-bottom-left-radius: 8px;
