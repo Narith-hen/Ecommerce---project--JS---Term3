@@ -43,7 +43,7 @@ body {
     max-width: 1600px;
     margin: 0 auto;
     padding: 0 16px;
-} 
+}
 
 /* Topbar */
 .topbar {
@@ -60,7 +60,7 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-} 
+}
 
 .logo {
     width: 80px;
@@ -168,6 +168,7 @@ body {
     padding: 8px 10px;
     border-radius: 6px
 }
+
 /* ===== MENU HOVER ANIMATION ===== */
 .main-nav .menu {
     position: relative;
@@ -292,7 +293,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: 
+    transition:
         transform 0.3s ease,
         box-shadow 0.3s ease,
         background 0.3s ease;
