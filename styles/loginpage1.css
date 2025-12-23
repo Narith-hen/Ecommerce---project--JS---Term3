@@ -1,0 +1,169 @@
+/* ======================
+   Global Styles
+====================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: #FFFFFF;
+  color: #0F1111;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ======================
+   Header
+====================== */
+.header {
+  text-align: center;
+  padding: 5px 0;
+}
+
+.header img {
+  width: 160px;
+}
+
+/* ======================
+   Main Container
+====================== */
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* ======================
+   Card Style
+====================== */
+.card {
+  width: 100%;
+  max-width: 460px;
+  background: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(7, 7, 7, 0.08);
+  height: 0%;
+}
+
+.card h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* ======================
+   Form Elements
+====================== */
+label {
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #DDDDDD;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #FF9900;
+  box-shadow: 0 0 0 2px rgba(255,153,0,0.3);
+}
+
+/* ======================
+   Button
+====================== */
+.btn-primary {
+  width: 100%;
+  background-color: #FF9900;
+  color: #0F1111;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.btn-primary:hover {
+  background-color: #F08804;
+}
+
+/* ======================
+   Text & Links
+====================== */
+.small-text {
+  font-size: 12px;
+  color: #565959;
+  margin-bottom: 12px;
+}
+
+.work-text {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.link {
+  font-size: 14px;
+  color: #007185;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #C7511F;
+  text-decoration: underline;
+}
+
+.card a {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+/* ======================
+   Divider
+====================== */
+hr {
+  border: none;
+  border-top: 1px solid #DDDDDD;
+  margin: 16px 0;
+}
+
+/* ======================
+   Footer
+====================== */
+.footer {
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 12px;
+  color: #565959;
+  margin-bottom: 120px;
+}
+
+.footer-links {
+  margin-bottom: 6px;
+}
+
+.footer-links a {
+  margin: 0 8px;
+  color: #007185;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #C7511F;
+  text-decoration: underline;
+}
