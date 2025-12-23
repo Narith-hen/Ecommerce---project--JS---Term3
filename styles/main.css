@@ -36,12 +36,12 @@ body {
     color: var(--color-text);
     font-family: var(--font-main);
     font-size: var(--text-size);
-    line-height: 1.4
+    /* line-height: 1.4 */
 }
 
 .container {
     max-width: 1400px;
-    margin: 0 auto;
+    margin: 0px 0px 0px 50px;
     padding: 0 16px;
 }
 
@@ -53,12 +53,12 @@ body {
 
 .topbar-inner {
     background: var(--color-primary);
-    max-width: 1400px;
+    max-width: 100%;
     margin: 0px 40px 0px ;
-    padding: 0px 0px;
+    padding:12px 12px;
     display: flex;
     align-items: center;
-    /* gap: 16px; */
+    gap: 16px;
     padding: 14px 
 }
 
