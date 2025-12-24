@@ -229,11 +229,9 @@ hr {
 </footer>
 
 <script>
+/* Navigation Functions */
 function hideAll() {
-  document.getElementById("loginPage").classList.add("hidden");
-  document.getElementById("createAccountPage").classList.add("hidden");
-  document.getElementById("verifyPage").classList.add("hidden");
-  document.getElementById("mobilePage").classList.add("hidden");
+  document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
 }
 
 function showCreateAccount() {
@@ -256,6 +254,54 @@ function showVerification() {
   document.getElementById("displayEmail").innerText = email;
   hideAll();
   document.getElementById("verifyPage").classList.remove("hidden");
+}
+
+/* Validation Functions */
+function updateUI(id, isValid) {
+    const msg = document.getElementById(id);
+    if (isValid) {
+        msg.innerText = "Correct";
+        msg.className = "status-msg correct";
+    } else {
+        msg.innerText = "Incorrect";
+        msg.className = "status-msg incorrect";
+    }
+}
+
+function validateName() {
+    const val = document.getElementById("regName").value;
+    updateUI("nameMsg", val.trim().length >= 3);
+}
+
+function validateEmail() {
+    const val = document.getElementById("regEmail").value;
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    updateUI("emailMsg", regex.test(val));
+}
+
+function validatePass() {
+    const val = document.getElementById("regPass").value;
+    updateUI("passMsg", val.length >= 6);
+}
+
+function validateVerifyPass() {
+    const pass = document.getElementById("regPass").value;
+    const vPass = document.getElementById("regVerifyPass").value;
+    updateUI("verifyMsg", vPass === pass && vPass !== "");
+}
+
+/* Final Continue Check */
+function handleContinue() {
+    const nameValid = document.getElementById("regName").value.trim().length >= 3;
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById("regEmail").value);
+    const passValid = document.getElementById("regPass").value.length >= 6;
+    const verifyValid = document.getElementById("regVerifyPass").value === document.getElementById("regPass").value;
+
+    if (nameValid && emailValid && passValid && verifyValid) {
+        showAddMobile();
+    } else {
+        alert("Please ensure all fields are 'Correct' before continuing.");
+    }
 }
 </script>
 
