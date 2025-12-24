@@ -1052,118 +1052,148 @@ img {
     max-width: 100%
 }
 
-.footer {
-    background: #f7f7f7;
-    padding: 40px 60px;
-    color: #333;
+/* Add overlay */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
 }
 
-.footer-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: auto;
+body.popup-active::after {
+    opacity: 1;
+    pointer-events: all;
 }
 
-.footer-column h4 {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 12px;
+.discount-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    z-index: 1001;
 }
 
-.footer-column a {
-    display: block;
-    text-decoration: none;
-    color: #555;
-    font-size: 13px;
-    margin-bottom: 8px;
-}
-
-.footer-column a:hover {
-    color: #ff6a00;
-}
-
-.mt {
-    margin-top: 20px;
-}
-
-.social-icons {
+/* Loading Overlay (same as before) */
+.site-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
     display: flex;
-    gap: 10px;
-    margin-top: 8px;
-}
-
-.social-icons i {
-    font-size: 16px;
-    cursor: pointer;
-    color: #555;
-}
-
-.social-icons i:hover {
-    color: #ff6a00;
-}
-
-/* Payments */
-.payments {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
+    align-items: center;
     justify-content: center;
-    margin: 30px 0;
+    z-index: 9999;
+    transition: opacity 0.8s ease;
 }
 
-.payments img {
-    height: 24px;
-    object-fit: contain;
+.site-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
 }
 
-/* Actions */
-.footer-actions {
+.loader-wrapper {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;
     gap: 20px;
-    max-width: 1200px;
-    margin: auto;
+    color: #fff;
+    text-align: center;
 }
 
-.lens-btn {
-    background: #ff6a00;
-    color: #fff;
-    border: none;
-    padding: 10px 16px;
+.loader-logo {
+    width: 100px;
+    height: auto;
+}
+
+.loader {
+    width: 80px;
+    height: 80px;
+    border: 8px solid rgba(255, 255, 255, 0.2);
+    border-top: 8px solid #FF9900;
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader-percent {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.loader-bar {
+    width: 300px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 4px;
-    cursor: pointer;
+    overflow: hidden;
+}
+
+.loader-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: #FF9900;
+    transition: width 0.4s ease;
+}
+
+.loader-text {
     font-size: 14px;
 }
 
-.lens-btn i {
-    margin-right: 6px;
+/* Discount Alert Card */
+
+.card-body{
+    padding: 30px;
+    color: #FF9900;
+}
+.card-body p{
+    color: #F7F7F7;
+}
+.card-bg {
+    background: linear-gradient(rgba(66, 62, 62, 0.6), rgba(0, 0, 0, 0.6)),
+        url('https://c8.alamy.com/comp/P7K34D/red-sport-car-on-white-background-3d-rendering-P7K34D.jpg')
+        center / cover no-repeat;
+    border-radius: 20px;
 }
 
-.right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
+.discount-card {
+    animation: fadeIn 0.6s ease-in-out;
+    width: 800px;
+    height: auto;
 }
 
-.right img {
-    height: 36px;
+.discount-badge {
+    position: absolute;
+    top: 150px;
+    right: -80px;
+    width:250px;
 }
 
-/* Bottom */
-.footer-bottom {
-    border-top: 1px solid #ddd;
-    margin-top: 30px;
-    padding-top: 15px;
-    text-align: center;
-    font-size: 12px;
-    color: #777;
-}
-
-.footer-bottom p {
-    margin-bottom: 6px;
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
 }
