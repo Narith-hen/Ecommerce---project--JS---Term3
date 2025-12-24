@@ -644,6 +644,12 @@ a:hover {
     color: var(--color-link-hover)
 }
 
+/* Make entire product cards clickable */
+.card-link{ display:block; color:inherit; text-decoration:none }
+.card-link:focus{ outline: 3px solid rgba(255,153,0,0.25); outline-offset:4px }
+.card-link img{ display:block }
+.card-link .deal-meta, .card-link .rec-price, .card-link .promo-price{ color:inherit }
+
 /* Buttons utility */
 .btn {
     display: inline-block;
