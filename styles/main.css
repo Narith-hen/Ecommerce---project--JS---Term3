@@ -47,15 +47,19 @@ body {
 
 /* Topbar */
 .topbar {
-    background: var(--color-secondary);
-    color: #fff
+    background: var(--color-primary-hover);
+    /* color: #fff */
 }
 
 .topbar-inner {
+    background: var(--color-primary);
+    max-width: 1400px;
+    margin: 0px 40px 0px;
+    padding: 0px 0px;
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 14px 
+    /* gap: 16px; */
+    padding: 14px
 }
 
 .logo {
@@ -179,7 +183,7 @@ body {
 }
 
 .hero .hero-content {
-    background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.45));
+    /* background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.45)); */
     color: #fff;
     padding: 28px;
     border-bottom-left-radius: 8px;
@@ -377,3 +381,151 @@ img {
     display: block;
     max-width: 100%
 }
+
+/* Add overlay */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+
+body.popup-active::after {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.discount-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    z-index: 1001;
+}
+
+/* Loading Overlay (same as before) */
+.site-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease;
+}
+
+.site-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+.loader-logo {
+    width: 100px;
+    height: auto;
+}
+
+.loader {
+    width: 80px;
+    height: 80px;
+    border: 8px solid rgba(255, 255, 255, 0.2);
+    border-top: 8px solid #FF9900;
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader-percent {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.loader-bar {
+    width: 300px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.loader-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: #FF9900;
+    transition: width 0.4s ease;
+}
+
+.loader-text {
+    font-size: 14px;
+}
+
+/* Discount Alert Card */
+
+.card-body{
+    padding: 30px;
+    color: #FF9900;
+}
+.card-body p{
+    color: #F7F7F7;
+}
+.card-bg {
+    background: linear-gradient(rgba(66, 62, 62, 0.6), rgba(0, 0, 0, 0.6)),
+        url('https://c8.alamy.com/comp/P7K34D/red-sport-car-on-white-background-3d-rendering-P7K34D.jpg')
+        center / cover no-repeat;
+    border-radius: 20px;
+}
+
+.discount-card {
+    animation: fadeIn 0.6s ease-in-out;
+    width: 800px;
+    height: auto;
+}
+
+.discount-badge {
+    position: absolute;
+    top: 150px;
+    right: -80px;
+    width:250px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+
