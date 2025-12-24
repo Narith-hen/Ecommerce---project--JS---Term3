@@ -1138,6 +1138,7 @@ img {
 
 .right {
     display: flex;
+    /* flex-direction: column; */
     align-items: center;
     gap: 10px;
     font-size: 13px;
@@ -1145,6 +1146,19 @@ img {
 
 .right img {
     height: 36px;
+}
+
+.left{
+    display: flex;
+    flex-direction: column();
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+}
+
+.left img {
+    height: 36px;
+
 }
 
 /* Bottom */
