@@ -7,8 +7,44 @@
         <link rel="stylesheet" href="styles/main.css">
     </head>
     <body>
+        <!-- Loading Overlay -->
+        <div id="site-loader" class="site-loader">
+            <div class="loader-wrapper">
+                <img src="./images/logo-website/logo.png" alt="Logo"
+                    class="loader-logo">
+                <div class="loader-percent"><span
+                        id="loaderPercent">0%</span></div>
+                <div class="loader-bar"><div id="loaderBar"
+                        class="loader-bar-fill"></div></div>
+                <div class="loader-text">Loading...</div>
+            </div>
+        </div>
 
+        <!-- Discount Alert Card -->
+        <div class="container my-5 overlay">
+            <div class="discount-card card-bg position-relative text-white"
+                id="discountCard"
+                style="display:none;">
 
+                <img
+                    src="images/discount.png"
+                    alt="Discount Badge" class="discount-badge">
+
+                <button class="close-btn" id="closeBtn">&times;</button>
+
+                <div class="card-body p-5 text-center">
+                    <h1 class="display-4 fw-bold mb-4">LIMITED TIME OFFER!</h1>
+                    <h2 class="display-5 mb-3">UP TO 50% OFF ON LUXURY CARS</h2>
+                    <p class="lead fs-3 mb-4">Exclusive Holiday Discount – Ends
+                        Soon!</p>
+                    <p class="fs-4 mb-5">Drive home your dream car today with
+                        unbeatable prices.</p>
+                    <a href="#"
+                        class="btn btn-warning btn-lg px-5 py-3 fw-bold">SHOP
+                        NOW</a>
+                </div>
+            </div>
+        </div>
         <header class="topbar">
             <div class="topbar-inner container">
                 <div class="logo"><img src="/images/logo-website/logo.png"

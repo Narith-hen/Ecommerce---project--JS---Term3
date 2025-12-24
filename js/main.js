@@ -1,9 +1,9 @@
 (function () {
   const hero = document.getElementById('heroSlide');
   const images = [
-    'https://www.novitecgroup.com/en/brands/lamborghini/aventador/aventador-svj/lazyyamlimages//3453/UGFnZVNsaWRlclNpemVN&2x=1',
-    'https://www.novitecgroup.com/en/brands/lamborghini/lazyyamlimages//5761/UGFnZVNsaWRlclNpemVN&2x=1',
-    'https://www.novitecgroup.com/en/brands/lamborghini/aventador/aventador-sv/lazyyamlimages//3454/UGFnZVNsaWRlclNpemVN&2x=1'
+    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1400&q=60',
+    'https://images.unsplash.com/photo-1518444023280-72f7f0a94f3b?auto=format&fit=crop&w=1400&q=60',
+    'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1400&q=60'
   ];
   let i = 0;
   function show() {
@@ -16,71 +16,45 @@
   show();
 })();
 
+// Simulated Loading + Show Card
+window.addEventListener('load', () => {
+  let percent = 0;
+  const percentEl = document.getElementById('loaderPercent');
+  const barEl = document.getElementById('loaderBar');
+  const loader = document.getElementById('site-loader');
+  const card = document.getElementById('discountCard');
 
-// ===== CARD SCROLL ANIMATION =====
-const panels = document.querySelectorAll('.panel');
+  const interval = setInterval(() => {
+    percent += Math.floor(Math.random() * 12) + 3;
+    if (percent > 100) percent = 100;
+    percentEl.textContent = percent + '%';
+    barEl.style.width = percent + '%';
 
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('show');
-        }
-    });
-}, {
-    threshold: 0.3
+    if (percent === 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        loader.classList.add('hidden');
+        setTimeout(() => {
+          if (localStorage.getItem('discountDismissed') !== 'true') {
+            card.classList.add('show');
+            startAutoHide(); // Start auto-hide timer
+          }
+        }, 3000);
+      }, 600);
+    }
+  }, 100);
 });
 
-panels.forEach(panel => observer.observe(panel));
+window.addEventListener("load", () => {
+  const discountCard = document.getElementById("discountCard");
+  const closeBtn = document.getElementById("closeBtn");
 
-// ===== Footer interactions =====
-(function(){
-  const backBtn = document.querySelector('.back-to-top');
-  function checkScroll(){
-    if(window.scrollY > 300) backBtn.style.display = 'flex';
-    else backBtn.style.display = 'none';
-  }
-  window.addEventListener('scroll', checkScroll);
-  backBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+  // Show card after 2 seconds
+  setTimeout(() => {
+    discountCard.style.display = "block";
+  }, 2000);
 
-  // footer collapsible lists for small screens
-  const toggles = document.querySelectorAll('.footer-toggle');
-  toggles.forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const list = btn.parentElement.nextElementSibling;
-      const isOpen = list.classList.toggle('open');
-      btn.setAttribute('aria-expanded', isOpen);
-    });
+  closeBtn.addEventListener("click", () => {
+    discountCard.style.display = "none";
   });
-})();
-
-// ===== Horizontal list controls (arrows & snap) =====
-(function(){
-  function scrollByCards(container, direction){
-    const card = container.querySelector('article, .deal-card, .rank-card, .promo-deal, .rec-card');
-    const gap = parseInt(getComputedStyle(container).gap) || 16;
-    const cardWidth = card ? card.offsetWidth + gap : container.clientWidth * 0.8;
-    const amount = direction === 'next' ? cardWidth * 2 : -cardWidth * 2;
-    container.scrollBy({left: amount, behavior:'smooth'});
-  }
-
-  document.querySelectorAll('.list-nav').forEach(btn=>{
-    const target = btn.dataset.target;
-    btn.addEventListener('click', ()=> {
-      const container = document.querySelector(target);
-      if(!container) return;
-      if(btn.classList.contains('next')) scrollByCards(container, 'next');
-      else scrollByCards(container, 'prev');
-    });
-  });
-
-  // make lists keyboard accessible for left/right
-  document.querySelectorAll('.deals-list, .top-ranking-list, .promo-deals-list, .recommended-list').forEach(container=>{
-    container.setAttribute('tabindex','0');
-    container.addEventListener('keydown', (e)=>{
-      if(e.key === 'ArrowRight') container.scrollBy({left: container.clientWidth*0.5, behavior:'smooth'});
-      if(e.key === 'ArrowLeft') container.scrollBy({left: -container.clientWidth*0.5, behavior:'smooth'});
-    });
-  });
-})();
-
-
+});
