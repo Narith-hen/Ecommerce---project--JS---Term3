@@ -95,6 +95,9 @@ window.addEventListener('load', () => {
 
     let percent = 0;
 
+  // Guard against missing elements to avoid runtime errors
+  if (!loader || !loaderPercent || !loaderBar) return;
+
     // Simulate loading progress
     const loadingInterval = setInterval(() => {
         percent += Math.floor(Math.random() * 15) + 5; // Faster, more natural
@@ -108,36 +111,34 @@ window.addEventListener('load', () => {
 
         // When loading reaches 100%
         if (percent === 100) {
-            setTimeout(() => {
-                loader.classList.add('hidden');
+          setTimeout(() => {
+            loader.classList.add('hidden');
 
-                // After loader fades out, show discount card (if not dismissed before)
-                setTimeout(() => {
-                    if (localStorage.getItem('discountDismissed') !== 'true') {
-                        discountCard.classList.add('show');
-                    }
-                }, 800); // Wait for loader fade to finish
-            }, 500);
+            // After loader fades out, show discount card (if not dismissed before)
+            setTimeout(() => {
+              if (discountCard && localStorage.getItem('discountDismissed') !== 'true') {
+                // If the element was initially hidden via inline style (style="display:none"),
+                // clear or set display so the CSS `.show` rule can take effect.
+                discountCard.style.display = 'block';
+                discountCard.classList.add('show');
+              }
+            }, 800); // Wait for loader fade to finish
+          }, 500);
         }
     }, 120);
 
-    // Close button for discount card
-    closeBtn.addEventListener('click', () => {
-        discountCard.classList.remove('show');
-        localStorage.setItem('discountDismissed', 'true'); // Won't show again
-    });
-
     // Optional: Auto-hide discount card after 10 seconds
     function startAutoHide() {
-        setTimeout(() => {
-            if (discountCard.classList.contains('show')) {
-                discountCard.classList.remove('show');
-            }
-        }, 10000); // 10 seconds
+      setTimeout(() => {
+        if (discountCard && discountCard.classList.contains('show')) {
+          discountCard.classList.remove('show');
+          discountCard.style.display = 'none';
+        }
+      }, 10000); // 10 seconds
     }
 
     // Start auto-hide when card appears
-    if (localStorage.getItem('discountDismissed') !== 'true') {
-        setTimeout(startAutoHide, 5000); // Start timer a bit after show
+    if (discountCard && localStorage.getItem('discountDismissed') !== 'true') {
+      setTimeout(startAutoHide, 5000); // Start timer a bit after show
     }
 });
