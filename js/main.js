@@ -16,48 +16,7 @@
   show();
 })();
 
-// Simulated Loading + Show Card
-window.addEventListener('load', () => {
-  let percent = 0;
-  const percentEl = document.getElementById('loaderPercent');
-  const barEl = document.getElementById('loaderBar');
-  const loader = document.getElementById('site-loader');
-  const card = document.getElementById('discountCard');
 
-  const interval = setInterval(() => {
-    percent += Math.floor(Math.random() * 12) + 3;
-    if (percent > 100) percent = 100;
-    percentEl.textContent = percent + '%';
-    barEl.style.width = percent + '%';
-
-    if (percent === 100) {
-      clearInterval(interval);
-      setTimeout(() => {
-        loader.classList.add('hidden');
-        setTimeout(() => {
-          if (localStorage.getItem('discountDismissed') !== 'true') {
-            card.classList.add('show');
-            startAutoHide(); // Start auto-hide timer
-          }
-        }, 3000);
-      }, 600);
-    }
-  }, 100);
-});
-
-window.addEventListener("load", () => {
-  const discountCard = document.getElementById("discountCard");
-  const closeBtn = document.getElementById("closeBtn");
-
-  // Show card after 2 seconds
-  setTimeout(() => {
-    discountCard.style.display = "block";
-  }, 2000);
-
-  closeBtn.addEventListener("click", () => {
-    discountCard.style.display = "none";
-  });
-});
 // ===== CARD SCROLL ANIMATION =====
 const panels = document.querySelectorAll('.panel');
 
