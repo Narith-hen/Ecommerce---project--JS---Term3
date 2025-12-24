@@ -15,6 +15,7 @@
   setInterval(() => { i = (i + 1) % images.length; show(); }, 6000);
   show();
 })();
+
 // Simulated Loading + Show Card
 window.addEventListener('load', () => {
   let percent = 0;
@@ -38,27 +39,22 @@ window.addEventListener('load', () => {
             card.classList.add('show');
             startAutoHide(); // Start auto-hide timer
           }
-        }, 300);
+        }, 3000);
       }, 600);
     }
   }, 100);
 });
 
-// Close button: Hide card + remember dismissal
-document.getElementById('closeBtn').addEventListener('click', () => {
-  document.getElementById('discountCard').style.display = 'none';
-  localStorage.setItem('discountDismissed', 'true'); // Won't show again on refresh
-});
+window.addEventListener("load", () => {
+  const discountCard = document.getElementById("discountCard");
+  const closeBtn = document.getElementById("closeBtn");
 
-// Auto-hide after 10 seconds (10000 ms)
-function startAutoHide() {
+  // Show card after 2 seconds
   setTimeout(() => {
-    const card = document.getElementById('discountCard');
-    if (card.style.display !== 'none') {
-      card.style.transition = 'opacity 1s ease';
-      card.style.opacity = '0';
-      setTimeout(() => { card.style.display = 'none'; }, 1000);
-      localStorage.setItem('discountDismissed', 'true');
-    }
-  }, 10000);
-}
+    discountCard.style.display = "block";
+  }, 2000);
+
+  closeBtn.addEventListener("click", () => {
+    discountCard.style.display = "none";
+  });
+});
