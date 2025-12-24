@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
+    <!-- navbar -->
     <header class="topbar">
         <div class="topbar-inner container">
-            <div class="logo"><img src="/images/logo website/logo.png" alt=""></div>
-            <!-- <div class="logo"><h1>SUSU-KOKO</h1></div> -->
+            <!-- Logo -->
+            <div class="logo"><img src="/images/logo-website/logo.png" alt=""></div>
 
+            <!-- Search -->
             <div class="search">
                 <select aria-label="Search category">
                     <option>All</option>
@@ -23,116 +28,567 @@
                 <button class="btn" aria-label="Search">🔍</button>
             </div>
 
+            <!-- User actions -->
             <div class="user-actions">
-                <div class="account">Hello, sign in<br><strong>Account & Lists</strong></div>
-                <div class="orders">Returns<br><strong>& Orders</strong></div>
-                <div class="cart">🛒 <span class="cart-count">0</span></div>
+                <a href="./page/login.html" class="account">
+                    Hello, sign in<br>
+                    <strong>Account &amp; Lists</strong>
+                </a>
+
+                <a href="orders.html" class="orders">
+                    Returns<br>
+                    <strong>&amp; Orders</strong>
+                </a>
+
+                <a href="cart.html" class="cart">
+                    🛒 <span class="cart-count">0</span>
+                </a>
             </div>
         </div>
+        <!-- Main navigation -->
         <nav class="main-nav container">
             <button class="menu">☰ All</button>
             <ul>
                 <button class="menu">Today's Deals</button>
-                <button class="menu">All Categories</button>
-                <button class="menu">Customer Service</button>
-                <button class="menu">About Us</button>
+                <button class="menu">Categories</button>
                 <button class="menu">Customer Service</button>
                 <button class="menu">Sell</button>
+                <button class="menu">About Us</button>
             </ul>
         </nav>
     </header>
 
+    <!-- Main content -->
     <main>
+        <!-- Hero banner -->
         <section class="hero container" aria-label="Hero banner">
             <button class="hero-nav prev" aria-label="Previous">‹</button>
             <div class="hero-slide" id="heroSlide">
                 <div class="hero-content">
-                    <h1>Shop holiday gift guides</h1>
+                    <h1>The Best for Sale</h1>
                 </div>
             </div>
             <button class="hero-nav next" aria-label="Next">›</button>
         </section>
 
-        <section class="panels-section">
+        <!-- Top Deals section -->
+        <section class="deals-section" aria-label="Top deals">
             <div class="container">
-                <div class="panels">
-            <article class="panel">
-                <h2>Shop gifts by price</h2>
-                <div class="panel-grid">
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1585386959984-a4155222d3f0?auto=format&fit=crop&w=400&q=60" alt="Under $10">
-                        <figcaption>Under $10</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1518544881499-5f651f1693d3?auto=format&fit=crop&w=400&q=60" alt="Under $25">
-                        <figcaption>Under $25</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1526178612752-49b91b226aaa?auto=format&fit=crop&w=400&q=60" alt="Under $50">
-                        <figcaption>Under $50</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=60" alt="Deals">
-                        <figcaption>Deals</figcaption>
-                    </figure>
+                <div class="deals-header">
+                    <h2>Top Deals</h2>
+                    <a class="view-more" href="#">View more ➜</a>
                 </div>
-            </article>
 
-            <article class="panel">
-                <h2>Shop gifts by recipient</h2>
-                <div class="panel-grid">
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=60" alt="For him">
-                        <figcaption>For him</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=400&q=60" alt="For her">
-                        <figcaption>For her</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1598032892251-b4a6b0e14818?auto=format&fit=crop&w=400&q=60" alt="For kids">
-                        <figcaption>For kids</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1533777324565-a040eb52fac2?auto=format&fit=crop&w=400&q=60" alt="For teens">
-                        <figcaption>For teens</figcaption>
-                    </figure>
-                </div>
-            </article>
+                <div class="list-wrap">
+                    <button class="list-nav prev" data-target=".deals-list" aria-label="Previous deals">‹</button>
+                    <div class="deals-list" role="list">
+                        <article class="deal-card" role="listitem">
+                            <div class="deal-image">
+                                <img src="https://images.unsplash.com/photo-1542293787938-0847a8e70f5c?auto=format&fit=crop&w=800&q=60"
+                                    alt="Deal 1">
+                                <span class="badge flash">Flash Deal</span>
+                            </div>
+                            <div class="deal-meta">
+                                <div class="price">
+                                    <span class="current">KHR 138,123.00</span>
+                                    <span class="old">KHR 158,700.00</span>
+                                </div>
+                                <div class="moq">MOQ: 1</div>
+                            </div>
+                        </article>
 
-            <article class="panel highlight">
-                <h2>Get your game on</h2>
-                <div class="panel-feature">
-                    <img src="https://images.unsplash.com/photo-1603781695999-0ec3a10b34bb?auto=format&fit=crop&w=800&q=60" alt="Gaming PC">
-                </div>
-            </article>
+                        <article class="deal-card" role="listitem">
+                            <div class="deal-image">
+                                <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=60"
+                                    alt="Deal 2">
+                            </div>
+                            <div class="deal-meta">
+                                <div class="price">
+                                    <span class="current">KHR 360,898.06</span>
+                                    <span class="old">KHR 398,000.00</span>
+                                </div>
+                                <div class="moq">MOQ: 1</div>
+                            </div>
+                        </article>
 
-            <article class="panel">
-                <h2>Shop Fashion for less</h2>
-                <div class="panel-grid">
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=400&q=60" alt="Jeans under $50">
-                        <figcaption>Jeans under $50</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?auto=format&fit=crop&w=400&q=60" alt="Tops under $25">
-                        <figcaption>Tops under $25</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1520975913487-0a1a8cda0c2f?auto=format&fit=crop&w=400&q=60" alt="Dresses under $30">
-                        <figcaption>Dresses under $30</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=400&q=60" alt="Shoes under $50">
-                        <figcaption>Shoes under $50</figcaption>
-                    </figure>
-                </div>
-            </article>
+                        <article class="deal-card" role="listitem">
+                            <div class="deal-image">
+                                <img src="https://images.unsplash.com/photo-1526178612752-49b91b226aaa?auto=format&fit=crop&w=800&q=60"
+                                    alt="Deal 3">
+                            </div>
+                            <div class="deal-meta">
+                                <div class="price">
+                                    <span class="current">KHR 195,400.00</span>
+                                    <span class="old">KHR 300,700.00</span>
+                                </div>
+                                <div class="moq">MOQ: 1</div>
+                            </div>
+                        </article>
+
+                        <article class="deal-card" role="listitem">
+                            <div class="deal-image">
+                                <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=60"
+                                    alt="Deal 4">
+                            </div>
+                            <div class="deal-meta">
+                                <div class="price">
+                                    <span class="current">KHR 436,285.65</span>
+                                    <span class="old">KHR 520,000.00</span>
+                                </div>
+                                <div class="moq">MOQ: 1</div>
+                            </div>
+                        </article>
+
+                        <article class="deal-card" role="listitem">
+                            <div class="deal-image">
+                                <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=60"
+                                    alt="Deal 5">
+                            </div>
+                            <div class="deal-meta">
+                                <div class="price">
+                                    <span class="current">KHR 11,628.94</span>
+                                </div>
+                                <div class="moq">MOQ: 2</div>
+                            </div>
+                        </article>
+
+                        <article class="deal-card" role="listitem">
+                            <div class="deal-image">
+                                <img src="https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=800&q=60"
+                                    alt="Deal 6">
+                            </div>
+                            <div class="deal-meta">
+                                <div class="price">
+                                    <span class="current">KHR 150,374.19</span>
+                                </div>
+                                <div class="moq">MOQ: 10</div>
+                            </div>
+                        </article>
+                    </div>
+                    <button class="list-nav next" data-target=".deals-list" aria-label="Next deals">›</button>
                 </div>
             </div>
         </section>
-    </main>
 
-    <script src="js/main.js"></script>
+        <!-- Promo row (peach banner + small deals) -->
+        <section class="promo-row">
+            <div class="container promo-inner">
+                <div class="promo-card">
+                    <small class="promo-pre">Savings Booster</small>
+                    <h3 class="promo-title">First order, <span class="promo-highlight">FREE</span> shipping</h3>
+                    <p class="promo-sub">Explore exclusive deals and limited-time offers to boost your savings on first
+                        purchase.</p>
+                    <a class="btn promo-btn" href="#">Explore now</a>
+                </div>
+
+                <div class="list-wrap">
+                    <button class="list-nav prev" data-target=".promo-deals-list"
+                        aria-label="Previous promo deals">‹</button>
+                    <div class="promo-deals-list" role="list">
+                        <article class="promo-deal" role="listitem">
+                            <img src="https://images.unsplash.com/photo-1598032892251-b4a6b0e14818?auto=format&fit=crop&w=600&q=60"
+                                alt="Glasses 1">
+                            <div class="promo-price">KHR 11,227.94</div>
+                            <div class="promo-moq">MOQ: 5</div>
+                        </article>
+
+                        <article class="promo-deal" role="listitem">
+                            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=60"
+                                alt="Glasses 2">
+                            <div class="promo-price">KHR 14,435.93</div>
+                            <div class="promo-moq">MOQ: 2</div>
+                        </article>
+
+                        <article class="promo-deal" role="listitem">
+                            <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=60"
+                                alt="Phone 1">
+                            <div class="promo-price">KHR 195,486.45</div>
+                            <div class="promo-moq">MOQ: 1</div>
+                        </article>
+
+                        <article class="promo-deal" role="listitem">
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=60"
+                                alt="Accessory">
+                            <div class="promo-price">KHR 4,811.98</div>
+                            <div class="promo-moq">MOQ: 2</div>
+                        </article>
+
+                        <article class="promo-deal" role="listitem">
+                            <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=60"
+                                alt="Glasses 3">
+                            <div class="promo-price">KHR 25,543.57</div>
+                            <div class="promo-moq">MOQ: 1</div>
+                        </article>
+                    </div>
+                    <button class="list-nav next" data-target=".promo-deals-list"
+                        aria-label="Next promo deals">›</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommended / Fast customization (purple section) -->
+        <section class="recommended-section">
+            <div class="container recommended-inner">
+                <div class="recommended-cta">
+                    <h3>Fast customization</h3>
+                    <p>Realize your custom product ideas fast and easy</p>
+                    <ul class="recommended-features">
+                        <li>Low MOQ</li>
+                        <li>14-day dispatch</li>
+                        <li>True to design</li>
+                    </ul>
+                    <a class="btn" href="#">Explore now</a>
+                </div>
+
+                <div class="list-wrap">
+                    <button class="list-nav prev" data-target=".recommended-list"
+                        aria-label="Previous recommended">‹</button>
+                    <div class="recommended-list">
+                        <article class="rec-card">
+                            <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=600&q=60"
+                                alt="Necklace">
+                            <div class="rec-price">KHR 83,808.55</div>
+                            <div class="rec-moq">MOQ: 2</div>
+                        </article>
+
+                        <article class="rec-card">
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=60"
+                                alt="Stickers">
+                            <div class="rec-price">KHR 5,613.97</div>
+                            <div class="rec-moq">MOQ: 500</div>
+                        </article>
+
+                        <article class="rec-card">
+                            <img src="https://images.unsplash.com/photo-1603781695999-0ec3a10b34bb?auto=format&fit=crop&w=600&q=60"
+                                alt="Tools">
+                            <div class="rec-price">KHR 36,611.11</div>
+                            <div class="rec-moq">MOQ: 2</div>
+                        </article>
+
+                        <article class="rec-card">
+                            <img src="https://images.unsplash.com/photo-1567016432779-9e3b3e9b3f55?auto=format&fit=crop&w=600&q=60"
+                                alt="Machine">
+                            <div class="rec-price">KHR 232,578.75</div>
+                            <div class="rec-moq">MOQ: 2</div>
+                        </article>
+
+                        <article class="rec-card">
+                            <img src="https://images.unsplash.com/photo-1541532713592-79a0317b6b77?auto=format&fit=crop&w=600&q=60"
+                                alt="Earbuds">
+                            <div class="rec-price">KHR 15,518.62</div>
+                            <div class="rec-moq">MOQ: 5</div>
+                        </article>
+                    </div>
+                    <button class="list-nav next" data-target=".recommended-list"
+                        aria-label="Next recommended">›</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Panels section -->
+        <section class="panels-section">
+            <div class="container">
+                <div class="panels">
+                    <!-- Panel: Shop gifts by price -->
+                    <article class="panel">
+                        <h2>Shop gifts by price</h2>
+                        <div class="panel-grid">
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1585386959984-a4155222d3f0?auto=format&fit=crop&w=400&q=60"
+                                    alt="Under $10">
+                                <figcaption>Under $10</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1518544881499-5f651f1693d3?auto=format&fit=crop&w=400&q=60"
+                                    alt="Under $25">
+                                <figcaption>Under $25</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1526178612752-49b91b226aaa?auto=format&fit=crop&w=400&q=60"
+                                    alt="Under $50">
+                                <figcaption>Under $50</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=60"
+                                    alt="Deals">
+                                <figcaption>Deals</figcaption>
+                            </figure>
+                        </div>
+                    </article>
+
+                    <!-- Panel: Shop gifts by recipient -->
+                    <article class="panel">
+                        <h2>Shop gifts by recipient</h2>
+                        <div class="panel-grid">
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=60"
+                                    alt="For him">
+                                <figcaption>For him</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=400&q=60"
+                                    alt="For her">
+                                <figcaption>For her</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1598032892251-b4a6b0e14818?auto=format&fit=crop&w=400&q=60"
+                                    alt="For kids">
+                                <figcaption>For kids</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1533777324565-a040eb52fac2?auto=format&fit=crop&w=400&q=60"
+                                    alt="For teens">
+                                <figcaption>For teens</figcaption>
+                            </figure>
+                        </div>
+                    </article>
+
+                    <!-- Panel: Get your game on -->
+                    <article class="panel highlight">
+                        <h2>Get your game on</h2>
+                        <div class="panel-feature">
+                            <img src="https://images.unsplash.com/photo-1603781695999-0ec3a10b34bb?auto=format&fit=crop&w=800&q=60"
+                                alt="Gaming PC">
+                        </div>
+                    </article>
+
+                    <!-- Panel: Shop Fashion for less -->
+                    <article class="panel">
+                        <h2>Shop Fashion for less</h2>
+                        <div class="panel-grid">
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=400&q=60"
+                                    alt="Jeans under $50">
+                                <figcaption>Jeans under $50</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?auto=format&fit=crop&w=400&q=60"
+                                    alt="Tops under $25">
+                                <figcaption>Tops under $25</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1520975913487-0a1a8cda0c2f?auto=format&fit=crop&w=400&q=60"
+                                    alt="Dresses under $30">
+                                <figcaption>Dresses under $30</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=400&q=60"
+                                    alt="Shoes under $50">
+                                <figcaption>Shoes under $50</figcaption>
+                            </figure>
+                        </div>
+                    </article>
+
+                    <article class="panel">
+                        <h2>Shop holiday gift guides</h2>
+                        <div class="panel-grid">
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=60"
+                                    alt="For him">
+                                <figcaption>For him</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=400&q=60"
+                                    alt="For her">
+                                <figcaption>For her</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1598032892251-b4a6b0e14818?auto=format&fit=crop&w=400&q=60"
+                                    alt="For kids">
+                                <figcaption>For kids</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1533777324565-a040eb52fac2?auto=format&fit=crop&w=400&q=60"
+                                    alt="For teens">
+                                <figcaption>For teens</figcaption>
+                            </figure>
+                        </div>
+                    </article>
+
+                    <article class="panel">
+                        <h2>Shop holiday gift guides</h2>
+                        <div class="panel-grid">
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=60"
+                                    alt="For him">
+                                <figcaption>For him</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=400&q=60"
+                                    alt="For her">
+                                <figcaption>For her</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1598032892251-b4a6b0e14818?auto=format&fit=crop&w=400&q=60"
+                                    alt="For kids">
+                                <figcaption>For kids</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1533777324565-a040eb52fac2?auto=format&fit=crop&w=400&q=60"
+                                    alt="For teens">
+                                <figcaption>For teens</figcaption>
+                            </figure>
+                        </div>
+                    </article>
+
+                    <article class="panel">
+                        <h2>Shop holiday gift guides</h2>
+                        <div class="panel-grid">
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=60"
+                                    alt="For him">
+                                <figcaption>For him</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=400&q=60"
+                                    alt="For her">
+                                <figcaption>For her</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1598032892251-b4a6b0e14818?auto=format&fit=crop&w=400&q=60"
+                                    alt="For kids">
+                                <figcaption>For kids</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1533777324565-a040eb52fac2?auto=format&fit=crop&w=400&q=60"
+                                    alt="For teens">
+                                <figcaption>For teens</figcaption>
+                            </figure>
+                        </div>
+                    </article>
+
+                    <article class="panel">
+                        <h2>Shop holiday gift guides</h2>
+                        <div class="panel-grid">
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=60"
+                                    alt="For him">
+                                <figcaption>For him</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=400&q=60"
+                                    alt="For her">
+                                <figcaption>For her</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1598032892251-b4a6b0e14818?auto=format&fit=crop&w=400&q=60"
+                                    alt="For kids">
+                                <figcaption>For kids</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="https://images.unsplash.com/photo-1533777324565-a040eb52fac2?auto=format&fit=crop&w=400&q=60"
+                                    alt="For teens">
+                                <figcaption>For teens</figcaption>
+                            </figure>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+<footer class="footer">
+
+  <!-- TOP LINKS -->
+  <div class="footer-container">
+
+    <div class="footer-column">
+      <h4>Get support</h4>
+      <a href="#">Help Center</a>
+      <a href="#">Live chat</a>
+      <a href="#">Check order status</a>
+      <a href="#">Refunds</a>
+      <a href="#">Report abuse</a>
+    </div>
+
+    <div class="footer-column">
+      <h4>Payments and protections</h4>
+      <a href="#">Safe and easy payments</a>
+      <a href="#">Alibaba.com Business Edge Credit Card</a>
+      <a href="#">Money-back policy</a>
+      <a href="#">On-time shipping</a>
+      <a href="#">After-sales protections</a>
+      <a href="#">Product monitoring services</a>
+    </div>
+
+    <div class="footer-column">
+      <h4>Source on Alibaba.com</h4>
+      <a href="#">Request for Quotation</a>
+      <a href="#">Membership program</a>
+      <a href="#">Sales tax and VAT</a>
+      <a href="#">Alibaba.com Reads</a>
+    </div>
+
+    <div class="footer-column">
+      <h4>Sell on Alibaba.com</h4>
+      <a href="#">Start selling</a>
+      <a href="#">Seller Central</a>
+      <a href="#">Become a Verified Supplier</a>
+      <a href="#">Partnerships</a>
+      <a href="#">Download the app for suppliers</a>
+    </div>
+
+    <div class="footer-column">
+      <h4>Get to know us</h4>
+      <a href="#">About Alibaba.com</a>
+      <a href="#">Corporate responsibility</a>
+      <a href="#">News center</a>
+      <a href="#">Careers</a>
+
+      <h4 class="mt">Stay Connected</h4>
+      <div class="social-icons">
+        <i class="fab fa-facebook"></i>
+        <i class="fab fa-linkedin"></i>
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-youtube"></i>
+        <i class="fab fa-tiktok"></i>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PAYMENT ICONS -->
+  <div class="payments">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/UnionPay_logo.svg/1280px-UnionPay_logo.svg.png">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg">
+    <img src="https://bredcambodia.com.kh/wp-content/uploads/2022/12/KHQR-available-here-logo-with-bg-1024x422.png">
+    <img src="https://images.vexels.com/media/users/3/144837/isolated/preview/40f189daa5c0279718484ca5f5569f78-crypto-icon.png">
+    <img src="https://lh3.googleusercontent.com/1d_Ubja0DGaHuhzY8zJga9oG7gS0xwPomKryvehUMEnT667MbNI_SIV2uf6C_BYcX17dlpioO28Qr-dq9ngIbUVcOpNxBrF_D9_yJ7mfDRFG5zbN7Q=s1000">
+  </div>
+
+  <!-- BOTTOM ACTIONS -->
+  <div class="footer-actions">
+    <div class="left">
+        <p>Partnerships with</p>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP9EUT0zXSexJy8G_Ke6jmjAccikkDZMQHNQ&s">
+        <img src="https://play-lh.googleusercontent.com/VMjt3oarASIkskhjZHdB9vo1_8nLJ-0MpN7RKBB6qBauJ-_o-qMXofLSzTcaxKxigsM=w480-h960-rw">
+        <img src="https://play-lh.googleusercontent.com/4YBwUQTQHMAgv7xHhAUharBvlZh_B34VqPB8NqupibU8wkA8X3S91R1sLtWDZvl1T3J_-CET5sa4Z3JxnxmV3A=w480-h960-rw">
+        <img src="https://play-lh.googleusercontent.com/OZT5RP4KtP8OkEYy0f1EeOR257Mk5j8hgrYYzEi7O5q5txeXBZrENfe4-7QKAwRBAA=w480-h960-rw">
+        <img src="https://play-lh.googleusercontent.com/weU8O2dHEQffcEyHeK11qTUMS-AQvlHW1IolQDM1XLuZN0ggl6Zr9kUwBqHwXr7i5T0=w480-h960-rw">
+        <img src="https://play-lh.googleusercontent.com/A8bangMCdTPS1Xa9hbuc4pcXxUspKpJhDHWW3QSw3OB-VMtUv6NCnqAd7pUv2C-2OnjJHn0Xmv1cs6c2hFUZMw=w480-h960-rw">
+        <img src="https://play-lh.googleusercontent.com/9EjpLk2v3rb1QThCBb8Ep03I7U9aVByTzrc_G77JtKd4O98uA-H4t-c-Ep9sgB1_5g=w480-h960-rw">
+    </div>
+
+    <div class="right">
+      <span>Trade on the go with the SUSU-KOKO.com app</span>
+      <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg">
+    </div>
+  </div>
+
+  <!-- COPYRIGHT -->
+  <div class="footer-bottom">
+    <p>
+      AliExpress | 1688.com | Tmall Taobao World | Alipay | Lazada | Taobao Global  
+    </p>
+    <p>© 2000–2025 SUSU-KOKO.com All rights reserved.</p>
+  </div>
+
+</footer>
+
+        <script src="js/main.js"></script>
 </body>
+
 </html>
