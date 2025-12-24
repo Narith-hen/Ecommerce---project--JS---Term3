@@ -1,9 +1,9 @@
 (function () {
   const hero = document.getElementById('heroSlide');
   const images = [
-    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1400&q=60',
-    'https://images.unsplash.com/photo-1518444023280-72f7f0a94f3b?auto=format&fit=crop&w=1400&q=60',
-    'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1400&q=60'
+    'https://www.novitecgroup.com/en/brands/lamborghini/aventador/aventador-svj/lazyyamlimages//3453/UGFnZVNsaWRlclNpemVN&2x=1',
+    'https://www.novitecgroup.com/en/brands/lamborghini/lazyyamlimages//5761/UGFnZVNsaWRlclNpemVN&2x=1',
+    'https://www.novitecgroup.com/en/brands/lamborghini/aventador/aventador-sv/lazyyamlimages//3454/UGFnZVNsaWRlclNpemVN&2x=1'
   ];
   let i = 0;
   function show() {
@@ -58,3 +58,17 @@ window.addEventListener("load", () => {
     discountCard.style.display = "none";
   });
 });
+// ===== CARD SCROLL ANIMATION =====
+const panels = document.querySelectorAll('.panel');
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+        }
+    });
+}, {
+    threshold: 0.3
+});
+
+panels.forEach(panel => observer.observe(panel));
