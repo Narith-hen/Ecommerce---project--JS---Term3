@@ -256,9 +256,10 @@ function showVerification() {
   document.getElementById("verifyPage").classList.remove("hidden");
 }
 
-/* Validation Functions */
+/* VALIDATION LOGIC */
 function updateUI(id, isValid) {
     const msg = document.getElementById(id);
+    if (!msg) return;
     if (isValid) {
         msg.innerText = "Correct";
         msg.className = "status-msg correct";
@@ -290,7 +291,11 @@ function validateVerifyPass() {
     updateUI("verifyMsg", vPass === pass && vPass !== "");
 }
 
-/* Final Continue Check */
+function validatePhone() {
+    const val = document.getElementById("phoneInput").value.replace(/\D/g, ''); // numbers only
+    updateUI("phoneMsg", val.length === 9 || val.length === 10);
+}
+
 function handleContinue() {
     const nameValid = document.getElementById("regName").value.trim().length >= 3;
     const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById("regEmail").value);
@@ -300,7 +305,16 @@ function handleContinue() {
     if (nameValid && emailValid && passValid && verifyValid) {
         showAddMobile();
     } else {
-        alert("Please ensure all fields are 'Correct' before continuing.");
+        alert("Please create your account.");
+    }
+}
+
+function handleMobileSubmit() {
+    const val = document.getElementById("phoneInput").value.replace(/\D/g, '');
+    if (val.length === 9 || val.length === 10) {
+        showVerification();
+    } else {
+        alert("Please enter a valid 9 or 10 digit phone number.");
     }
 }
 </script>
