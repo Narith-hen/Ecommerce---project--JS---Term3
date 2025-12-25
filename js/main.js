@@ -35,21 +35,24 @@ panels.forEach(panel => observer.observe(panel));
 (function(){
   const backBtn = document.querySelector('.back-to-top');
   function checkScroll(){
+    if(!backBtn) return;
     if(window.scrollY > 300) backBtn.style.display = 'flex';
     else backBtn.style.display = 'none';
   }
   window.addEventListener('scroll', checkScroll);
-  backBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+  if (backBtn) backBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
   // footer collapsible lists for small screens
   const toggles = document.querySelectorAll('.footer-toggle');
-  toggles.forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const list = btn.parentElement.nextElementSibling;
-      const isOpen = list.classList.toggle('open');
-      btn.setAttribute('aria-expanded', isOpen);
+  if (toggles && toggles.length) {
+    toggles.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const list = btn.parentElement.nextElementSibling;
+        const isOpen = list.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
     });
-  });
+  }
 })();
 
 // ===== Horizontal list controls (arrows & snap) =====
@@ -82,4 +85,60 @@ panels.forEach(panel => observer.observe(panel));
   });
 })();
 
+// Single, clean loading + discount card logic
+window.addEventListener('load', () => {
+    const loader = document.getElementById('site-loader');
+    const loaderPercent = document.getElementById('loaderPercent');
+    const loaderBar = document.getElementById('loaderBar');
+    const discountCard = document.getElementById('discountCard');
+    const closeBtn = document.getElementById('closeBtn');
 
+    let percent = 0;
+
+  // Guard against missing elements to avoid runtime errors
+  if (!loader || !loaderPercent || !loaderBar) return;
+
+    // Simulate loading progress
+    const loadingInterval = setInterval(() => {
+        percent += Math.floor(Math.random() * 15) + 5; // Faster, more natural
+        if (percent >= 100) {
+            percent = 100;
+            clearInterval(loadingInterval);
+        }
+
+        loaderPercent.textContent = percent + '%';
+        loaderBar.style.width = percent + '%';
+
+        // When loading reaches 100%
+        if (percent === 100) {
+          setTimeout(() => {
+            loader.classList.add('hidden');
+
+            // After loader fades out, show discount card (if not dismissed before)
+            setTimeout(() => {
+              if (discountCard && localStorage.getItem('discountDismissed') !== 'true') {
+                // If the element was initially hidden via inline style (style="display:none"),
+                // clear or set display so the CSS `.show` rule can take effect.
+                discountCard.style.display = 'block';
+                discountCard.classList.add('show');
+              }
+            }, 800); // Wait for loader fade to finish
+          }, 500);
+        }
+    }, 120);
+
+    // Optional: Auto-hide discount card after 10 seconds
+    function startAutoHide() {
+      setTimeout(() => {
+        if (discountCard && discountCard.classList.contains('show')) {
+          discountCard.classList.remove('show');
+          discountCard.style.display = 'none';
+        }
+      }, 10000); // 10 seconds
+    }
+
+    // Start auto-hide when card appears
+    if (discountCard && localStorage.getItem('discountDismissed') !== 'true') {
+      setTimeout(startAutoHide, 5000); // Start timer a bit after show
+    }
+});
