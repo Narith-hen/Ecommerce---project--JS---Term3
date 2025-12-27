@@ -50,7 +50,13 @@ body {
     margin: 0 auto;
     padding: 0 16px;
 }
+.container1 ul button a{
+    color: white;
+}
 
+.user-actions a{
+    color: white;
+}
 /* Topbar */
 .topbar {
     background: var(--color-primary-hover);
