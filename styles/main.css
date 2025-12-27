@@ -51,7 +51,7 @@ body {
 }
 
 .container {
-    max-width: 1600px;
+    max-width: 1400px;
     margin: 0 70px;
     padding: 0 16px;
 }
@@ -597,7 +597,7 @@ body {
 .recommended-section {
     background: var(--color-300);
     color: #fff;
-    padding: 30px 60px 0px 0px;
+    padding: 30px 60px 30px 0px;
     margin: 20px 70px 60px 70px;
     border-radius: 8px;
     margin: 18px 70px;
@@ -627,7 +627,7 @@ body {
 .recommended-features {
     list-style: none;
     padding: 0;
-    margin: 10px 0 16px;
+    margin: 10px 10px  16px;
     color: rgba(255, 255, 255, 0.9);
 }
 
@@ -680,8 +680,9 @@ body {
 
 /* Panels */
 .panels-section {
-    background: var(--color-section-bg);
-    padding: 28px 0
+    /* background: var(--color-section-bg); */
+    padding: 28px;
+
 }
 
 .panels {

@@ -112,7 +112,7 @@ window.addEventListener('load', () => {
   let percent = 0;
 
   const interval = setInterval(() => {
-    percent += 2;
+    percent += 20;
     loaderPercent.textContent = percent + '%';
     loaderBar.style.width = percent + '%';
 
@@ -121,7 +121,7 @@ window.addEventListener('load', () => {
       setTimeout(() => {
         loader.classList.add('hidden');
         try { sessionStorage.setItem('siteLoaderShown', 'true'); } catch (e) {}
-      }, 800);
+      }, 500);
     }
   }, 90);
 });
