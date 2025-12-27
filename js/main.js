@@ -1,9 +1,13 @@
 (function(){
   const hero = document.getElementById('heroSlide');
   const images = [
-    'https://www.novitecgroup.com/en/brands/lamborghini/aventador/aventador-svj/lazyyamlimages//3453/UGFnZVNsaWRlclNpemVN&2x=1',
-    'https://www.novitecgroup.com/en/brands/lamborghini/lazyyamlimages//5761/UGFnZVNsaWRlclNpemVN&2x=1',
-    'https://www.novitecgroup.com/en/brands/lamborghini/aventador/aventador-sv/lazyyamlimages//3454/UGFnZVNsaWRlclNpemVN&2x=1'
+    '../images/Nav-car/Car1.jpg',
+    '../images/Nav-car/Car2.webp',
+    '../images/Nav-car/Car3.jpg',
+    '../images/Nav-car/Car4.jpg',
+    '../images/Nav-car/Car5.jpg',
+    '../images/Nav-car/Car6.jpg',
+    '../images/Nav-car/Car7.jpg',
   ];
   let i=0;
   function show(){

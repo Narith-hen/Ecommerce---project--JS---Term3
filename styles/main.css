@@ -36,30 +36,40 @@ body {
     color: var(--color-text);
     font-family: var(--font-main);
     font-size: var(--text-size);
-    /* line-height: 1.4 */
+    line-height: 1.4
 }
 
 .container {
     max-width: 1600px;
-    margin: 0 auto;
+    margin: 0 70px;
     padding: 0 16px;
 }
 
+.container1 {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+.container1 ul button a{
+    color: white;
+}
+
+.user-actions a{
+    color: white;
+}
 /* Topbar */
 .topbar {
     background: var(--color-primary-hover);
-    /* color: #fff */
 }
 
 .topbar-inner {
-    background: var(--color-primary);
-    width: 100%;
-    margin: 0px 0px 0px 0px;
-    padding: 10px;
+    background: var(--color-primary) ;
+    max-width: 100%;
+    padding: 10px 80px 10px 65px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 20px;
 }
 
 .logo {
@@ -754,6 +764,12 @@ a:hover {
     color: var(--color-link-hover)
 }
 
+/* Make entire product cards clickable */
+.card-link{ display:block; color:inherit; text-decoration:none }
+.card-link:focus{ outline: 3px solid rgba(255,153,0,0.25); outline-offset:4px }
+.card-link img{ display:block }
+.card-link .deal-meta, .card-link .rec-price, .card-link .promo-price{ color:inherit }
+
 /* Buttons utility */
 .btn {
     display: inline-block;
@@ -861,11 +877,11 @@ a:hover {
 }
 
 /* hide nav on small screens, allow swipe */
-@media (max-width:700px) {
+/* @media (max-width:700px) {
     .list-nav {
         display: none
     }
-}
+} */
 
 /* make cards snap friendly */
 .deal-card,
