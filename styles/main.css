@@ -526,7 +526,7 @@ body {
 
 .promo-card {
     background: linear-gradient(180deg, #fff, #ffefe9);
-    padding: 18px;
+    padding: 15px;
     margin: 0px 0;
     border-radius: 8px;
     min-width: 320px;
@@ -597,7 +597,8 @@ body {
 .recommended-section {
     background: var(--color-300);
     color: #fff;
-    padding: 24px 0;
+    padding: 30px 60px 0px 0px;
+    margin: 20px 70px 60px 70px;
     border-radius: 8px;
     margin: 18px 70px;
 }
@@ -652,9 +653,17 @@ body {
     box-shadow: var(--shadow);
 }
 
+.rec-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
 .rec-card img {
     width: 100%;
-    height: 120px;
+    height: 130px;
     object-fit: cover;
     border-radius: 6px;
 }
@@ -1275,7 +1284,7 @@ img {
 
 .left{
     display: flex;
-    flex-direction: column();
+    flex-direction:row;
     align-items: center;
     gap: 10px;
     font-size: 13px;
