@@ -168,7 +168,9 @@ hr {
     <h1>Sign in or create account</h1>
     <label>Enter mobile number or email</label>
     <input type="email">
-    <button class="btn-primary" onclick="showCreateAccount()">Continue</button>
+    <label>Enter password</label>
+    <input type="password">
+    <button class="btn-primary">Continue</button>
     <p class="small-text">By continuing, you agree to conditions.</p>
     <hr>
     <p>You want to create a new account? <a href="#" class="link" onclick="showCreateAccount()">Sign up</a></p>
@@ -200,7 +202,7 @@ hr {
             <select>
               <option>US +1</option>
               <option>UK +44</option>
-              <option>KH +855</option>
+              <option>KH +885</option>
               <option>VN +84</option>
             </select>
         </div>
@@ -229,6 +231,7 @@ hr {
 </footer>
 
 <script>
+/* Navigation Functions */
 function hideAll() {
   document.getElementById("loginPage").classList.add("hidden");
   document.getElementById("createAccountPage").classList.add("hidden");
@@ -236,20 +239,9 @@ function hideAll() {
   document.getElementById("mobilePage").classList.add("hidden");
 }
 
-function showCreateAccount() {
-  hideAll();
-  document.getElementById("createAccountPage").classList.remove("hidden");
-}
-
-function showLogin() {
-  hideAll();
-  document.getElementById("loginPage").classList.remove("hidden");
-}
-
-function showAddMobile() {
-  hideAll();
-  document.getElementById("mobilePage").classList.remove("hidden");
-}
+function showCreateAccount() { hideAll(); document.getElementById("createAccountPage").classList.remove("hidden"); }
+function showLogin() { hideAll(); document.getElementById("loginPage").classList.remove("hidden"); }
+function showAddMobile() { hideAll(); document.getElementById("mobilePage").classList.remove("hidden"); }
 
 function showVerification() {
   const email = document.getElementById("regEmail").value || "your email";
@@ -257,6 +249,135 @@ function showVerification() {
   hideAll();
   document.getElementById("verifyPage").classList.remove("hidden");
 }
+
+/* --- Validation Logic --- */
+function updateUI(inputElement, isValid) {
+  let msg = inputElement.nextElementSibling;
+  // Create message div dynamically since we cannot change HTML
+  if (!msg || !msg.classList.contains('status-msg')) {
+    msg = document.createElement('div');
+    msg.classList.add('status-msg');
+    msg.style.fontSize = "11px";
+    msg.style.fontWeight = "bold";
+    msg.style.marginBottom = "10px";
+    msg.style.marginTop = "-10px";
+    inputElement.parentNode.insertBefore(msg, inputElement.nextSibling);
+  }
+
+  if (isValid) {
+    msg.innerText = "Correct";
+    msg.style.color = "#008a00"; // Green
+    msg.classList.add('correct');
+    msg.classList.remove('incorrect');
+  } else {
+    msg.innerText = "Incorrect";
+    msg.style.color = "#c40000"; // Red
+    msg.classList.add('incorrect');
+    msg.classList.remove('correct');
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Select Registration Inputs by Order
+  const regCard = document.getElementById("createAccountPage");
+  const regInputs = regCard.querySelectorAll("input");
+  
+  const nameInp = regInputs[0];
+  const emailInp = regInputs[1]; // has id="regEmail"
+  const passInp = regInputs[2];
+  const verifyInp = regInputs[3];
+
+  // Add Real-time Validation Triggers
+  nameInp.addEventListener("input", () => updateUI(nameInp, nameInp.value.trim().length >= 3));
+  emailInp.addEventListener("input", () => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    updateUI(emailInp, regex.test(emailInp.value));
+  });
+  passInp.addEventListener("input", () => updateUI(passInp, passInp.value.length >= 6));
+  verifyInp.addEventListener("input", () => updateUI(verifyInp, verifyInp.value === passInp.value && verifyInp.value !== ""));
+
+  // Override the "Continue" button behavior
+  const continueBtn = regCard.querySelector(".btn-primary");
+  continueBtn.onclick = function() {
+    // Run all validations once
+    const nameValid = nameInp.value.trim().length >= 3;
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInp.value);
+    const passValid = passInp.value.length >= 6;
+    const verifyValid = verifyInp.value === passInp.value && verifyInp.value !== "";
+
+    updateUI(nameInp, nameValid);
+    updateUI(emailInp, emailValid);
+    updateUI(passInp, passValid);
+    updateUI(verifyInp, verifyValid);
+
+    if (nameValid && emailValid && passValid && verifyValid) {
+      showAddMobile();
+    } else {
+      alert("Please!! creaete your account.");
+    }
+  };
+
+  /* --- Login Logic --- */
+  const loginBtn = document.querySelector("#loginPage .btn-primary");
+  if (loginBtn) {
+    loginBtn.addEventListener("click", function() {
+      const loginInputs = document.querySelectorAll("#loginPage input");
+      const emailLog = loginInputs[0];
+      const passLog = loginInputs[1];
+
+      if (emailLog.value.trim() === "" || passLog.value.trim() === "") {
+        alert("Please enter your email and password");
+      } else {
+        localStorage.setItem("userEmail", emailLog.value);
+        localStorage.setItem("userPassword", passLog.value);
+        window.location.href = "../index.html";
+      }
+    });
+  }
+});
+
+/* --- VERIFICATION PAGE LOGIC WITH 30s DELAY --- */
+
+let generatedCode = ""; 
+
+const originalShowVerification = showVerification;
+
+showVerification = function() {
+  
+    originalShowVerification();
+    
+    // Generate a 6-digit code
+    generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+    
+    // Set a timer for 30 seconds (3000 milliseconds)
+    setTimeout(function() {
+        alert("This is your verify code: " + generatedCode);
+    }, 3000); 
+};
+
+document.addEventListener("DOMContentLoaded", function() {
+    // 2. Select the "Verify" button and the OTP input field inside verifyPage
+    const verifyCard = document.getElementById("verifyPage");
+    const verifyBtn = verifyCard.querySelector(".btn-primary");
+    const otpInput = verifyCard.querySelector("input");
+
+    if (verifyBtn) {
+        verifyBtn.addEventListener("click", function() {
+            const enteredCode = otpInput.value.trim();
+
+            if (enteredCode === "") {
+                alert("Please enter the security code");
+            } else if (enteredCode === generatedCode) {
+                // Success
+                alert("Verification Successful!");
+                window.location.href = "../index.html";
+            } else {
+                // Wrong code
+                alert("Incorrect code. Please check your security codeand try again.");
+            }
+        });
+    }
+});
 </script>
 
 </body>
