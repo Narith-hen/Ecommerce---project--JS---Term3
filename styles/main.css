@@ -76,7 +76,7 @@ body {
 .topbar-inner {
     background: var(--color-400);
     max-width: 100%;
-    padding: 10px 80px 10px 65px;
+    padding: 4px 80px 4px 65px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -84,7 +84,7 @@ body {
 }
 
 .logo {
-    width: 80px;
+    width: 100px;
     /* height: 80px; */
 }
 
@@ -410,7 +410,7 @@ body {
   align-items: center;
   position: fixed;
   inset: 0;
-  background: #ff8d0b;
+  background:var(--color-500);
   z-index: 9999;
 }
 
@@ -431,7 +431,7 @@ body {
 }
 
 .loader-logo {
-    width: 120px;
+    width: 150px;
     height: auto;
 }
 
@@ -461,19 +461,6 @@ body {
     margin-top: 10px;
 }
 
-/* Discount Card */
-.discount-card {
-    display: none; /* Hidden by default */
-    max-width: 800px;
-    margin: 0 auto;
-    animation: fadeInUp 0.8s ease-out forwards;
-    position: relative;
-}
-
-.discount-card.show {
-    display: block; /* Show when .show class is added */
-}
-
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -483,14 +470,6 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-.discount-badge {
-    position: absolute;
-    top: -20px;
-    right: -80px;
-    width: 250px;
-    transform: rotate(20deg);
 }
 
 .close-btn {
@@ -620,18 +599,18 @@ body {
     color: #fff;
     padding: 24px 0;
     border-radius: 8px;
-    margin: 18px 0;
+    margin: 18px 70px;
 }
 
 .recommended-inner {
     display: flex;
-    gap: 18px;
+    gap: 10px;
     align-items: flex-start;
 }
 
 .recommended-cta {
     flex: 0 0 360px;
-    padding: 22px;
+    padding: 2px;
 }
 
 .recommended-cta h3 {
