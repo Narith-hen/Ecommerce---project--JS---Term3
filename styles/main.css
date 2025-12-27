@@ -597,10 +597,10 @@ body {
 .recommended-section {
     background: var(--color-300);
     color: #fff;
-    padding: 30px 60px 0px 0px;
-    margin: 20px 70px 60px 70px;
+    padding: 20px 80px;
+    padding-left: 0px;
+    margin: 20px 70px 30px 70px; 
     border-radius: 8px;
-    margin: 18px 70px;
 }
 
 .recommended-inner {
