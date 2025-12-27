@@ -89,60 +89,39 @@ panels.forEach(panel => observer.observe(panel));
   });
 })();
 
-// Single, clean loading + discount card logic
 window.addEventListener('load', () => {
-    const loader = document.getElementById('site-loader');
-    const loaderPercent = document.getElementById('loaderPercent');
-    const loaderBar = document.getElementById('loaderBar');
-    const discountCard = document.getElementById('discountCard');
-    const closeBtn = document.getElementById('closeBtn');
+  const loader = document.getElementById('site-loader');
+  const loaderPercent = document.getElementById('loaderPercent');
+  const loaderBar = document.getElementById('loaderBar');
 
-    let percent = 0;
-
-  // Guard against missing elements to avoid runtime errors
   if (!loader || !loaderPercent || !loaderBar) return;
 
-    // Simulate loading progress
-    const loadingInterval = setInterval(() => {
-        percent += Math.floor(Math.random() * 15) + 5; // Faster, more natural
-        if (percent >= 100) {
-            percent = 100;
-            clearInterval(loadingInterval);
-        }
+  // Determine navigation type (may be undefined in some browsers)
+  const nav = performance.getEntriesByType && performance.getEntriesByType('navigation') && performance.getEntriesByType('navigation')[0];
 
-        loaderPercent.textContent = percent + '%';
-        loaderBar.style.width = percent + '%';
+  // If the loader has already been shown this session and this navigation
+  // is NOT a manual reload, keep it hidden to avoid repeating on SPA-like nav.
+  if (sessionStorage.getItem('siteLoaderShown') === 'true' && !(nav && nav.type === 'reload')) {
+    loader.classList.add('hidden');
+    return;
+  }
 
-        // When loading reaches 100%
-        if (percent === 100) {
-          setTimeout(() => {
-            loader.classList.add('hidden');
+  // Show loader for first visit OR when user manually reloads the page
+  loader.classList.remove('hidden');
 
-            // After loader fades out, show discount card (if not dismissed before)
-            setTimeout(() => {
-              if (discountCard && localStorage.getItem('discountDismissed') !== 'true') {
-                // If the element was initially hidden via inline style (style="display:none"),
-                // clear or set display so the CSS `.show` rule can take effect.
-                discountCard.style.display = 'block';
-                discountCard.classList.add('show');
-              }
-            }, 800); // Wait for loader fade to finish
-          }, 500);
-        }
-    }, 120);
+  let percent = 0;
 
-    // Optional: Auto-hide discount card after 10 seconds
-    function startAutoHide() {
+  const interval = setInterval(() => {
+    percent += 2;
+    loaderPercent.textContent = percent + '%';
+    loaderBar.style.width = percent + '%';
+
+    if (percent >= 100) {
+      clearInterval(interval);
       setTimeout(() => {
-        if (discountCard && discountCard.classList.contains('show')) {
-          discountCard.classList.remove('show');
-          discountCard.style.display = 'none';
-        }
-      }, 10000); // 10 seconds
+        loader.classList.add('hidden');
+        try { sessionStorage.setItem('siteLoaderShown', 'true'); } catch (e) {}
+      }, 800);
     }
-
-    // Start auto-hide when card appears
-    if (discountCard && localStorage.getItem('discountDismissed') !== 'true') {
-      setTimeout(startAutoHide, 5000); // Start timer a bit after show
-    }
+  }, 90);
 });
