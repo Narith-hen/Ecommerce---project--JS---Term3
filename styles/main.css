@@ -514,21 +514,34 @@ body {
 
 /* Promo row (peach) */
 .promo-row {
+    max-width: 100%;
+    display: flex;
+    gap: 18px;
+    align-items: center;
     padding: 18px 0;
     background: linear-gradient(90deg, #fff4ef, #ffe7e0);
     border-radius: 8px;
-    margin: 18px 0;
+    margin: 18px 70px 10px 70px;
 }
 
 .promo-inner {
     display: flex;
-    gap: 18px;
+    margin: 0px 16px ;
+    gap: 10px;
     align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.promo-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .promo-card {
     background: linear-gradient(180deg, #fff, #ffefe9);
     padding: 18px;
+    margin: 0px 0;
     border-radius: 8px;
     min-width: 320px;
     flex: 0 0 320px;
@@ -789,11 +802,10 @@ a:hover {
 /* Top Deals styles */
 .deals-section {
     background: var(--color-bg);
-    padding: 20px 0 12px;
+    padding: 20px 20px 12px;
     border-radius: 8px;
     margin: 18px 0;
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow);
+
 }
 
 .deals-header {
