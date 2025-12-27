@@ -65,8 +65,7 @@ body {
 .topbar-inner {
     background: var(--color-primary) ;
     max-width: 100%;
-    margin: 0px 70px 0px 50px;
-    padding: 10px;
+    padding: 10px 80px 10px 65px;
     display: flex;
     align-items: center;
     justify-content: space-between;
