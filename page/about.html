@@ -1,63 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link rel="stylesheet" href="../styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home Page</title>
+        <link rel="stylesheet" href="../styles/main.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    </head>
 
-<body>
-    <!-- navbar -->
-    <header class="topbar">
-        <div class="container1"></div>
-        <div class="topbar-inner">
-            <!-- Logo -->
-            <div class="logo"><img src="../images/logo-website/logo.png" alt></div>
+    <body>
+        <!-- navbar -->
+        <header class="topbar">
+            <div class="container1"></div>
+            <div class="topbar-inner">
+                <!-- Logo -->
+                <div class="logo"><img src="../images/logo-website/logo.png"
+                        alt></div>
 
-            <!-- Search -->
-            <div class="search">
-                <select aria-label="Search category">
-                    <option>All</option>
-                    <option>Cars</option>
-                    <option>Motors</option>
-                    <option>Bicycles</option>
-                </select>
-                <input type="search" placeholder="Search SUSU-KOKO" aria-label="Search SUSU-KOKO">
-                <button class="btn" aria-label="Search">🔍</button>
+                <!-- Search -->
+                <div class="search">
+                    <select aria-label="Search category">
+                        <option>All</option>
+                        <option>Cars</option>
+                        <option>Motors</option>
+                        <option>Bicycles</option>
+                    </select>
+                    <input type="search" placeholder="Search SUSU-KOKO"
+                        aria-label="Search SUSU-KOKO">
+                    <button class="btn" aria-label="Search">🔍</button>
+                </div>
+
+                <!-- User actions -->
+                <div class="user-actions">
+                    <a href="loginpage.html" class="account">
+                        Hello, sign in<br>
+                        <strong>Account &amp; Lists</strong>
+                    </a>
+
+                    <a href="orders.html" class="orders">
+                        Returns<br>
+                        <strong>&amp; Orders</strong>
+                    </a>
+
+                    <a href="cart.html" class="cart">
+                        🛒 <span class="cart-count">0</span>
+                    </a>
+                </div>
             </div>
+            <!-- Main navigation -->
+            <nav class="main-nav container1">
+                <button class="menu">☰ All</button>
+                <ul>
+                    <button class="menu"><a href>Today's Deals</a></button>
+                    <button class="menu"><a href>Categories</a></button>
+                    <button class="menu"><a href>Customer Service</a></button>
+                    <button class="menu"><a
+                            href="../index.html">Sell</a></button>
+                    <button class="menu"><a href="about.html">About
+                            Us</a></button>
+                </ul>
+            </nav>
+        </header>
 
-            <!-- User actions -->
-            <div class="user-actions">
-                <a href="loginpage.html" class="account">
-                    Hello, sign in<br>
-                    <strong>Account &amp; Lists</strong>
-                </a>
+        
 
-                <a href="orders.html" class="orders">
-                    Returns<br>
-                    <strong>&amp; Orders</strong>
-                </a>
-
-                <a href="cart.html" class="cart">
-                    🛒 <span class="cart-count">0</span>
-                </a>
-            </div>
-        </div>
-        <!-- Main navigation -->
-        <nav class="main-nav container1">
-            <button class="menu">☰ All</button>
-            <ul>
-                <button class="menu"><a href="">Today's Deals</a></button>
-                <button class="menu"><a href="">Categories</a></button>
-                <button class="menu"><a href="">Customer Service</a></button>
-                <button class="menu"><a href="../index.html">Sell</a></button>
-                <button class="menu"><a href="about.html">About Us</a></button>
-            </ul>
-        </nav>
-    </header>
 
         <footer class="footer">
 
@@ -122,11 +130,14 @@
 
             <!-- PAYMENT ICONS -->
             <div class="payments">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png">
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png">
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png">
                 <img
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/UnionPay_logo.svg/1280px-UnionPay_logo.svg.png">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg">
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg">
                 <img
                     src="https://bredcambodia.com.kh/wp-content/uploads/2022/12/KHQR-available-here-logo-with-bg-1024x422.png">
                 <img
@@ -157,8 +168,10 @@
 
                 <div class="right">
                     <span>Trade on the go with the SUSU-KOKO.com app</span>
-                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg">
+                    <img
+                        src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg">
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg">
                 </div>
             </div>
 
@@ -174,6 +187,6 @@
         </footer>
 
         <script src="../js/main.js"></script>
-</body>
+    </body>
 
 </html>
