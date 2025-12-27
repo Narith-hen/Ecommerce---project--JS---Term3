@@ -1,60 +1,148 @@
-(function () {
+(function(){
   const hero = document.getElementById('heroSlide');
   const images = [
-    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1400&q=60',
-    'https://images.unsplash.com/photo-1518444023280-72f7f0a94f3b?auto=format&fit=crop&w=1400&q=60',
-    'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1400&q=60'
+    '../images/Nav-car/Car1.jpg',
+    '../images/Nav-car/Car2.webp',
+    '../images/Nav-car/Car3.jpg',
+    '../images/Nav-car/Car4.jpg',
+    '../images/Nav-car/Car5.jpg',
+    '../images/Nav-car/Car6.jpg',
+    '../images/Nav-car/Car7.jpg',
   ];
-  let i = 0;
-  function show() {
+  let i=0;
+  function show(){
     hero.style.backgroundImage = `linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.25)), url(${images[i]})`;
   }
-  document.querySelector('.hero-nav.next').addEventListener('click', () => { i = (i + 1) % images.length; show(); });
-  document.querySelector('.hero-nav.prev').addEventListener('click', () => { i = (i - 1 + images.length) % images.length; show(); });
+  document.querySelector('.hero-nav.next').addEventListener('click', ()=>{ i=(i+1)%images.length; show(); });
+  document.querySelector('.hero-nav.prev').addEventListener('click', ()=>{ i=(i-1+images.length)%images.length; show(); });
   // auto rotate
-  setInterval(() => { i = (i + 1) % images.length; show(); }, 6000);
+  setInterval(()=>{ i=(i+1)%images.length; show(); }, 6000);
   show();
 })();
 
-// Simulated Loading + Show Card
-window.addEventListener('load', () => {
-  let percent = 0;
-  const percentEl = document.getElementById('loaderPercent');
-  const barEl = document.getElementById('loaderBar');
-  const loader = document.getElementById('site-loader');
-  const card = document.getElementById('discountCard');
+// ===== CARD SCROLL ANIMATION =====
+const panels = document.querySelectorAll('.panel');
 
-  const interval = setInterval(() => {
-    percent += Math.floor(Math.random() * 12) + 3;
-    if (percent > 100) percent = 100;
-    percentEl.textContent = percent + '%';
-    barEl.style.width = percent + '%';
-
-    if (percent === 100) {
-      clearInterval(interval);
-      setTimeout(() => {
-        loader.classList.add('hidden');
-        setTimeout(() => {
-          if (localStorage.getItem('discountDismissed') !== 'true') {
-            card.classList.add('show');
-            startAutoHide(); // Start auto-hide timer
-          }
-        }, 3000);
-      }, 600);
-    }
-  }, 100);
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+        }
+    });
+}, {
+    threshold: 0.3
 });
 
-window.addEventListener("load", () => {
-  const discountCard = document.getElementById("discountCard");
-  const closeBtn = document.getElementById("closeBtn");
+panels.forEach(panel => observer.observe(panel));
 
-  // Show card after 2 seconds
-  setTimeout(() => {
-    discountCard.style.display = "block";
-  }, 2000);
+// ===== Footer interactions =====
+(function(){
+  const backBtn = document.querySelector('.back-to-top');
+  function checkScroll(){
+    if(!backBtn) return;
+    if(window.scrollY > 300) backBtn.style.display = 'flex';
+    else backBtn.style.display = 'none';
+  }
+  window.addEventListener('scroll', checkScroll);
+  if (backBtn) backBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
-  closeBtn.addEventListener("click", () => {
-    discountCard.style.display = "none";
+  // footer collapsible lists for small screens
+  const toggles = document.querySelectorAll('.footer-toggle');
+  if (toggles && toggles.length) {
+    toggles.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const list = btn.parentElement.nextElementSibling;
+        const isOpen = list.classList.toggle('open');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+    });
+  }
+})();
+
+// ===== Horizontal list controls (arrows & snap) =====
+(function(){
+  function scrollByCards(container, direction){
+    const card = container.querySelector('article, .deal-card, .rank-card, .promo-deal, .rec-card');
+    const gap = parseInt(getComputedStyle(container).gap) || 16;
+    const cardWidth = card ? card.offsetWidth + gap : container.clientWidth * 0.8;
+    const amount = direction === 'next' ? cardWidth * 2 : -cardWidth * 2;
+    container.scrollBy({left: amount, behavior:'smooth'});
+  }
+
+  document.querySelectorAll('.list-nav').forEach(btn=>{
+    const target = btn.dataset.target;
+    btn.addEventListener('click', ()=> {
+      const container = document.querySelector(target);
+      if(!container) return;
+      if(btn.classList.contains('next')) scrollByCards(container, 'next');
+      else scrollByCards(container, 'prev');
+    });
   });
+
+  // make lists keyboard accessible for left/right
+  document.querySelectorAll('.deals-list, .top-ranking-list, .promo-deals-list, .recommended-list').forEach(container=>{
+    container.setAttribute('tabindex','0');
+    container.addEventListener('keydown', (e)=>{
+      if(e.key === 'ArrowRight') container.scrollBy({left: container.clientWidth*0.5, behavior:'smooth'});
+      if(e.key === 'ArrowLeft') container.scrollBy({left: -container.clientWidth*0.5, behavior:'smooth'});
+    });
+  });
+})();
+
+// Single, clean loading + discount card logic
+window.addEventListener('load', () => {
+    const loader = document.getElementById('site-loader');
+    const loaderPercent = document.getElementById('loaderPercent');
+    const loaderBar = document.getElementById('loaderBar');
+    const discountCard = document.getElementById('discountCard');
+    const closeBtn = document.getElementById('closeBtn');
+
+    let percent = 0;
+
+  // Guard against missing elements to avoid runtime errors
+  if (!loader || !loaderPercent || !loaderBar) return;
+
+    // Simulate loading progress
+    const loadingInterval = setInterval(() => {
+        percent += Math.floor(Math.random() * 15) + 5; // Faster, more natural
+        if (percent >= 100) {
+            percent = 100;
+            clearInterval(loadingInterval);
+        }
+
+        loaderPercent.textContent = percent + '%';
+        loaderBar.style.width = percent + '%';
+
+        // When loading reaches 100%
+        if (percent === 100) {
+          setTimeout(() => {
+            loader.classList.add('hidden');
+
+            // After loader fades out, show discount card (if not dismissed before)
+            setTimeout(() => {
+              if (discountCard && localStorage.getItem('discountDismissed') !== 'true') {
+                // If the element was initially hidden via inline style (style="display:none"),
+                // clear or set display so the CSS `.show` rule can take effect.
+                discountCard.style.display = 'block';
+                discountCard.classList.add('show');
+              }
+            }, 800); // Wait for loader fade to finish
+          }, 500);
+        }
+    }, 120);
+
+    // Optional: Auto-hide discount card after 10 seconds
+    function startAutoHide() {
+      setTimeout(() => {
+        if (discountCard && discountCard.classList.contains('show')) {
+          discountCard.classList.remove('show');
+          discountCard.style.display = 'none';
+        }
+      }, 10000); // 10 seconds
+    }
+
+    // Start auto-hide when card appears
+    if (discountCard && localStorage.getItem('discountDismissed') !== 'true') {
+      setTimeout(startAutoHide, 5000); // Start timer a bit after show
+    }
 });
