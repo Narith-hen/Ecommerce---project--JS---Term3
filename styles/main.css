@@ -51,7 +51,7 @@ body {
 }
 
 .container {
-    max-width: 1600px;
+    max-width: 1400px;
     margin: 0 70px;
     padding: 0 16px;
 }
@@ -633,7 +633,7 @@ body {
 .recommended-features {
     list-style: none;
     padding: 0;
-    margin: 10px 0 16px;
+    margin: 10px 10px  16px;
     color: rgba(255, 255, 255, 0.9);
 }
 
@@ -686,8 +686,9 @@ body {
 
 /* Panels */
 .panels-section {
-    background: var(--color-section-bg);
-    padding: 28px 0
+    /* background: var(--color-section-bg); */
+    padding: 28px;
+
 }
 
 .panels {
