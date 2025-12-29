@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop SUSU-KOKO</title>
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dicount.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="images/logo-website/logo.png" rel="icon" >
 </head>
@@ -24,6 +25,18 @@
         </div>
     </div>
 
+    <!-- alert discount cards -->
+    <div class="modal-overlay" id="discountModal">
+        <div class="discount-card">
+            <button class="close-btn" aria-label="Close">×</button>
+            <div class="alert-badge">LIMITED TIME!</div>
+            <h2 class="offer-text">Don’t Miss Out on Our Biggest Sale!</h2>
+            <div class="discount-percent">50% OFF</div>
+            <p>Featuring Ferrari F8, Lamborghini Huracán, Porsche 911 & more. Enjoy massive discounts on premium models</p>
+            <div class="timer">Ends in 24 Hours</div>
+            <button class="cta-btn">Start saving today</button>
+        </div>
+    </div>
     <!-- navbar -->
     <header class="topbar">
         <div class="container1"></div>
@@ -44,15 +57,7 @@
 
             <!-- User actions -->
             <div class="user-actions">
-                <a href="./page/loginpage.html" class="account">
-                    Hello, sign in<br>
-                    <strong>Account &amp; Lists</strong>
-                </a>
-
-                <a href="orders.html" class="orders">
-                    Returns<br>
-                    <strong>&amp; Orders</strong>
-                </a>
+                <button class="account"><a href="./page/loginpage.html">Sign In</a></button>
 
                 <a href="cart.html" class="cart">
                     🛒 <span class="cart-count">0</span>
@@ -592,6 +597,7 @@
         </footer>
 
         <script src="js/main.js"></script>
+        <script src="js/dicount.js"></script>
 </body>
 
 </html>
