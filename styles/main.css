@@ -65,9 +65,7 @@ body {
     color: white;
 }
 
-.user-actions a{
-    color: white;
-}
+
 /* Topbar */
 .topbar {
     background: var(--nav-bg);
