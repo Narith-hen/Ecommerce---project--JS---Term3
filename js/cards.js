@@ -1,97 +1,127 @@
+// 1. Data remains the same
+const carProducts = [
+    { id: 1, name: "Tesla Model 3 Performance", price: 45000, category: "Electric", year: 2023, mileage: "12,000 km", image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=600", rating: 4.9 },
+    { id: 2, name: "BMW M4 Competition", price: 78000, category: "Sports", year: 2022, mileage: "8,500 km", image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600", rating: 4.8 },
+    { id: 3, name: "Range Rover Sport", price: 79000, category: "SUV", year: 2024, mileage: "1,200 km", image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600", rating: 4.7 },
+    { id: 4, name: "Audi Q8 e-tron", price: 88000, category: "SUV", year: 2024, mileage: "1,300 km", image: "https://www.topgear.com/sites/default/files/2024/02/11426-0K2A6582.jpg?w=1290&h=726", rating: 4.7 },
+    { id: 5, name: "Volvo XC90", price: 90000, category: "SUV", year: 2024, mileage: "1,100 km", image: "https://www.topgear.com/sites/default/files/2024/02/294655_XC90_Recharge_T8_AWD_Denim_Blue.jpg?w=1290&h=726", rating: 4.7 },
+    { id: 6, name: "Bentley Bentayga", price: 98000, category: "SUV", year: 2025, mileage: "1,180 km", image: "https://www.topgear.com/sites/default/files/2024/02/Bentayga%20on%20road%20-%205.jpg?w=1290&h=726", rating: 4.3 },
+];
 
-function openModal(type) {
-    const modal = document.getElementById('detailModal');
-    const body = document.getElementById('modalBody');
+// 2. Selectors
+const allCheckbox = document.getElementById('all-categories');
+const categoryFilters = document.querySelectorAll('.category-filter');
+const priceSlider = document.getElementById('price-slider');
+const priceDisplay = document.getElementById('price-display');
+const grid = document.getElementById('product-grid');
 
-    let content = '';
+// 3. MASTER FILTER FUNCTION
+function updateFilterResults() {
+    const maxPrice = parseInt(priceSlider.value);
+    const checkedCategories = Array.from(categoryFilters)
+        .filter(i => i.checked)
+        .map(i => i.value);
 
-    if (type === 'luxury') {
-        content = `
-                    <h2>Luxury Sedan (e.g., Mercedes-Benz S-Class)</h2>
-                    <p>The pinnacle of comfort and technology. Smooth ride, premium leather seats, advanced driver assistance, and ultra-quiet cabin.</p>
-                    <ul>
-                        <li>Engine: V6 or V8 options</li>
-                        <li>0-60 mph: ~4.5 seconds</li>
-                        <li>Top features: Massaging seats, ambient lighting, rear entertainment screens</li>
-                        <li>Fuel economy: 20-30 mpg</li>
-                    </ul>
-                    <h3>Gallery</h3>
-                    <div class="detail-images">
-                        <img src="https://cdn-ds.com/blogs-media/sites/177/2024/06/24110700/2024-Mercedes-Benz-S-Class-Sedan-01-B_o.jpg" alt="Luxury exterior">
-                        <img src="https://i.ytimg.com/vi/212vF60LkaM/hq720.jpg" alt="Luxury detail">
-                        <img src="https://i.ytimg.com/vi/zUOWTV8dujM/hq720.jpg" alt="Luxury interior">
-                        <img src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iG4_HruAGac4/v1/-1x-1.webp" alt="Luxury side view">
-                    </div>
-                `;
-    } else if (type === 'sports') {
-        content = `
-                    <h2>Sports Car (e.g., Porsche 911)</h2>
-                    <p>Designed for thrilling performance and precise handling. Iconic design with rear-engine layout.</p>
-                    <ul>
-                        <li>Engine: Flat-6 turbocharged</li>
-                        <li>0-60 mph: ~3.0 seconds</li>
-                        <li>Top features: Adaptive suspension, sport exhaust, track modes</li>
-                        <li>Horsepower: 400-600+ hp</li>
-                    </ul>
-                    <h3>Gallery</h3>
-                    <div class="detail-images">
-                        <img src="https://porschepictures.flowcenter.de/pmdb/thumbnail.cgi?id=298382&w=1935&h=1089&crop=1&public=1&cs=ddbe541a03109d8b" alt="Sports cockpit">
-                        <img src="https://i.ytimg.com/vi/C68V5AktPWw/hq720.jpg" alt="Sports exterior">
-                        <img src="https://images.cars.com/cldstatic/wp-content/uploads/porsche-911-turbo-s-2021-1-front-row--interior--red.jpg" alt="Sports interior">
-                        <img src="https://i.ytimg.com/vi/kIQf06nrBSA/maxresdefault.jpg" alt="Sports detail">
-                    </div>
-                `;
-    } else if (type === 'suv') {
-        content = `
-                    <h2>SUV (e.g., Toyota Land Cruiser)</h2>
-                    <p>Rugged, spacious, and capable off-road while comfortable for daily driving and family use.</p>
-                    <ul>
-                        <li>Seating: Up to 8 passengers</li>
-                        <li>Off-road: Full-time 4WD, crawl control</li>
-                        <li>Cargo space: 80+ cubic feet</li>
-                        <li>Towing: Up to 8,000 lbs</li>
-                    </ul>
-                    <h3>Gallery</h3>
-                    <div class="detail-images">
-                        <img src="https://hips.hearstapps.com/hmg-prod/images/2024-toyota-land-cruiser-interior-101-64c92cc536245.jpg" alt="SUV interior">
-                        <img src="https://di-uploads-pod44.dealerinspire.com/nyetoyota/uploads/2024/05/2024-Toyota-Land-Cruiser-Interior-1.jpg" alt="SUV dashboard">
-                        <img src="https://di-uploads-pod19.dealerinspire.com/hendricktoyotaconcord/uploads/2025/01/mlp-img-int-2025-land-cruiser.jpg" alt="SUV seats">
-                        <img src="https://hips.hearstapps.com/hmg-prod/images/2024-toyota-land-cruiser-interior-103-64c92cc55a589.jpg?crop=0.8888888888888888xw:1xh;center,top&resize=1200:*" alt="SUV rear">
-                    </div>
-                `;
-    } else if (type === 'electric') {
-        content = `
-                    <h2>Electric Car (e.g., Lucid Air / Tesla Model S)</h2>
-                    <p>Cutting-edge EV with instant torque, long range, and minimalist high-tech interior.</p>
-                    <ul>
-                        <li>Range: 400-500+ miles</li>
-                        <li>0-60 mph: Under 3 seconds</li>
-                        <li>Charging: Ultra-fast DC support</li>
-                        <li>Features: Large touchscreen, autopilot capabilities</li>
-                    </ul>
-                    <h3>Gallery</h3>
-                    <div class="detail-images">
-                        <img src="https://www.slashgear.com/img/gallery/lucid-air-vs-tesla-model-s-which-is-the-better-electric-car/l-intro-1652295513.jpg" alt="Electric exterior">
-                        <img src="https://carconfections.com/wp-content/uploads/2022/07/maxresdefault-1.jpeg" alt="Electric comparison">
-                        <img src="https://i.ytimg.com/vi/1ZyPkiPypSM/hq720.jpg" alt="Electric interior">
-                        <img src="https://theevreport.com/wp-content/uploads/2025/10/Model-S-vs-Lucid-Air.jpg" alt="Electric side">
-                    </div>
-                `;
+    const filteredCars = carProducts.filter(car => {
+        const matchesPrice = car.price <= maxPrice;
+        const matchesCategory = allCheckbox.checked || checkedCategories.length === 0 || checkedCategories.includes(car.category);
+        return matchesPrice && matchesCategory;
+    });
+
+    renderFilteredCars(filteredCars);
+}
+
+// 4. RENDERING FUNCTION (Fixed to allow clicking for details)
+function renderFilteredCars(dataToDisplay) {
+    if (!grid) return;
+
+    if (dataToDisplay.length === 0) {
+        grid.innerHTML = `<p style="padding: 20px;">No cars found matching your criteria.</p>`;
+        return;
     }
 
-    body.innerHTML = content;
-    modal.style.display = 'flex';
+    grid.innerHTML = dataToDisplay.map(car => `
+        <div class="product-card" onclick="showCarDetails(${car.id})">
+            <div class="product-image">
+                <img src="${car.image}" alt="${car.name}">
+            </div>
+            <div class="product-info">
+                <p class="brand">${car.category}</p>
+                <h3 class="product-title">${car.name}</h3>
+                <p class="price">$${car.price.toLocaleString()}</p>
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${car.id})">Add to Cart</button>
+            </div>
+        </div>
+    `).join('');
 }
 
-function closeModal() {
-    document.getElementById('detailModal').style.display = 'none';
-}
-
-// Close modal when clicking outside
-window.onclick = function (event) {
-    const modal = document.getElementById('detailModal');
-    if (event.target === modal) {
-        modal.style.display = 'none';
+// 5. CART LOGIC (Crucial for the 🛒 to work)
+function addToCart(carId) {
+    let cart = JSON.parse(localStorage.getItem('susuCart')) || [];
+    const car = carProducts.find(c => c.id === carId);
+    
+    if (car) {
+        cart.push(car);
+        localStorage.setItem('susuCart', JSON.stringify(cart));
+        updateCartCount();
+        alert(`${car.name} added to inquiry!`);
     }
 }
-// closeModal and window.onclick same as before
+
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('susuCart')) || [];
+    const countElement = document.querySelector('.cart-count');
+    if (countElement) countElement.innerText = cart.length;
+}
+
+// 6. MODAL LOGIC
+function showCarDetails(carId) {
+    const car = carProducts.find(c => c.id === carId);
+    const modal = document.getElementById('carModal');
+    const detailsContainer = document.getElementById('modal-details');
+
+    if (!car || !modal) return;
+
+    detailsContainer.innerHTML = `
+        <div class="modal-grid">
+            <img src="${car.image}" alt="${car.name}" class="modal-img" style="width:100%">
+            <div class="modal-info">
+                <h2>${car.name}</h2>
+                <p>Category: <strong>${car.category}</strong></p>
+                <p>Year: ${car.year} | Mileage: ${car.mileage}</p>
+                <p class="modal-price" style="font-size: 24px; color: #ff4500;">$${car.price.toLocaleString()}</p>
+                <button class="add-to-cart-btn" onclick="addToCart(${car.id})">Inquire Now</button>
+            </div>
+        </div>
+    `;
+    modal.style.display = "block";
+}
+
+// 7. EVENT LISTENERS
+priceSlider.addEventListener('input', () => {
+    priceDisplay.innerText = `$${parseInt(priceSlider.value).toLocaleString()}`;
+    updateFilterResults();
+});
+
+allCheckbox.addEventListener('change', () => {
+    if (allCheckbox.checked) categoryFilters.forEach(cb => cb.checked = false);
+    updateFilterResults();
+});
+
+categoryFilters.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+        if (checkbox.checked) allCheckbox.checked = false;
+        updateFilterResults();
+    });
+});
+
+// Close modal when clicking (X)
+document.querySelector('.close-button')?.addEventListener('click', () => {
+    document.getElementById('carModal').style.display = "none";
+});
+
+// Initialize
+window.onload = () => {
+    updateFilterResults();
+    updateCartCount();
+};

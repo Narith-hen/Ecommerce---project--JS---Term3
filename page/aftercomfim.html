@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUSU-KOKO Luxury Motors</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root { --primary: #2c3e50; --accent: #e74c3c; --bg: #f4f7f6; --white: #ffffff; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 20px; }
+        
+        /* 1. Grid & Cards */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; }
+        .car-card { background: var(--white); border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); cursor: pointer; transition: 0.3s; }
+        .car-card:hover { transform: translateY(-10px); }
+        .car-card img { width: 100%; height: 200px; object-fit: cover; }
+        .car-info { padding: 20px; }
+        .car-info h3 { margin: 0; color: var(--primary); }
+        .price { font-size: 1.2rem; color: var(--accent); font-weight: bold; margin-top: 10px; }
+
+        /* 2. Professional Detail Page View (Hidden by default) */
+        #detail-view { display: none; max-width: 1100px; margin: 20px auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .detail-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; }
+        .detail-img { width: 100%; border-radius: 12px; }
+        .specs-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .specs-table td { padding: 12px 0; border-bottom: 1px solid #eee; }
+        .buy-btn { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+
+        /* 3. Success Modal */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 1000; align-items: center; justify-content: center; }
+        .success-card { background: white; padding: 40px; border-radius: 20px; text-align: center; max-width: 400px; animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes pop { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .success-icon { font-size: 60px; color: #27ae60; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <div id="catalog-view">
+        <h1 style="text-align: center; color: var(--primary);">SUSU-KOKO Inventory</h1>
+        <div class="product-grid" id="car-list"></div>
+    </div>
+
+    <div id="detail-view">
+        <button onclick="showCatalog()" style="cursor: pointer; border: none; background: none; color: #666; font-size: 1rem;"><i class="fas fa-arrow-left"></i> Back to Inventory</button>
+        <div id="detail-content"></div>
+    </div>
+
+    <div id="success-modal" class="modal-overlay">
+        <div class="success-card">
+            <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+            <h2>Reservation Confirmed!</h2>
+            <p>Your vehicle has been reserved. Our team will contact you within 24 hours.</p>
+            <button class="buy-btn" onclick="closeModal()">Great!</button>
+        </div>
+    </div>
+
+    <script>
+        const carData = [
+            { id: 1, name: "Tesla Model S", price: 89990, image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=800&q=80", year: 2023, mileage: "5,000 mi", fuel: "Electric" },
+            { id: 2, name: "BMW M4 Competition", price: 78000, image: "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=800&q=80", year: 2022, mileage: "12,000 mi", fuel: "Gasoline" }
+        ];
+
+        function renderCars() {
+            const list = document.getElementById('car-list');
+            list.innerHTML = carData.map(car => `
+                <div class="car-card" onclick="showDetails(${car.id})">
+                    <img src="${car.image}" alt="${car.name}">
+                    <div class="car-info">
+                        <h3>${car.name}</h3>
+                        <p class="price">$${car.price.toLocaleString()}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showDetails(id) {
+            const car = carData.find(c => c.id === id);
+            document.getElementById('catalog-view').style.display = 'none';
+            document.getElementById('detail-view').style.display = 'block';
+            
+            document.getElementById('detail-content').innerHTML = `
+                <div class="detail-grid">
+                    <img src="${car.image}" class="detail-img">
+                    <div>
+                        <h1>${car.name}</h1>
+                        <p class="price" style="font-size: 2rem;">$${car.price.toLocaleString()}</p>
+                        <table class="specs-table">
+                            <tr><td>Year</td><td><strong>${car.year}</strong></td></tr>
+                            <tr><td>Mileage</td><td><strong>${car.mileage}</strong></td></tr>
+                            <tr><td>Fuel Type</td><td><strong>${car.fuel}</strong></td></tr>
+                        </table>
+                        <button class="buy-btn" onclick="confirmPurchase()">Reserve Now</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showCatalog() {
+            document.getElementById('catalog-view').style.display = 'block';
+            document.getElementById('detail-view').style.display = 'none';
+        }
+
+        function confirmPurchase() {
+            document.getElementById('success-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('success-modal').style.display = 'none';
+            showCatalog();
+        }
+
+        window.onload = renderCars;
+    </script>
+</body>
+</html>

@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Shop SUSU-KOKO</title>
+        <title>Your Cart - SUSU-KOKO</title>
         <link rel="stylesheet" href="../styles/main.css">
         <link rel="stylesheet" href="../styles/catagory.css">
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link href="../images/logo-website/logo.png" rel="icon">
+        <style>
+        .cart-main { min-height: 60vh; padding: 40px 10%; }
+        .cart-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .cart-table th { text-align: left; border-bottom: 2px solid #eee; padding: 10px; }
+        .cart-item { border-bottom: 1px solid #eee; }
+        .cart-item td { padding: 15px 10px; }
+        .cart-item img { width: 60px; border-radius: 5px; }
+        .remove-btn { color: #e74c3c; cursor: pointer; border: none; background: none; }
+        .cart-summary { margin-top: 30px; text-align: right; background: #f9f9f9; padding: 20px; border-radius: 8px; }
+        .checkout-btn { background: #ff4500; color: white; padding: 12px 30px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+    </style>
     </head>
-
     <body>
         <!-- navbar -->
         <header class="topbar">
@@ -52,40 +60,25 @@
             </nav>
         </header>
 
-        <div id="carModal" class="modal">
-            <div class="modal-content">
-                <span class="close-button">&times;</span>
-                <div id="modal-details">
-                    </div>
+        <main class="cart-main">
+            <h1>Shopping Cart</h1>
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items-body">
+                </tbody>
+            </table>
+
+            <div class="cart-summary">
+                <h3>Total: <span id="cart-total">$0.00</span></h3>
+                <button class="checkout-btn"> <a href="payment.html">Proceed to Payment</a></button>
             </div>
-        </div>
-
-        <main class="category-container">
-           <aside class="sidebar">
-                <h3>Filters</h3>
-                <div class="filter-group">
-                    <h4>Price Range</h4>
-                    <input type="range" id="price-slider" min="0" max="100000" value="100000" step="1000">
-                    <div class="price-labels">
-                        <span>$0</span>
-                        <span id="price-display">$100,000</span>
-                    </div>
-                </div>
-                <div class="filter-group">
-                    <h4>Categories</h4>
-                    <label><input type="checkbox" id="all-categories" checked> Show All</label>
-                    <label><input type="checkbox" class="category-filter" value="Electric"> Electric</label>
-                    <label><input type="checkbox" class="category-filter" value="Sports"> Sports</label>
-                    <label><input type="checkbox" class="category-filter" value="SUV"> SUV</label>
-                </div>
-            </aside>
-
-            <section class="products-section">
-                <div class="sorting-bar">
-                    <span>Car Inventory</span>
-                </div>
-                <div class="product-grid" id="product-grid"></div>
-            </section>
         </main>
 
         <footer class="footer">
@@ -207,8 +200,47 @@
 
         </footer>
 
-        <script src="../js/main.js"></script>
-        <script src="../js/cards.js"></script>
-    </body>
+        <script>
+        function renderCart() {
+            const tbody = document.getElementById('cart-items-body');
+            const totalDisplay = document.getElementById('cart-total');
+            const navCartCount = document.querySelector('.cart-count');
+            
+            let cart = JSON.parse(localStorage.getItem('susuCart')) || [];
+            
+            // Update Navbar count
+            navCartCount.innerText = cart.length;
 
+            if (cart.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:50px;">Your cart is empty.</td></tr>';
+                totalDisplay.innerText = "$0.00";
+                return;
+            }
+
+            let total = 0;
+            tbody.innerHTML = cart.map((item, index) => {
+                total += item.price;
+                return `
+                    <tr class="cart-item">
+                        <td><img src="${item.image}" alt=""></td>
+                        <td>${item.name}</td>
+                        <td>$${item.price.toFixed(2)}</td>
+                        <td><button class="remove-btn" onclick="removeItem(${index})"><i class="fas fa-trash"></i> Remove</button></td>
+                    </tr>
+                `;
+            }).join('');
+
+            totalDisplay.innerText = `$${total.toFixed(2)}`;
+        }
+
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('susuCart')) || [];
+            cart.splice(index, 1); // Remove item at specific index
+            localStorage.setItem('susuCart', JSON.stringify(cart));
+            renderCart(); // Refresh the page view
+        }
+
+        window.onload = renderCart;
+    </script>
+    </body>
 </html>
