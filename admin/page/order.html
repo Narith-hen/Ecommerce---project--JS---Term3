@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order History - AutoDrive Admin</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="logo"><i class="fa-solid fa-car-side"></i> <span>AutoDrive Admin</span></div>
+        <ul class="nav-links">
+            <li><a href="../admin.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li><a href="product.html"><i class="fa-solid fa-box"></i> Products</a></li>
+            <li class="active"><a href="order.html"><i class="fa-solid fa-receipt"></i> Orders</a></li>
+            <li><a href="#"><i class="fa-solid fa-users"></i> Customers</a></li>
+            <li><a href="#"><i class="fa-solid fa-layer-group"></i> Categories</a></li>
+            <li><a href="#"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+            <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <header><h2>Order Management</h2></header>
+        <section class="management-section">
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Car Model</th>
+                        <th>Price</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="order-list-body"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <script>
+        function renderOrders() {
+            const orders = JSON.parse(localStorage.getItem('myOrders')) || [];
+            const body = document.getElementById('order-list-body');
+            body.innerHTML = orders.map(order => `
+                <tr>
+                    <td>#ORD-${order.id}</td>
+                    <td>${order.name}</td>
+                    <td>$${Number(order.price).toLocaleString()}</td>
+                    <td>${order.date}</td>
+                    <td><span class="badge instock">Completed</span></td>
+                </tr>
+            `).join('');
+        }
+        renderOrders();
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Cars - Admin Dashboard</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Specific styles for the Product Page Grid */
+        .badge { padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .instock { background: rgba(40, 167, 69, 0.2); color: #28a745; }
+        .lowstock { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+        .img-preview { width: 50px; height: 35px; object-fit: cover; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-car-side"></i>
+            <span>AutoDrive Admin</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../admin.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li class="active"><a href="product.html"><i class="fa-solid fa-box"></i> Products</a></li>
+            <li><a href="order.html"><i class="fa-solid fa-receipt"></i> Orders</a></li>
+            <li><a href="#"><i class="fa-solid fa-users"></i> Customers</a></li>
+            <li><a href="#"><i class="fa-solid fa-layer-group"></i> Categories</a></li>
+            <li><a href="#"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+            <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+        </ul>
+        <div class="logout">
+            <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header>
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="carSearch" placeholder="Search by model or brand..." onkeyup="searchCars()">
+            </div>
+            <div class="user-info">
+                <i class="fa-solid fa-bell"></i>
+                <div class="profile">
+                    <img src="../img/profile.png" alt="Admin">
+                    <span>Admin Narith</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="management-section">
+            <div class="section-header">
+                <h2>Vehicle Inventory</h2>
+                <div class="header-actions">
+                    <button class="add-btn" onclick="toggleModal()">+ Add New Car</button>
+                    <div class="filter-actions" style="margin-bottom: 20px; display: flex; gap: 10px;">
+                        <button class="filter-btn" onclick="filterCars('All')">All</button>
+                        <button class="filter-btn" onclick="filterCars('SUV')">SUVs</button>
+                        <button class="filter-btn" onclick="filterCars('Luxury')">Luxury</button>
+                        <button class="filter-btn" onclick="filterCars('Electric')">Electric</button>
+                    </div>
+                </div>
+            </div>
+
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>N.O</th> <th>Image</th>
+                        <th>Car Model</th>
+                        <th>Brand</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="car-list-body"> </tbody>
+            </table>
+        </section>
+    </main>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+    <h3>Add New Vehicle</h3>
+    
+    <div style="text-align: center; margin-bottom: 10px;">
+        <img id="p-preview" src="https://via.placeholder.com/150x80?text=No+Image" 
+             style="width: 150px; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid #334155;">
+    </div>
+
+    <div class="modal-input-group">
+        <label for="p-image">Vehicle Image URL</label>
+        <input type="text" id="p-image" placeholder="https://example.com/car.jpg" oninput="updatePreview()">
+    </div>
+
+    <div style="display: flex; gap: 15px;">
+        <div class="modal-input-group" style="flex: 1;">
+            <label for="p-name">Car Model *</label>
+            <input type="text" id="p-name" placeholder="e.g. Camry">
+        </div>
+        <div class="modal-input-group" style="flex: 1;">
+            <label for="p-brand">Brand *</label>
+            <input type="text" id="p-brand" placeholder="e.g. Toyota">
+        </div>
+    </div>
+
+    <div class="modal-input-group">
+        <label for="p-cat">Vehicle Category *</label>
+        <select id="p-cat">
+            <option value="" disabled selected>Please select a category</option>
+            <option value="SUV">SUV</option>
+            <option value="Luxury">Luxury</option>
+            <option value="Electric">Electric</option>
+        </select>
+    </div>
+
+    <div style="display: flex; gap: 15px;">
+        <div class="modal-input-group" style="flex: 1;">
+            <label for="p-price">Price ($) *</label>
+            <input type="number" id="p-price" placeholder="0.00">
+        </div>
+        <div class="modal-input-group" style="flex: 1;">
+            <label for="p-stock">Stock Quantity *</label>
+            <input type="number" id="p-stock" placeholder="0">
+        </div>
+    </div>
+    
+    <div class="modal-actions">
+        <button class="btn-cancel" onclick="toggleModal()">Cancel</button>
+        <button class="add-btn" id="save-btn" onclick="saveCar()">Save Vehicle</button>
+    </div>
+</div>
+    </div>
+
+    <script src="../js/product.js"></script>
+</body>
+</html>

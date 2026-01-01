@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce JS Term3 - Admin</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Admin Dashboard</span>
+        </div>
+        <ul class="nav-links">
+            <li class="active"><a href="#"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li><a href="./page/product.html"><i class="fa-solid fa-box"></i> Products</a></li>
+            <li><a href="#"><i class="fa-solid fa-receipt"></i> Orders</a></li>
+            <li><a href="#"><i class="fa-solid fa-users"></i> Customers</a></li>
+            <li><a href="#"><i class="fa-solid fa-layer-group"></i> Categories</a></li>
+            <li><a href="#"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+            <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+        </ul>
+        <div class="logout">
+            <a href="#"><i class="fa-solid fa-right-from-bracket">Logout</i></a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header>
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search statistics...">
+            </div>
+            <div class="user-info">
+                <i class="fa-solid fa-bell"></i>
+                <div class="profile">
+                    <img src="img/profile.png" alt="Admin">
+                    <span>Admin Narith</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-info">
+                    <p>Total Revenue</p>
+                    <h3 id="stat-revenue">$0</h3>
+                    <span class="trend up"><i class="fa-solid fa-arrow-up"></i> 12%</span>
+                </div>
+                <i class="fa-solid fa-dollar-sign icon blue"></i>
+            </div>
+            <div class="stat-card">
+                <div class="stat-info">
+                    <p>Total Orders</p>
+                    <h3 id="stat-orders">0</h3>
+                </div>
+                <i class="fa-solid fa-shopping-bag icon purple"></i>
+            </div>
+            <div class="stat-card">
+                <div class="stat-info">
+                    <p>Products in Fleet</p>
+                    <h3 id="product-count">0</h3>
+                </div>
+                <i class="fa-solid fa-car icon orange"></i>
+            </div>
+            <div class="stat-card">
+                <div class="stat-info">
+                    <p>Active Customers</p>
+                    <h3 id="stat-customers">0</h3>
+                </div>
+                <i class="fa-solid fa-user-group icon green"></i>
+            </div>
+        </section>
+
+        <section class="management-section">
+            <div class="section-header">
+                <h2>Product Management</h2>
+                <button class="add-btn" onclick="toggleModal()">+ Add Product</button>
+            </div>
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="product-list">
+                    </tbody>
+            </table>
+        </section>
+    </main>
+
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <h3>Add New Vehicle</h3>
+            
+            <div class="modal-input-group">
+                <label>Image URL</label>
+                <input type="text" id="p-image" placeholder="https://images.unsplash.com/...">
+            </div>
+
+            <div style="display: flex; gap: 15px;">
+                <div class="modal-input-group" style="flex: 1;">
+                    <label>Car Model</label>
+                    <input type="text" id="p-name" placeholder="Camry">
+                </div>
+                <div class="modal-input-group" style="flex: 1;">
+                    <label>Brand</label>
+                    <input type="text" id="p-brand" placeholder="Toyota">
+                </div>
+            </div>
+
+            <div class="modal-input-group">
+                <label>Category</label>
+                <select id="p-cat">
+                    <option value="Sedan">Sedan</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Luxury">Luxury</option>
+                </select>
+            </div>
+
+            <div style="display: flex; gap: 15px;">
+                <div class="modal-input-group" style="flex: 1;">
+                    <label>Price ($)</label>
+                    <input type="number" id="p-price" placeholder="25000">
+                </div>
+                <div class="modal-input-group" style="flex: 1;">
+                    <label>Stock Quantity</label>
+                    <input type="number" id="p-stock" placeholder="10">
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="toggleModal()">Cancel</button>
+                <button class="btn-save" onclick="saveProduct()">Save Vehicle</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
