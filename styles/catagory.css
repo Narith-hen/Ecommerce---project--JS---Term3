@@ -1,8 +1,4 @@
 @import url("main.css");
-<<<<<<< HEAD
-
-.category-container {
-=======
 *{
     margin: 0;
     padding: 0;
@@ -46,7 +42,6 @@
     margin: 0 auto;
     overflow-x: auto;
     padding: 20px 0;
->>>>>>> 82e4178726bacaca5503a7523514a1c2852939d2
     display: flex;
     max-width: 1200px;
     margin: 20px auto;
@@ -212,4 +207,20 @@
 .method-label {
     font-weight: bold;
     margin-top: 5px;
+}
+
+.add-to-cart-btn:active {
+    transform: scale(0.95);
+    background-color: #174c5d;
+}
+
+.cart-count {
+    background: #ff4500;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    position: relative;
+    top: -10px;
+    left: -5px;
 }

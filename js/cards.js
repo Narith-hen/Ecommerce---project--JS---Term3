@@ -98,9 +98,9 @@ function showCarDetails(carId) {
 }
 
 // 7. EVENT LISTENERS
-priceSlider.addEventListener('input', () => {
-    priceDisplay.innerText = `$${parseInt(priceSlider.value).toLocaleString()}`;
-    updateFilterResults();
+priceSlider.addEventListener('input', (e) => {
+    priceDisplay.innerText = `$${parseInt(e.target.value).toLocaleString()}`;
+    filterCars(); // Call your filter function whenever the slider moves
 });
 
 allCheckbox.addEventListener('change', () => {
@@ -119,6 +119,19 @@ categoryFilters.forEach(checkbox => {
 document.querySelector('.close-button')?.addEventListener('click', () => {
     document.getElementById('carModal').style.display = "none";
 });
+const modal = document.getElementById('carModal');
+const closeBtn = document.querySelector('.close-button');
+
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+}
+
+// Close modal if user clicks outside of the box
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 
 // Initialize
 window.onload = () => {
