@@ -13,7 +13,7 @@
             <li><a href="../admin.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
             <li><a href="product.html"><i class="fa-solid fa-box"></i> Products</a></li>
             <li class="active"><a href="order.html"><i class="fa-solid fa-receipt"></i> Orders</a></li>
-            <li><a href="#"><i class="fa-solid fa-users"></i> Customers</a></li>
+            <li><a href="../page/customer.html"><i class="fa-solid fa-users"></i> Customers</a></li>
             <li><a href="#"><i class="fa-solid fa-layer-group"></i> Categories</a></li>
             <li><a href="#"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
             <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
@@ -21,6 +21,19 @@
     </nav>
 
     <main class="main-content">
+        <header>
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="carSearch" placeholder="Search by model or brand..." onkeyup="searchCars()">
+            </div>
+            <div class="user-info">
+                <i class="fa-solid fa-bell"></i>
+                <div class="profile">
+                    <img src="../img/profile.png" alt="Admin">
+                    <span>Narith</span>
+                </div>
+            </div>
+        </header>
         <header><h2>Order Management</h2></header>
         <section class="management-section">
             <table class="product-table">
