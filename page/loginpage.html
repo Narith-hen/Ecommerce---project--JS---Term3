@@ -20,8 +20,21 @@
         <button class="btn-primary" onclick="setRole('customer')" style="margin-bottom: 12px;">
             <i class="fa-solid fa-user"></i> I am a Customer
         </button>
-        <button class="btn-primary btn-secondary"><a href="../admin/login.html">I am an Admin</a></button>
+        <!-- <button class="btn-primary btn-secondary"><a href="../admin/login.html">I am an Admin</a></button> -->
+         <button class="btn-primary btn-secondary" onclick="handleAdminClick(event)">
+            <i class="fa-solid fa-user-shield"></i> 
+            <span id="adminBtnText">I am an Admin</span>
+            <i id="adminSpinner" class="fa-solid fa-circle-notch fa-spin hidden" style="margin-left: 10px;"></i>
+        </button>
     </div>
+    
+    <div id="loaderOverlay" class="loader-overlay hidden">
+    <div class="loader-box">
+        <i class="fa-solid fa-circle-notch fa-spin"></i>
+        <p>Verifying Admin Access...</p>
+        <span class="secure-text"><i class="fa-solid fa-lock"></i> Secure Connection</span>
+    </div>
+</div>
 
     <div class="card hidden" id="loginPage">
         <a href="#" class="back-link" onclick="showRoleSelection()"><i class="fa-solid fa-arrow-left"></i> Back</a>

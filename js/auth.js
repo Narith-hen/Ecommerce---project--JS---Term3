@@ -1,6 +1,6 @@
 let generatedCode = "";
 
-// Navigation
+// --- Navigation Helpers ---
 function hideAll() {
     document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
 }
@@ -14,87 +14,106 @@ function setRole(role) {
     showLogin();
 }
 
-// Validation Message Helper
-function updateUI(inputElement, isValid) {
-    let msg = inputElement.nextElementSibling;
-    if (!msg || !msg.classList.contains('status-msg')) {
-        msg = document.createElement('div');
-        msg.classList.add('status-msg');
-        inputElement.parentNode.insertBefore(msg, inputElement.nextSibling);
-    }
-    msg.innerText = isValid ? "Correct" : "Incorrect";
-    msg.style.color = isValid ? "#008a00" : "#c40000";
+// --- NEW: Admin Loader Function ---
+// This handles the "I am an Admin" button on your first card
+function handleAdminClick(event) {
+    event.preventDefault();
+    const loader = document.getElementById('loaderOverlay');
+    if (loader) loader.classList.remove('hidden');
+
+    // Simulated verification delay
+    setTimeout(() => {
+        // Path should lead to your admin folder
+        window.location.href = "../admin/login.html"; 
+    }, 2000);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     
-    // --- LOGIN LOGIC ---
+    // --- 1. LOGIN LOGIC ---
     document.getElementById("loginBtn")?.addEventListener("click", () => {
-        const email = document.getElementById("loginEmail").value;
+        const emailInput = document.getElementById("loginEmail").value.trim().toLowerCase();
+        const passInput = document.getElementById("loginPass").value;
         const role = localStorage.getItem("userRole");
-        
-        if (email) {
-            // Redirect based on role selection
-            if (role === 'admin') {
-                window.location.href = "pages/dashboard.html"; 
+
+        const customers = JSON.parse(localStorage.getItem('carShopCustomers')) || [];
+
+        if (role === 'admin') {
+            // Internal Admin Check
+            if (emailInput === "admin@auto.com" && passInput === "admin123") {
+                window.location.href = "pages/dashboard.html";
             } else {
-                window.location.href = "index.html";
+                alert("Invalid Admin Credentials!");
             }
         } else {
-            alert("Please fill in credentials");
+            // Find user in the "Customer Directory"
+            const userMatch = customers.find(c => c.email.toLowerCase() === emailInput && c.password === passInput);
+
+            if (userMatch) {
+                alert(`Welcome back, ${userMatch.name}!`);
+                localStorage.setItem("loggedInUser", JSON.stringify(userMatch));
+                // Use relative path to go up one folder to reach root index
+                window.location.href = "../index.html"; 
+            } else {
+                alert("Account not found.");
+            }
         }
     });
 
-    // --- REGISTRATION CONTINUE (Step 1) ---
+    // --- 2. REGISTRATION ---
     document.getElementById("regContinueBtn")?.addEventListener("click", () => {
-        const name = document.getElementById("regName").value;
-        const email = document.getElementById("regEmail").value;
+        const name = document.getElementById("regName").value.trim();
+        const email = document.getElementById("regEmail").value.trim();
+        const pass = document.getElementById("regPass").value;
+        const verify = document.getElementById("regVerify").value;
 
-        if (!name || !email) {
-            alert("Please fill in your name and email");
+        if (!name || !email || pass.length < 6) {
+            alert("Please fill all fields. Password must be 6+ characters.");
             return;
         }
 
-        // Generate and show code
+        if (pass !== verify) {
+            alert("Passwords do not match!");
+            return;
+        }
+
         generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
         hideAll();
         document.getElementById("verifyPage").classList.remove("hidden");
-        setTimeout(() => alert("Your code: " + generatedCode), 1000);
+        setTimeout(() => alert("Your verification code: " + generatedCode), 500);
     });
 
-    // --- VERIFY & SAVE TO ADMIN LIST (Step 2) ---
+    // --- 3. VERIFY & SAVE ---
     document.getElementById("verifyBtn")?.addEventListener("click", () => {
         const enteredCode = document.getElementById("otpInput").value;
 
         if (enteredCode === generatedCode) {
-            // 1. Get current customers from LocalStorage
             let customers = JSON.parse(localStorage.getItem('carShopCustomers')) || [];
+            const emailValue = document.getElementById("regEmail").value.toLowerCase();
             
-            // 2. Create the new customer object
+            if (customers.find(c => c.email.toLowerCase() === emailValue)) {
+                alert("This email is already registered!");
+                showCreateAccount();
+                return;
+            }
+
             const newCustomer = {
                 id: Date.now(),
                 name: document.getElementById("regName").value,
-                email: document.getElementById("regEmail").value,
-                phone: "No Phone", 
-                interest: "New Sign-up", 
-                status: "Lead" // This makes them show up in the Admin list as a Lead
+                email: emailValue,
+                password: document.getElementById("regPass").value,
+                phone: "No Phone Set", 
+                interest: "Website Sign-up", 
+                status: "Lead" 
             };
 
-            // 3. Add to list and save back to LocalStorage
             customers.push(newCustomer);
             localStorage.setItem('carShopCustomers', JSON.stringify(customers));
 
-            alert("Account Created successfully!");
-            
-            // 4. Redirect based on role
-            const role = localStorage.getItem("userRole");
-            if (role === 'admin') {
-                window.location.href = "pages/dashboard.html";
-            } else {
-                window.location.href = "index.html";
-            }
+            alert("Account created successfully!");
+            showLogin(); 
         } else {
-            alert("Wrong Code. Please try again.");
+            alert("Invalid Verification Code.");
         }
     });
 });

@@ -28,10 +28,11 @@ function saveNewCustomer() {
 
     const newCustomer = {
         id: Date.now(),
-        name,
-        phone,
-        email,
-        interest,
+        name: name,
+        phone: phone,
+        email: email,
+        password: "password123", // Give them a default password for the website
+        interest: interest,
         status: "Lead"
     };
 
@@ -41,9 +42,7 @@ function saveNewCustomer() {
     toggleCustomerModal();
     
     // Clear form
-    document.getElementById('c-name').value = '';
-    document.getElementById('c-phone').value = '';
-    document.getElementById('c-email').value = '';
+    document.querySelectorAll('.modal-content input').forEach(inp => inp.value = '');
 }
 
 function renderCustomers() {
