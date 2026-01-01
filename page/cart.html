@@ -1,207 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Your Cart - SUSU-KOKO</title>
-        <link rel="stylesheet" href="../styles/main.css">
-        <link rel="stylesheet" href="../styles/catagory.css">
-        <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link href="images/logo-website/logo.png" rel="icon">
-        <style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - SUSU-KOKO</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/catagory.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="images/logo-website/logo.png" rel="icon">
+    <style>
         .cart-main { min-height: 60vh; padding: 40px 10%; }
         .cart-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         .cart-table th { text-align: left; border-bottom: 2px solid #eee; padding: 10px; }
         .cart-item { border-bottom: 1px solid #eee; }
         .cart-item td { padding: 15px 10px; }
         .cart-item img { width: 60px; border-radius: 5px; }
-        .remove-btn { color: #e74c3c; cursor: pointer; border: none; background: none; }
+        .remove-btn { color: #e74c3c; cursor: pointer; border: none; background: none; font-weight: 500; transition: 0.3s; }
+        .remove-btn:hover { color: #c0392b; transform: scale(1.05); }
         .cart-summary { margin-top: 30px; text-align: right; background: #f9f9f9; padding: 20px; border-radius: 8px; }
-        .checkout-btn { background: #ff4500; color: white; padding: 12px 30px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .checkout-btn { background: #0f3845; color: white; padding: 12px 30px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        
+        /* Specific styling for the removal alert */
+        .toast-alert.remove { background: #e74c3c; } /* Red color for removal */
+        .toast-alert.remove .progress-bar { background: #ffffff; }
     </style>
-    </head>
-    <body>
-        <!-- navbar -->
-        <header class="topbar">
-            <div class="container1"></div>
-            <div class="topbar-inner">
-                <!-- Logo -->
-                <div class="logo"><img src="../images/logo-website/logo.png"
-                        alt="SUSU-KOKO logo"></div>
-
-                <!-- Search -->
-                <div class="search">
-                    <input type="search" placeholder="Search SUSU-KOKO"
-                        aria-label="Search SUSU-KOKO">
-                </div>
-
-                <!-- User actions -->
-                <div class="user-actions">
-                    <button class="account"><a href="loginpage.html">Sign
-                            In</a></button>
-
-                    <a href="cart.html" class="cart">
-                        🛒 <span class="cart-count">0</span>
-                    </a>
-                </div>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="logo"><img src="../images/logo-website/logo.png" alt="SUSU-KOKO logo"></div>
+            <div class="search">
+                <input type="search" placeholder="Search SUSU-KOKO" aria-label="Search SUSU-KOKO">
             </div>
-            <!-- Main navigation -->
-            <nav class="main-nav container1">
-                <ul>
-                    <button class="menu"><a
-                            href="../index.html">Home</a></button>
-                    <button class="menu"><a
-                            href="catagory.html">Categories</a></button>
-                    <button class="menu"><a href="customer.html">Customer
-                            Service</a></button>
-                    <button class="menu"><a href="about.html">About
-                            Us</a></button>
-                </ul>
-            </nav>
-        </header>
+            <div class="user-actions">
+                <button class="account"><a href="loginpage.html">Sign In</a></button>
+                <a href="cart.html" class="cart">🛒 <span class="cart-count">0</span></a>
+            </div>
+        </div>
+        <nav class="main-nav container1">
+            <ul>
+                <button class="menu"><a href="../index.html">Home</a></button>
+                <button class="menu"><a href="catagory.html">Categories</a></button>
+                <button class="menu"><a href="customer.html">Customer Service</a></button>
+                <button class="menu"><a href="about.html">About Us</a></button>
+            </ul>
+        </nav>
+    </header>
 
-        <main class="cart-main">
-            <h1>Shopping Cart</h1>
-            <table class="cart-table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="cart-items-body">
+    <div id="remove-alert" class="toast-alert remove">
+        <div class="toast-content">
+            <i class="fas fa-trash-alt"></i>
+            <div class="toast-message">
+                <span id="removed-car-name">Item</span> removed from cart.
+            </div>
+        </div>
+        <div class="progress-bar"></div>
+    </div>
+
+    <main class="cart-main">
+        <h1>Shopping Cart</h1>
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items-body">
                 </tbody>
-            </table>
+        </table>
 
-            <div class="cart-summary">
-                <h3>Total: <span id="cart-total">$0.00</span></h3>
-                <button class="checkout-btn"> <a href="payment.html">Proceed to Payment</a></button>
-            </div>
-        </main>
+        <div class="cart-summary">
+            <h3>Total: <span id="cart-total">$0.00</span></h3>
+            <button class="checkout-btn"><a href="payment.html" style="color: white; text-decoration: none;">Proceed to Payment</a></button>
+        </div>
+    </main>
 
-        <footer class="footer">
-
-            <!-- TOP LINKS -->
-            <div class="footer-container">
-
-                <div class="footer-column">
-                    <h4>Get support</h4>
-                    <a href="#">Help Center</a>
-                    <a href="#">Live chat</a>
-                    <a href="#">Check order status</a>
-                    <a href="#">Refunds</a>
-                    <a href="#">Report abuse</a>
-                </div>
-
-                <div class="footer-column">
-                    <h4>Payments and protections</h4>
-                    <a href="#">Safe and easy payments</a>
-                    <a href="#">Alibaba.com Business Edge Credit Card</a>
-                    <a href="#">Money-back policy</a>
-                    <a href="#">On-time shipping</a>
-                    <a href="#">After-sales protections</a>
-                    <a href="#">Product monitoring services</a>
-                </div>
-
-                <div class="footer-column">
-                    <h4>Source on Alibaba.com</h4>
-                    <a href="#">Request for Quotation</a>
-                    <a href="#">Membership program</a>
-                    <a href="#">Sales tax and VAT</a>
-                    <a href="#">Alibaba.com Reads</a>
-                </div>
-
-                <div class="footer-column">
-                    <h4>Sell on Alibaba.com</h4>
-                    <a href="#">Start selling</a>
-                    <a href="#">Seller Central</a>
-                    <a href="#">Become a Verified Supplier</a>
-                    <a href="#">Partnerships</a>
-                    <a href="#">Download the app for suppliers</a>
-                </div>
-
-                <div class="footer-column">
-                    <h4>Get to know us</h4>
-                    <a href="#">About Alibaba.com</a>
-                    <a href="#">Corporate responsibility</a>
-                    <a href="#">News center</a>
-                    <a href="#">Careers</a>
-
-                    <h4 class="mt">Stay Connected</h4>
-                    <div class="social-icons">
-                        <i class="fab fa-facebook"></i>
-                        <i class="fab fa-linkedin"></i>
-                        <i class="fab fa-twitter"></i>
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-youtube"></i>
-                        <i class="fab fa-tiktok"></i>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- PAYMENT ICONS -->
-            <div class="payments">
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png">
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png">
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/UnionPay_logo.svg/1280px-UnionPay_logo.svg.png">
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg">
-                <img
-                    src="https://bredcambodia.com.kh/wp-content/uploads/2022/12/KHQR-available-here-logo-with-bg-1024x422.png">
-                <img
-                    src="https://images.vexels.com/media/users/3/144837/isolated/preview/40f189daa5c0279718484ca5f5569f78-crypto-icon.png">
-                <img
-                    src="https://lh3.googleusercontent.com/1d_Ubja0DGaHuhzY8zJga9oG7gS0xwPomKryvehUMEnT667MbNI_SIV2uf6C_BYcX17dlpioO28Qr-dq9ngIbUVcOpNxBrF_D9_yJ7mfDRFG5zbN7Q=s1000">
-            </div>
-
-            <!-- BOTTOM ACTIONS -->
-            <div class="footer-actions">
-                <div class="left">
-                    <p>Partnerships with</p>
-                    <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP9EUT0zXSexJy8G_Ke6jmjAccikkDZMQHNQ&s">
-                    <img
-                        src="https://play-lh.googleusercontent.com/VMjt3oarASIkskhjZHdB9vo1_8nLJ-0MpN7RKBB6qBauJ-_o-qMXofLSzTcaxKxigsM=w480-h960-rw">
-                    <img
-                        src="https://play-lh.googleusercontent.com/4YBwUQTQHMAgv7xHhAUharBvlZh_B34VqPB8NqupibU8wkA8X3S91R1sLtWDZvl1T3J_-CET5sa4Z3JxnxmV3A=w480-h960-rw">
-                    <img
-                        src="https://play-lh.googleusercontent.com/OZT5RP4KtP8OkEYy0f1EeOR257Mk5j8hgrYYzEi7O5q5txeXBZrENfe4-7QKAwRBAA=w480-h960-rw">
-                    <img
-                        src="https://play-lh.googleusercontent.com/weU8O2dHEQffcEyHeK11qTUMS-AQvlHW1IolQDM1XLuZN0ggl6Zr9kUwBqHwXr7i5T0=w480-h960-rw">
-                    <img
-                        src="https://play-lh.googleusercontent.com/A8bangMCdTPS1Xa9hbuc4pcXxUspKpJhDHWW3QSw3OB-VMtUv6NCnqAd7pUv2C-2OnjJHn0Xmv1cs6c2hFUZMw=w480-h960-rw">
-                    <img
-                        src="https://play-lh.googleusercontent.com/9EjpLk2v3rb1QThCBb8Ep03I7U9aVByTzrc_G77JtKd4O98uA-H4t-c-Ep9sgB1_5g=w480-h960-rw">
-                </div>
-
-                <div class="right">
-                    <span>Trade on the go with the SUSU-KOKO.com app</span>
-                    <img
-                        src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg">
-                    <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg">
-                </div>
-            </div>
-
-            <!-- COPYRIGHT -->
-            <div class="footer-bottom">
-                <p>
-                    AliExpress | 1688.com | Tmall Taobao World | Alipay |
-                    Lazada | Taobao Global
-                </p>
-                <p>© 2000–2025 SUSU-KOKO.com All rights reserved.</p>
-            </div>
-
-        </footer>
-
-        <script>
+    <script>
+        /**
+         * Renders the cart items from LocalStorage
+         */
         function renderCart() {
             const tbody = document.getElementById('cart-items-body');
             const totalDisplay = document.getElementById('cart-total');
@@ -209,11 +89,11 @@
             
             let cart = JSON.parse(localStorage.getItem('susuCart')) || [];
             
-            // Update Navbar count
+            // Update Navbar counter
             navCartCount.innerText = cart.length;
 
             if (cart.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:50px;">Your cart is empty.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:50px; color: #777;">Your cart is empty.</td></tr>';
                 totalDisplay.innerText = "$0.00";
                 return;
             }
@@ -224,24 +104,57 @@
                 return `
                     <tr class="cart-item">
                         <td><img src="${item.image}" alt=""></td>
-                        <td>${item.name}</td>
-                        <td>$${item.price.toFixed(2)}</td>
-                        <td><button class="remove-btn" onclick="removeItem(${index})"><i class="fas fa-trash"></i> Remove</button></td>
+                        <td><strong>${item.name}</strong></td>
+                        <td>$${item.price.toLocaleString()}</td>
+                        <td>
+                            <button class="remove-btn" onclick="removeItem(${index}, '${item.name}')">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </td>
                     </tr>
                 `;
             }).join('');
 
-            totalDisplay.innerText = `$${total.toFixed(2)}`;
+            totalDisplay.innerText = `$${total.toLocaleString()}`;
         }
 
-        function removeItem(index) {
+        /**
+         * Removes an item and triggers the Alert Flow
+         */
+        function removeItem(index, carName) {
             let cart = JSON.parse(localStorage.getItem('susuCart')) || [];
-            cart.splice(index, 1); // Remove item at specific index
+            
+            // 1. Remove the item from array
+            cart.splice(index, 1);
+            
+            // 2. Update LocalStorage
             localStorage.setItem('susuCart', JSON.stringify(cart));
-            renderCart(); // Refresh the page view
+            
+            // 3. Show the Removal Alert
+            showRemoveAlert(carName);
+            
+            // 4. Refresh the UI
+            renderCart();
         }
 
+        /**
+         * Displays the red "Removed" toast notification
+         */
+        function showRemoveAlert(name) {
+            const alertBox = document.getElementById('remove-alert');
+            const nameSpan = document.getElementById('removed-car-name');
+            
+            nameSpan.innerText = name;
+            alertBox.classList.add('show');
+
+            // Hide after 3 seconds
+            setTimeout(() => {
+                alertBox.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize view on load
         window.onload = renderCart;
     </script>
-    </body>
+</body>
 </html>

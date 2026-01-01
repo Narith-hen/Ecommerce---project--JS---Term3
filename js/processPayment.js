@@ -1,3 +1,6 @@
+/**
+ * 1. LOAD DATA ON START
+ */
 function loadCheckoutData() {
     const container = document.getElementById('checkout-items');
     const totalDisplay = document.getElementById('final-total');
@@ -12,26 +15,48 @@ function loadCheckoutData() {
     container.innerHTML = cart.map(car => {
         subtotal += car.price;
         return `
-                    <div class="summary-item">
-                        <span>${car.name} (${car.year})</span>
-                        <span>$${car.price.toLocaleString()}</span>
-                    </div>
-                `;
+            <div class="summary-item">
+                <span>${car.name} (${car.year})</span>
+                <span>$${car.price.toLocaleString()}</span>
+            </div>
+        `;
     }).join('');
 
+    // Adding Fees
     const finalTotal = subtotal + 450 + 1200;
     totalDisplay.innerText = `$${finalTotal.toLocaleString()}`;
 }
 
-window.onload = loadCheckoutData;
-const activeMethod = document.querySelector('.method.active').innerText.trim();
+/**
+ * 2. PAYMENT METHOD SELECTION
+ */
+function selectPaymentMethod(element, type) {
+    // 1. Remove 'active' class from all methods
+    const methods = document.querySelectorAll('.method');
+    methods.forEach(m => m.classList.remove('active'));
+    
+    // 2. Add 'active' class to the clicked element
+    element.classList.add('active');
 
+    // 3. Select the card details section
+    const cardSection = document.getElementById('card-details-section');
+    
+    // 4. Show/Hide based on the 'type' parameter passed in the HTML
+    if (type === 'card') {
+        cardSection.style.display = 'block'; 
+    } else {
+        cardSection.style.display = 'none'; 
+    }
+}
+
+/**
+ * 3. PROCESS PAYMENT & VALIDATION
+ */
 function processPayment() {
-    // 1. Get the current payment method INSIDE the function
+    // 1. Get the ACTIVE method element
     const activeMethodElement = document.querySelector('.method.active');
-    const activeMethod = activeMethodElement ? activeMethodElement.innerText.trim() : "Card";
-
-    // 2. Reset all previous error states
+    
+    // 2. Reset Errors (same as your current code)
     const inputs = document.querySelectorAll('input');
     const errorSpans = document.querySelectorAll('.error-msg');
     inputs.forEach(input => input.classList.remove('invalid', 'shake'));
@@ -39,7 +64,7 @@ function processPayment() {
 
     let isFormValid = true;
 
-    // 3. Validate Contact Info
+    // 3. Contact Validation
     const nameInput = document.getElementById('fullName');
     if (nameInput.value.trim().length < 2) {
         showInputError(nameInput, "nameError", "Full Name is required");
@@ -48,36 +73,36 @@ function processPayment() {
 
     const emailInput = document.getElementById('email');
     if (!validateEmail(emailInput.value)) {
-        showInputError(emailInput, "emailError", "Please enter a valid email address");
+        showInputError(emailInput, "emailError", "Valid email is required");
         isFormValid = false;
     }
 
-    // 4. Validate Card Info
-    if (activeMethod === "Card") {
+    // 4. IMPROVED CARD VALIDATION CHECK
+    // Instead of checking text, we check if the Card Section is currently visible
+    const cardSection = document.getElementById('card-details-section');
+    
+    if (cardSection.style.display !== 'none') {
         const cardInput = document.getElementById('cardNumber');
         const expiryInput = document.getElementById('expiry');
         const cvvInput = document.getElementById('cvv');
 
         if (cardInput.value.replace(/\s/g, '').length < 16) {
-            showInputError(cardInput, "cardError", "Enter a valid 16-digit card number");
+            showInputError(cardInput, "cardError", "Enter 16-digit card number");
             isFormValid = false;
         }
-
         if (expiryInput.value.length < 5) {
-            // Highlighting the box even if there isn't a specific span for expiry
             expiryInput.classList.add('invalid', 'shake');
             isFormValid = false;
         }
-
         if (cvvInput.value.length < 3) {
             cvvInput.classList.add('invalid', 'shake');
             isFormValid = false;
         }
     }
 
+    // 5. Finalize if valid
     if (!isFormValid) return;
 
-    // 5. SUCCESS FLOW
     const loading = document.getElementById('loading-overlay');
     const modal = document.getElementById('success-modal');
 
@@ -86,18 +111,15 @@ function processPayment() {
     setTimeout(() => {
         loading.style.display = 'none';
         modal.style.display = 'flex';
-        localStorage.removeItem('susuCart');
+        localStorage.removeItem('susuCart'); 
     }, 2000);
 }
 
-// Helper: Email Regex (Fixed to use your helper)
+// Helpers
 function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-
-// Support function for visual errors
 function showInputError(element, spanId, message) {
     element.classList.add('invalid', 'shake');
     const errorSpan = document.getElementById(spanId);
@@ -107,29 +129,9 @@ function showInputError(element, spanId, message) {
     }
 }
 
-// Helper: Visual feedback for errors
-function highlightError(element) {
-    element.style.borderColor = "#ff4500";
-    element.focus();
-    setTimeout(() => { element.style.borderColor = "#ddd"; }, 3000);
-}
-
 function closeModalAndRedirect() {
     window.location.href = "../index.html";
 }
 
-function selectPaymentMethod(element, type) {
-    // 1. Highlight the selected box
-    const methods = document.querySelectorAll('.method');
-    methods.forEach(m => m.classList.remove('active'));
-    element.classList.add('active');
-
-    // 2. Show or Hide the Card Input section
-    const cardSection = document.getElementById('card-details-section');
-    
-    if (type === 'card') {
-        cardSection.style.display = 'block'; // Show Visa/Mastercard fields
-    } else {
-        cardSection.style.display = 'none';  // Hide them for PayPal/Bank
-    }
-}
+// Start
+window.onload = loadCheckoutData;

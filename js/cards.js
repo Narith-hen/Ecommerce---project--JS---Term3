@@ -17,18 +17,33 @@ const grid = document.getElementById('product-grid');
 
 // 3. MASTER FILTER FUNCTION
 function updateFilterResults() {
-    const maxPrice = parseInt(priceSlider.value);
-    const checkedCategories = Array.from(categoryFilters)
-        .filter(i => i.checked)
-        .map(i => i.value);
+    const grid = document.getElementById('product-grid');
+    
+    // 1. Show the "Flow" (Skeletons) first
+    grid.innerHTML = `
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+    `;
 
-    const filteredCars = carProducts.filter(car => {
-        const matchesPrice = car.price <= maxPrice;
-        const matchesCategory = allCheckbox.checked || checkedCategories.length === 0 || checkedCategories.includes(car.category);
-        return matchesPrice && matchesCategory;
-    });
+    // 2. Wait a tiny bit (simulating loading) then show results
+    setTimeout(() => {
+        const maxPrice = parseInt(priceSlider.value);
+        const checkedCategories = Array.from(categoryFilters)
+            .filter(i => i.checked)
+            .map(i => i.value);
 
-    renderFilteredCars(filteredCars);
+        const filteredCars = carProducts.filter(car => {
+            const matchesPrice = car.price <= maxPrice;
+            const matchesCategory = allCheckbox.checked || 
+                                    checkedCategories.length === 0 || 
+                                    checkedCategories.includes(car.category);
+            return matchesPrice && matchesCategory;
+        });
+
+        renderFilteredCars(filteredCars);
+    }, 400); // 400ms is the "sweet spot" for a fast feel
 }
 
 // 4. RENDERING FUNCTION (Fixed to allow clicking for details)
@@ -64,8 +79,23 @@ function addToCart(carId) {
         cart.push(car);
         localStorage.setItem('susuCart', JSON.stringify(cart));
         updateCartCount();
-        alert(`${car.name} added to inquiry!`);
+        
+        // --- NEW CUSTOM ALERT LOGIC ---
+        showCustomAlert(car.name);
     }
+}
+
+function showCustomAlert(carName) {
+    const alertBox = document.getElementById('custom-alert');
+    const nameSpan = document.getElementById('alert-car-name');
+    
+    nameSpan.innerText = carName;
+    alertBox.classList.add('show');
+
+    // Hide it automatically after 3 seconds
+    setTimeout(() => {
+        alertBox.classList.remove('show');
+    }, 3000);
 }
 
 function updateCartCount() {
@@ -100,41 +130,41 @@ function showCarDetails(carId) {
 // 7. EVENT LISTENERS
 priceSlider.addEventListener('input', (e) => {
     priceDisplay.innerText = `$${parseInt(e.target.value).toLocaleString()}`;
-    filterCars(); // Call your filter function whenever the slider moves
+    updateFilterResults(); // Fixed name
 });
 
 allCheckbox.addEventListener('change', () => {
-    if (allCheckbox.checked) categoryFilters.forEach(cb => cb.checked = false);
+    if (allCheckbox.checked) {
+        categoryFilters.forEach(cb => cb.checked = false);
+    }
     updateFilterResults();
 });
 
 categoryFilters.forEach(checkbox => {
     checkbox.addEventListener('change', () => {
-        if (checkbox.checked) allCheckbox.checked = false;
+        if (checkbox.checked) {
+            allCheckbox.checked = false;
+        }
         updateFilterResults();
     });
 });
 
-// Close modal when clicking (X)
-document.querySelector('.close-button')?.addEventListener('click', () => {
-    document.getElementById('carModal').style.display = "none";
-});
-const modal = document.getElementById('carModal');
-const closeBtn = document.querySelector('.close-button');
+// Modal Close logic
+const modalElement = document.getElementById('carModal');
+const closeBtnElement = document.querySelector('.close-button');
 
-closeBtn.onclick = function() {
-    modal.style.display = "none";
+if (closeBtnElement) {
+    closeBtnElement.onclick = () => modalElement.style.display = "none";
 }
 
-// Close modal if user clicks outside of the box
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+window.onclick = (event) => {
+    if (event.target == modalElement) {
+        modalElement.style.display = "none";
     }
-}
+};
 
 // Initialize
-window.onload = () => {
+window.addEventListener('DOMContentLoaded', () => {
     updateFilterResults();
     updateCartCount();
-};
+});

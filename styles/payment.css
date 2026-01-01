@@ -283,3 +283,33 @@ input.invalid {
 .shake {
     animation: shake 0.3s ease-in-out;
 }
+
+#card-details-section {
+    display: block;
+    margin-top: 15px;
+}
+
+.back-btn {
+    margin-bottom: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+.back-btn a {
+    text-decoration: none;
+    color: white;
+}
+
+.modal-overlay {
+    display: none; 
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+#card-details-section {
+    display: block; 
+}
