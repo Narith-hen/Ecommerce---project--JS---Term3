@@ -1,511 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Shop SUSU-KOKO</title>
-        <link rel="stylesheet" href="styles/main.css">
-        <link rel="stylesheet" href="styles/dicount.css">
-        <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link href="images/logo-website/logo.png" rel="icon">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop SUSU-KOKO</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dicount.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="images/logo-website/logo.png" rel="icon">
+</head>
 
-    <body>
+<body>
 
-        <!-- Loading Overlay -->
-        <div id="site-loader" class="site-loader hidden">
-            <div class="loader-wrapper">
-                <img src="./images/logo-website/logo.png" alt="Logo"
-                    class="loader-logo">
-                <div class="loader-percent"><span
-                        id="loaderPercent">0%</span></div>
-                <div class="loader-bar">
-                    <div id="loaderBar" class="loader-bar-fill"></div>
-                </div>
-                <div class="loader-text">Loading...</div>
+    <!-- Loading Overlay -->
+    <div id="site-loader" class="site-loader hidden">
+        <div class="loader-wrapper">
+            <img src="./images/logo-website/logo.png" alt="Logo" class="loader-logo">
+            <div class="loader-percent"><span id="loaderPercent">0%</span></div>
+            <div class="loader-bar">
+                <div id="loaderBar" class="loader-bar-fill"></div>
+            </div>
+            <div class="loader-text">Loading...</div>
+        </div>
+    </div>
+
+    <!-- alert discount cards -->
+    <div class="modal-overlay" id="discountModal">
+        <div class="discount-card">
+            <button class="close-btn" aria-label="Close">×</button>
+            <div class="alert-badge">LIMITED TIME!</div>
+            <h2 class="offer-text">Don’t Miss Out on Our Biggest Sale!</h2>
+            <div class="discount-percent">5% OFF</div>
+            <p>Featuring Ferrari F8, Lamborghini Huracán, Porsche 911 &
+                more. Enjoy massive discounts on premium models</p>
+            <div class="timer">Ends in 24 Hours</div>
+            <button class="cta-btn">Start saving today</button>
+        </div>
+    </div>
+    <!-- navbar -->
+    <header class="topbar">
+        <div class="container1"></div>
+        <div class="topbar-inner">
+            <!-- Logo -->
+            <div class="logo"><img src="./images/logo-website/logo.png" alt="SUSU-KOKO logo"></div>
+
+            <!-- Search -->
+            <div class="search">
+                <input type="search" placeholder="Search SUSU-KOKO" aria-label="Search SUSU-KOKO">
+            </div>
+
+            <!-- User actions -->
+            <div class="user-actions">
+                <button class="account"><a href="./page/loginpage.html">Sign
+                        In</a></button>
+
+                <a href="cart.html" class="cart">
+                    🛒 <span class="cart-count">0</span>
+                </a>
             </div>
         </div>
+        <!-- Main navigation -->
+        <nav class="main-nav container1">
+            <ul>
+                <button class="menu"><a href="index.html">Home</a></button>
+                <button class="menu"><a href="page/catagory.html">Categories</a></button>
+                <button class="menu"><a href="page/customer.html">Customer
+                        Service</a></button>
+                <button class="menu"><a href="/page/about.html">About
+                        Us</a></button>
+            </ul>
+        </nav>
+    </header>
 
-        <!-- alert discount cards -->
-        <div class="modal-overlay" id="discountModal">
-            <div class="discount-card">
-                <button class="close-btn" aria-label="Close">×</button>
-                <div class="alert-badge">LIMITED TIME!</div>
-                <h2 class="offer-text">Don’t Miss Out on Our Biggest Sale!</h2>
-                <div class="discount-percent">5% OFF</div>
-                <p>Featuring Ferrari F8, Lamborghini Huracán, Porsche 911 &
-                    more. Enjoy massive discounts on premium models</p>
-                <div class="timer">Ends in 24 Hours</div>
-                <button class="cta-btn">Start saving today</button>
-            </div>
-        </div>
-        <!-- navbar -->
-        <header class="topbar">
-            <div class="container1"></div>
-            <div class="topbar-inner">
-                <!-- Logo -->
-                <div class="logo"><img src="./images/logo-website/logo.png"
-                        alt="SUSU-KOKO logo"></div>
-
-                <!-- Search -->
-                <div class="search">
-                    <input type="search" placeholder="Search SUSU-KOKO"
-                        aria-label="Search SUSU-KOKO">
-                </div>
-
-                <!-- User actions -->
-                <div class="user-actions">
-                    <button class="account"><a href="./page/loginpage.html">Sign
-                            In</a></button>
-
-                    <a href="../page/cart.html" class="cart">
-                        🛒 <span class="cart-count">0</span>
-                    </a>
+    <!-- Main content -->
+    <main>
+        <!-- Hero banner -->
+        <section class="hero container1" aria-label="Hero banner">
+            <button class="hero-nav prev" aria-label="Previous">‹</button>
+            <div class="hero-slide" id="heroSlide">
+                <div class="hero-content">
+                    <h1>The Best for Sale</h1>
                 </div>
             </div>
-            <!-- Main navigation -->
-            <nav class="main-nav container1">
-                <ul>
-                    <button class="menu"><a href="index.html">Home</a></button>
-                    <button class="menu"><a
-                            href="page/catagory.html">Categories</a></button>
-                    <button class="menu"><a href="page/customer.html">Customer
-                            Service</a></button>
-                    <button class="menu"><a href="/page/about.html">About
-                            Us</a></button>
-                </ul>
-            </nav>
-        </header>
+            <button class="hero-nav next" aria-label="Next">›</button>
+        </section>
 
-        <!-- Main content -->
-        <main>
-            <!-- Hero banner -->
-            <section class="hero container1" aria-label="Hero banner">
-                <button class="hero-nav prev" aria-label="Previous">‹</button>
-                <div class="hero-slide" id="heroSlide">
-                    <div class="hero-content">
-                        <h1>The Best for Sale</h1>
+        <!-- Top Deals section -->
+        <section class="deals-section" aria-label="Top deals">
+            <div class="container1">
+                <div class="deals-header">
+                    <h2>Top Deals</h2>
+                    <a class="view-more" href="#">View more ➜</a>
+                </div>
+
+                <div class="list-wrap">
+                    <button class="list-nav prev" data-target=".deals-list" aria-label="Previous deals">‹</button>
+                    <div class="deals-list" role="list">
+                        <article class="deal-card" role="listitem">
+                            <div class="deal-image">
+                                <img src="./images/Sell-car/Car-1.jpg" alt="Deal 1">
+                                <span class="badge flash">Flash Deal</span>
+                            </div>
+                            <div class="deal-meta">
+                                <div class="price">
+                                    <span class="current">$ 33,123.00</span>
+                                    <span class="old">$ 38,700.00</span>
+                                </div>
+                                <div class="moq">MOQ: 23</div>
+                            </div>
+                        </article>
+
+                        <article class="deal-card" role="listitem">
+                            <div class="deal-image">
+                                <img src="./images/Sell-car/Car-2.avif" alt="Deal 2">
+                            </div>
+                            <div class="deal-meta">
+                                <div class="price">
+                                    <span class="current">$ 36,898.00</span>
+                                    <span class="old">$ 39,000.00</span>
+                                </div>
+                                <div class="moq">MOQ: 11</div>
+                            </div>
+                        </article>
+
+                        <article class="deal-card" role="listitem">
+                            <div class="deal-image">
+                                <img src="./images/Sell-car/Car-3.jpg" alt="Deal 3">
+                            </div>
+                            <div class="deal-meta">
+                                <div class="price">
+                                    <span class="current">$ 19,400.00</span>
+                                    <span class="old">$ 30,700.00</span>
+                                </div>
+                                <div class="moq">MOQ: 8</div>
+                            </div>
+                        </article>
+
+                        <article class="deal-card" role="listitem">
+                            <div class="deal-image">
+                                <img src="./images/Nav-Car/Car2.webp" alt="Deal 4">
+                            </div>
+                            <div class="deal-meta">
+                                <div class="price">
+                                    <span class="current">$ 43,285.65</span>
+                                    <span class="old">$ 52,000.00</span>
+                                </div>
+                                <div class="moq">MOQ: 10</div>
+                            </div>
+                        </article>
+
+                        <article class="deal-card" role="listitem">
+                            <div class="deal-image">
+                                <img src="./images/Nav-Car/Car3.jpg" alt="Deal 5">
+                            </div>
+                            <div class="deal-meta">
+                                <div class="price">
+                                    <span class="current">$ 11,628.94</span>
+                                    <span class="old">$ 15,000.00</span>
+                                </div>
+                                <div class="moq">MOQ: 9</div>
+                            </div>
+                        </article>
+
+                        <article class="deal-card" role="listitem">
+                            <div class="deal-image">
+                                <img src="./images/Sell-car/Car-4.avif" alt="Deal 6">
+                            </div>
+                            <div class="deal-meta">
+                                <div class="price">
+                                    <span class="current">$
+                                        128,150.00</span>
+                                    <span class="old">$ 150,374.19</span>
+                                </div>
+                                <div class="moq">MOQ: 10</div>
+                            </div>
+                        </article>
+                    </div>
+                    <button class="list-nav next" data-target=".deals-list" aria-label="Next deals">›</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Promo row (peach banner + small deals) -->
+        <section class="promo-row">
+            <div class="promo-inner">
+                <div class="promo-card">
+                    <small class="promo-pre">Savings Booster</small>
+                    <h3 class="promo-title">First order, <span class="promo-highlight">FREE</span>
+                        shipping</h3>
+                    <p class="promo-sub">Explore exclusive deals and
+                        limited-time offers to boost your savings on first
+                        purchase.</p>
+                    <a class="btn promo-btn" href="#">Explore now</a>
+                </div>
+
+                <div class="list-wrap">
+                    <div class="promo-deals-list" role="list">
+                        <article class="rec-card">
+                            <img src="./images/Sell-car/11111111.webp" alt="Necklace">
+                            <div class="rec-price">$ 83,808.55</div>
+                            <div class="rec-moq">MOQ: 2</div>
+                        </article>
+
+                        <article class="rec-card">
+                            <img src="./images/Sell-car/5555555.avif" alt="Necklace">
+                            <div class="rec-price">$ 83,808.55</div>
+                            <div class="rec-moq">MOQ: 2</div>
+                        </article>
+
+                        <article class="rec-card">
+                            <img src="./images/Sell-car/333333.jpg" alt="Necklace">
+                            <div class="rec-price">$ 83,808.55</div>
+                            <div class="rec-moq">MOQ: 2</div>
+                        </article>
+
+                        <article class="rec-card">
+                            <img src="./images/Sell-car/4444444.jpg" alt="Necklace">
+                            <div class="rec-price">$ 83,808.55</div>
+                            <div class="rec-moq">MOQ: 2</div>
+                        </article>
+
+                        <article class="rec-card">
+                            <img src="./images/Sell-car/66666666.jpg" alt="Necklace">
+                            <div class="rec-price">$ 83,808.55</div>
+                            <div class="rec-moq">MOQ: 2</div>
+                        </article>
                     </div>
                 </div>
-                <button class="hero-nav next" aria-label="Next">›</button>
-            </section>
+            </div>
+        </section>
 
-            <!-- Top Deals section -->
-            <section class="deals-section" aria-label="Top deals">
-                <div class="container1">
-                    <div class="deals-header">
-                        <h2>Top Deals</h2>
-                        <a class="view-more" href="#">View more ➜</a>
+        <!-- Recommended / Fast customization (purple section) -->
+        <section class="recommended-section">
+            <div class="promo-inner">
+                <div class="recommended-cta">
+                    <h3>Fast customization</h3>
+                    <p>Realize your custom product ideas fast and easy</p>
+                    <ul class="recommended-features">
+                        <li>Low MOQ</li>
+                        <li>14-day dispatch</li>
+                        <li>True to design</li>
+                    </ul>
+                    <a class="btn" href="#">Explore now</a>
+                </div>
+                <div class="list-wrap">
+                    <div class="promo-deals-list" role="list">
+                        <article class="rec-card">
+                            <img src="./images/Sell-car/Car-5.webp" alt="Necklace">
+                            <div class="rec-price">$ 83,808.55</div>
+                            <div class="rec-moq">MOQ: 2</div>
+                        </article>
+
+                        <article class="rec-card">
+                            <img src="./images/Sell-car/Car-2.avif" alt="Necklace">
+                            <div class="rec-price">$ 83,808.55</div>
+                            <div class="rec-moq">MOQ: 2</div>
+                        </article>
+
+                        <article class="rec-card">
+                            <img src="./images/Sell-car/Car-18.avif" alt="Necklace">
+                            <div class="rec-price">$ 83,808.55</div>
+                            <div class="rec-moq">MOQ: 2</div>
+                        </article>
+
+                        <article class="rec-card">
+                            <img src="./images/Sell-car/Car-19.png" alt="Necklace">
+                            <div class="rec-price">$ 83,808.55</div>
+                            <div class="rec-moq">MOQ: 2</div>
+                        </article>
+
+                        <article class="rec-card">
+                            <img src="./images/Sell-car/Car-8.png" alt="Necklace">
+                            <div class="rec-price">$ 83,808.55</div>
+                            <div class="rec-moq">MOQ: 2</div>
+                        </article>
                     </div>
+                </div>
+            </div>
 
-                    <div class="list-wrap">
-                        <button class="list-nav prev" data-target=".deals-list"
-                            aria-label="Previous deals">‹</button>
-                        <div class="deals-list" role="list">
-                            <article class="deal-card" role="listitem">
-                                <div class="deal-image">
-                                    <img src="./images/Sell-car/Car-1.jpg"
-                                        alt="Deal 1">
-                                    <span class="badge flash">Flash Deal</span>
-                                </div>
-                                <div class="deal-meta">
-                                    <div class="price">
-                                        <span class="current">$ 33,123.00</span>
-                                        <span class="old">$ 38,700.00</span>
-                                    </div>
-                                    <div class="moq">MOQ: 23</div>
-                                </div>
-                            </article>
+        </section>
 
-                            <article class="deal-card" role="listitem">
-                                <div class="deal-image">
-                                    <img src="./images/Sell-car/Car-2.avif"
-                                        alt="Deal 2">
-                                </div>
-                                <div class="deal-meta">
-                                    <div class="price">
-                                        <span class="current">$ 36,898.00</span>
-                                        <span class="old">$ 39,000.00</span>
-                                    </div>
-                                    <div class="moq">MOQ: 11</div>
-                                </div>
-                            </article>
-
-                            <article class="deal-card" role="listitem">
-                                <div class="deal-image">
-                                    <img src="./images/Sell-car/Car-3.jpg"
-                                        alt="Deal 3">
-                                </div>
-                                <div class="deal-meta">
-                                    <div class="price">
-                                        <span class="current">$ 19,400.00</span>
-                                        <span class="old">$ 30,700.00</span>
-                                    </div>
-                                    <div class="moq">MOQ: 8</div>
-                                </div>
-                            </article>
-
-                            <article class="deal-card" role="listitem">
-                                <div class="deal-image">
-                                    <img src="./images/Nav-Car/Car2.webp"
-                                        alt="Deal 4">
-                                </div>
-                                <div class="deal-meta">
-                                    <div class="price">
-                                        <span class="current">$ 43,285.65</span>
-                                        <span class="old">$ 52,000.00</span>
-                                    </div>
-                                    <div class="moq">MOQ: 10</div>
-                                </div>
-                            </article>
-
-                            <article class="deal-card" role="listitem">
-                                <div class="deal-image">
-                                    <img src="./images/Nav-Car/Car3.jpg"
-                                        alt="Deal 5">
-                                </div>
-                                <div class="deal-meta">
-                                    <div class="price">
-                                        <span class="current">$ 11,628.94</span>
-                                        <span class="old">$ 15,000.00</span>
-                                    </div>
-                                    <div class="moq">MOQ: 9</div>
-                                </div>
-                            </article>
-
-                            <article class="deal-card" role="listitem">
-                                <div class="deal-image">
-                                    <img src="./images/Sell-car/Car-4.avif"
-                                        alt="Deal 6">
-                                </div>
-                                <div class="deal-meta">
-                                    <div class="price">
-                                        <span class="current">$
-                                            128,150.00</span>
-                                        <span class="old">$ 150,374.19</span>
-                                    </div>
-                                    <div class="moq">MOQ: 10</div>
-                                </div>
-                            </article>
+        <!-- Panels section -->
+        <section class="panels-section">
+            <div class="container1">
+                <div class="panels">
+                    <!-- Panel: Shop gifts by price -->
+                    <article class="panel highlight">
+                        <h2>SRC 2021 Realize</h2>
+                        <div class="panel-feature">
+                            <img src="./images/Sell-car/Car-9.webp" alt="Gaming PC">
                         </div>
-                        <button class="list-nav next" data-target=".deals-list"
-                            aria-label="Next deals">›</button>
-                    </div>
-                </div>
-            </section>
+                    </article>
 
-            <!-- Promo row (peach banner + small deals) -->
-            <section class="promo-row">
-                <div class="promo-inner">
-                    <div class="promo-card">
-                        <small class="promo-pre">Savings Booster</small>
-                        <h3 class="promo-title">First order, <span
-                                class="promo-highlight">FREE</span>
-                            shipping</h3>
-                        <p class="promo-sub">Explore exclusive deals and
-                            limited-time offers to boost your savings on first
-                            purchase.</p>
-                        <a class="btn promo-btn" href="#">Explore now</a>
-                    </div>
-
-                    <div class="list-wrap">
-                        <div class="promo-deals-list" role="list">
-                            <article class="rec-card">
-                                <img src="./images/Sell-car/11111111.webp"
-                                    alt="Necklace">
-                                <div class="rec-price">$ 83,808.55</div>
-                                <div class="rec-moq">MOQ: 2</div>
-                            </article>
-
-                            <article class="rec-card">
-                                <img src="./images/Sell-car/5555555.avif"
-                                    alt="Necklace">
-                                <div class="rec-price">$ 83,808.55</div>
-                                <div class="rec-moq">MOQ: 2</div>
-                            </article>
-
-                            <article class="rec-card">
-                                <img src="./images/Sell-car/333333.jpg"
-                                    alt="Necklace">
-                                <div class="rec-price">$ 83,808.55</div>
-                                <div class="rec-moq">MOQ: 2</div>
-                            </article>
-
-                            <article class="rec-card">
-                                <img src="./images/Sell-car/4444444.jpg"
-                                    alt="Necklace">
-                                <div class="rec-price">$ 83,808.55</div>
-                                <div class="rec-moq">MOQ: 2</div>
-                            </article>
-
-                            <article class="rec-card">
-                                <img src="./images/Sell-car/66666666.jpg"
-                                    alt="Necklace">
-                                <div class="rec-price">$ 83,808.55</div>
-                                <div class="rec-moq">MOQ: 2</div>
-                            </article>
+                    <!-- Panel: Shop gifts by recipient -->
+                    <article class="panel highlight">
+                        <h2>TCR02 1080 </h2>
+                        <div class="panel-feature">
+                            <img src="./images/Sell-car/Car-15.jpg" alt="Gaming PC">
                         </div>
-                    </div>
-                </div>
-            </section>
+                    </article>
 
-            <!-- Recommended / Fast customization (purple section) -->
-            <section class="recommended-section">
-                <div class="promo-inner">
-                    <div class="recommended-cta">
-                        <h3>Fast customization</h3>
-                        <p>Realize your custom product ideas fast and easy</p>
-                        <ul class="recommended-features">
-                            <li>Low MOQ</li>
-                            <li>14-day dispatch</li>
-                            <li>True to design</li>
-                        </ul>
-                        <a class="btn" href="#">Explore now</a>
-                    </div>
-                    <div class="list-wrap">
-                        <div class="promo-deals-list" role="list">
-                            <article class="rec-card">
-                                <img src="./images/Sell-car/Car-5.webp"
-                                    alt="Necklace">
-                                <div class="rec-price">$ 83,808.55</div>
-                                <div class="rec-moq">MOQ: 2</div>
-                            </article>
-
-                            <article class="rec-card">
-                                <img src="./images/Sell-car/Car-2.avif"
-                                    alt="Necklace">
-                                <div class="rec-price">$ 83,808.55</div>
-                                <div class="rec-moq">MOQ: 2</div>
-                            </article>
-
-                            <article class="rec-card">
-                                <img src="./images/Sell-car/Car-18.avif"
-                                    alt="Necklace">
-                                <div class="rec-price">$ 83,808.55</div>
-                                <div class="rec-moq">MOQ: 2</div>
-                            </article>
-
-                            <article class="rec-card">
-                                <img src="./images/Sell-car/Car-19.png"
-                                    alt="Necklace">
-                                <div class="rec-price">$ 83,808.55</div>
-                                <div class="rec-moq">MOQ: 2</div>
-                            </article>
-
-                            <article class="rec-card">
-                                <img src="./images/Sell-car/Car-8.png"
-                                    alt="Necklace">
-                                <div class="rec-price">$ 83,808.55</div>
-                                <div class="rec-moq">MOQ: 2</div>
-                            </article>
+                    <!-- Panel: Get your game on -->
+                    <article class="panel highlight">
+                        <h2>Luithy 2022 Realize</h2>
+                        <div class="panel-feature">
+                            <img src="./images/Sell-car/Car-18.avif" alt="Gaming PC">
                         </div>
-                    </div>
-                </div>
+                    </article>
 
-            </section>
-
-            <!-- Panels section -->
-            <section class="panels-section">
-                <div class="container1">
-                    <div class="panels">
-                        <!-- Panel: Shop gifts by price -->
-                        <article class="panel highlight">
-                            <h2>SRC 2021 Realize</h2>
-                            <div class="panel-feature">
-                                <img src="./images/Sell-car/Car-9.webp"
-                                    alt="Gaming PC">
-                            </div>
-                        </article>
-
-                        <!-- Panel: Shop gifts by recipient -->
-                        <article class="panel highlight">
-                            <h2>TCR02 1080 </h2>
-                            <div class="panel-feature">
-                                <img src="./images/Sell-car/Car-15.jpg"
-                                    alt="Gaming PC">
-                            </div>
-                        </article>
-
-                        <!-- Panel: Get your game on -->
-                        <article class="panel highlight">
-                            <h2>Luithy 2022 Realize</h2>
-                            <div class="panel-feature">
-                                <img src="./images/Sell-car/Car-18.avif"
-                                    alt="Gaming PC">
-                            </div>
-                        </article>
-
-                        <!-- Panel: Shop Fashion for less -->
-                        <article class="panel highlight">
-                            <h2>Ferrary 2022 Realize</h2>
-                            <div class="panel-feature">
-                                <img src="./images/Sell-car/Car-20.jpg"
-                                    alt="Gaming PC">
-                            </div>
-                        </article>
-
-                        <!-- Panel: Shop holiday gift guides -->
-
-                        <article class="panel highlight">
-                            <h2>HAYOTO 2021 Realize</h2>
-                            <div class="panel-feature">
-                                <img src="./images/Sell-car/Car-11.jpg"
-                                    alt="Gaming PC">
-                            </div>
-                        </article>
-
-                        <!-- Panel: Shop holiday gift guides -->
-
-                        <article class="panel highlight">
-                            <h2>Lexzine 2205K Realize</h2>
-                            <div class="panel-feature">
-                                <img src="./images/Sell-car/Car-8.png"
-                                    alt="Gaming PC">
-                            </div>
-                        </article>
-
-                        <article class="panel highlight">
-                            <h2>Masada 2020 Realize</h2>
-                            <div class="panel-feature">
-                                <img src="./images/Sell-car/Car-16.avif"
-                                    alt="Gaming PC">
-                            </div>
-                        </article>
-
-                        <article class="panel highlight">
-                            <h2>Horony 2021 Realize</h2>
-                            <div class="panel-feature">
-                                <img src="./images/Sell-car/Car-17.png"
-                                    alt="Gaming PC">
-                            </div>
-                        </article>
-
-                    </div>
-                </div>
-            </section>
-            <footer class="footer">
-
-                <!-- TOP LINKS -->
-                <div class="footer-container">
-
-                    <div class="footer-column">
-                        <h4>Get support</h4>
-                        <a href="#">Help Center</a>
-                        <a href="#">Live chat</a>
-                        <a href="#">Check order status</a>
-                        <a href="#">Refunds</a>
-                        <a href="#">Report abuse</a>
-                    </div>
-
-                    <div class="footer-column">
-                        <h4>Payments and protections</h4>
-                        <a href="#">Safe and easy payments</a>
-                        <a href="#">SUSU-KOKO.com Business Edge Credit Card</a>
-                        <a href="#">Money-back policy</a>
-                        <a href="#">On-time shipping</a>
-                        <a href="#">After-sales protections</a>
-                        <a href="#">Product monitoring services</a>
-                    </div>
-
-                    <div class="footer-column">
-                        <h4>Source on SUSU-KOKO.com</h4>
-                        <a href="#">Request for Quotation</a>
-                        <a href="#">Membership program</a>
-                        <a href="#">Sales tax and VAT</a>
-                        <a href="#">Website Reads</a>
-                    </div>
-
-                    <div class="footer-column">
-                        <h4>Sell on SUSU-KOKO.com</h4>
-                        <a href="#">Start selling</a>
-                        <a href="#">Seller Central</a>
-                        <a href="#">Become a Verified Supplier</a>
-                        <a href="#">Partnerships</a>
-                        <a href="#">Download the app for suppliers</a>
-                    </div>
-
-                    <div class="footer-column">
-                        <h4>Get to know us</h4>
-                        <a href="#">About SUSU-KOKO.com</a>
-                        <a href="#">Corporate responsibility</a>
-                        <a href="#">News center</a>
-                        <a href="#">Careers</a>
-
-                        <h4 class="mt">Stay Connected</h4>
-                        <div class="social-icons">
-                            <i class="fab fa-facebook"></i>
-                            <i class="fab fa-linkedin"></i>
-                            <i class="fab fa-twitter"></i>
-                            <i class="fab fa-instagram"></i>
-                            <i class="fab fa-youtube"></i>
-                            <i class="fab fa-tiktok"></i>
+                    <!-- Panel: Shop Fashion for less -->
+                    <article class="panel highlight">
+                        <h2>Ferrary 2022 Realize</h2>
+                        <div class="panel-feature">
+                            <img src="./images/Sell-car/Car-20.jpg" alt="Gaming PC">
                         </div>
+                    </article>
+
+                    <!-- Panel: Shop holiday gift guides -->
+
+                    <article class="panel highlight">
+                        <h2>HAYOTO 2021 Realize</h2>
+                        <div class="panel-feature">
+                            <img src="./images/Sell-car/Car-11.jpg" alt="Gaming PC">
+                        </div>
+                    </article>
+
+                    <!-- Panel: Shop holiday gift guides -->
+
+                    <article class="panel highlight">
+                        <h2>Lexzine 2205K Realize</h2>
+                        <div class="panel-feature">
+                            <img src="./images/Sell-car/Car-8.png" alt="Gaming PC">
+                        </div>
+                    </article>
+
+                    <article class="panel highlight">
+                        <h2>Masada 2020 Realize</h2>
+                        <div class="panel-feature">
+                            <img src="./images/Sell-car/Car-16.avif" alt="Gaming PC">
+                        </div>
+                    </article>
+
+                    <article class="panel highlight">
+                        <h2>Horony 2021 Realize</h2>
+                        <div class="panel-feature">
+                            <img src="./images/Sell-car/Car-17.png" alt="Gaming PC">
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+        <footer class="footer">
+
+            <!-- TOP LINKS -->
+            <div class="footer-container">
+
+                <div class="footer-column">
+                    <h4>Get support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="#">Live chat</a>
+                    <a href="#">Check order status</a>
+                    <a href="#">Refunds</a>
+                    <a href="#">Report abuse</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Payments and protections</h4>
+                    <a href="#">Safe and easy payments</a>
+                    <a href="#">SUSU-KOKO.com Business Edge Credit Card</a>
+                    <a href="#">Money-back policy</a>
+                    <a href="#">On-time shipping</a>
+                    <a href="#">After-sales protections</a>
+                    <a href="#">Product monitoring services</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Source on SUSU-KOKO.com</h4>
+                    <a href="#">Request for Quotation</a>
+                    <a href="#">Membership program</a>
+                    <a href="#">Sales tax and VAT</a>
+                    <a href="#">Website Reads</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Sell on SUSU-KOKO.com</h4>
+                    <a href="#">Start selling</a>
+                    <a href="#">Seller Central</a>
+                    <a href="#">Become a Verified Supplier</a>
+                    <a href="#">Partnerships</a>
+                    <a href="#">Download the app for suppliers</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Get to know us</h4>
+                    <a href="#">About SUSU-KOKO.com</a>
+                    <a href="#">Corporate responsibility</a>
+                    <a href="#">News center</a>
+                    <a href="#">Careers</a>
+
+                    <h4 class="mt">Stay Connected</h4>
+                    <div class="social-icons">
+                        <i class="fab fa-facebook"></i>
+                        <i class="fab fa-linkedin"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-youtube"></i>
+                        <i class="fab fa-tiktok"></i>
                     </div>
-
                 </div>
 
-                <!-- PAYMENT ICONS -->
-                <div class="payments">
+            </div>
+
+            <!-- PAYMENT ICONS -->
+            <div class="payments">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png">
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/UnionPay_logo.svg/1280px-UnionPay_logo.svg.png">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg">
+                <img
+                    src="https://bredcambodia.com.kh/wp-content/uploads/2022/12/KHQR-available-here-logo-with-bg-1024x422.png">
+                <img
+                    src="https://images.vexels.com/media/users/3/144837/isolated/preview/40f189daa5c0279718484ca5f5569f78-crypto-icon.png">
+                <img
+                    src="https://lh3.googleusercontent.com/1d_Ubja0DGaHuhzY8zJga9oG7gS0xwPomKryvehUMEnT667MbNI_SIV2uf6C_BYcX17dlpioO28Qr-dq9ngIbUVcOpNxBrF_D9_yJ7mfDRFG5zbN7Q=s1000">
+            </div>
+
+            <!-- BOTTOM ACTIONS -->
+            <div class="footer-actions">
+                <div class="left">
+                    <p>Partnerships with</p>
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png">
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP9EUT0zXSexJy8G_Ke6jmjAccikkDZMQHNQ&s">
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png">
+                        src="https://play-lh.googleusercontent.com/VMjt3oarASIkskhjZHdB9vo1_8nLJ-0MpN7RKBB6qBauJ-_o-qMXofLSzTcaxKxigsM=w480-h960-rw">
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/UnionPay_logo.svg/1280px-UnionPay_logo.svg.png">
+                        src="https://play-lh.googleusercontent.com/4YBwUQTQHMAgv7xHhAUharBvlZh_B34VqPB8NqupibU8wkA8X3S91R1sLtWDZvl1T3J_-CET5sa4Z3JxnxmV3A=w480-h960-rw">
                     <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg">
+                        src="https://play-lh.googleusercontent.com/OZT5RP4KtP8OkEYy0f1EeOR257Mk5j8hgrYYzEi7O5q5txeXBZrENfe4-7QKAwRBAA=w480-h960-rw">
                     <img
-                        src="https://bredcambodia.com.kh/wp-content/uploads/2022/12/KHQR-available-here-logo-with-bg-1024x422.png">
+                        src="https://play-lh.googleusercontent.com/weU8O2dHEQffcEyHeK11qTUMS-AQvlHW1IolQDM1XLuZN0ggl6Zr9kUwBqHwXr7i5T0=w480-h960-rw">
                     <img
-                        src="https://images.vexels.com/media/users/3/144837/isolated/preview/40f189daa5c0279718484ca5f5569f78-crypto-icon.png">
+                        src="https://play-lh.googleusercontent.com/A8bangMCdTPS1Xa9hbuc4pcXxUspKpJhDHWW3QSw3OB-VMtUv6NCnqAd7pUv2C-2OnjJHn0Xmv1cs6c2hFUZMw=w480-h960-rw">
                     <img
-                        src="https://lh3.googleusercontent.com/1d_Ubja0DGaHuhzY8zJga9oG7gS0xwPomKryvehUMEnT667MbNI_SIV2uf6C_BYcX17dlpioO28Qr-dq9ngIbUVcOpNxBrF_D9_yJ7mfDRFG5zbN7Q=s1000">
+                        src="https://play-lh.googleusercontent.com/9EjpLk2v3rb1QThCBb8Ep03I7U9aVByTzrc_G77JtKd4O98uA-H4t-c-Ep9sgB1_5g=w480-h960-rw">
                 </div>
 
-                <!-- BOTTOM ACTIONS -->
-                <div class="footer-actions">
-                    <div class="left">
-                        <p>Partnerships with</p>
-                        <img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP9EUT0zXSexJy8G_Ke6jmjAccikkDZMQHNQ&s">
-                        <img
-                            src="https://play-lh.googleusercontent.com/VMjt3oarASIkskhjZHdB9vo1_8nLJ-0MpN7RKBB6qBauJ-_o-qMXofLSzTcaxKxigsM=w480-h960-rw">
-                        <img
-                            src="https://play-lh.googleusercontent.com/4YBwUQTQHMAgv7xHhAUharBvlZh_B34VqPB8NqupibU8wkA8X3S91R1sLtWDZvl1T3J_-CET5sa4Z3JxnxmV3A=w480-h960-rw">
-                        <img
-                            src="https://play-lh.googleusercontent.com/OZT5RP4KtP8OkEYy0f1EeOR257Mk5j8hgrYYzEi7O5q5txeXBZrENfe4-7QKAwRBAA=w480-h960-rw">
-                        <img
-                            src="https://play-lh.googleusercontent.com/weU8O2dHEQffcEyHeK11qTUMS-AQvlHW1IolQDM1XLuZN0ggl6Zr9kUwBqHwXr7i5T0=w480-h960-rw">
-                        <img
-                            src="https://play-lh.googleusercontent.com/A8bangMCdTPS1Xa9hbuc4pcXxUspKpJhDHWW3QSw3OB-VMtUv6NCnqAd7pUv2C-2OnjJHn0Xmv1cs6c2hFUZMw=w480-h960-rw">
-                        <img
-                            src="https://play-lh.googleusercontent.com/9EjpLk2v3rb1QThCBb8Ep03I7U9aVByTzrc_G77JtKd4O98uA-H4t-c-Ep9sgB1_5g=w480-h960-rw">
-                    </div>
-
-                    <div class="right">
-                        <span>Trade on the go with the SUSU-KOKO.com app</span>
-                        <img
-                            src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg">
-                        <img
-                            src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg">
-                    </div>
+                <div class="right">
+                    <span>Trade on the go with the SUSU-KOKO.com app</span>
+                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg">
                 </div>
+            </div>
 
-                <!-- COPYRIGHT -->
-                <div class="footer-bottom">
-                    <p>
-                        TEAM DEVELOPER | NARITH HEN | SATAN BUNTIT | CHANSEYHA
-                        HOEURN
-                    </p>
-                    <p>© 2000–2025 SUSU-KOKO.com All rights reserved.</p>
-                </div>
+            <!-- COPYRIGHT -->
+            <div class="footer-bottom">
+                <p>
+                    TEAM DEVELOPER | NARITH HEN | SATAN BUNTIT | CHANSEYHA
+                    HOEURN
+                </p>
+                <p>© 2000–2025 SUSU-KOKO.com All rights reserved.</p>
+            </div>
 
-            </footer>
+        </footer>
 
-            <script src="js/main.js"></script>
-            <script src="js/dicount.js"></script>
-        </body>
+        <script src="js/main.js"></script>
+        <script src="js/dicount.js"></script>
+</body>
 
-    </html>
+</html>
