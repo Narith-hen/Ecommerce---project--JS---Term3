@@ -92,19 +92,185 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-document.querySelectorAll('.view-details').forEach(button => {
-    button.addEventListener('click', function (e) {
-        e.preventDefault();
+// Build Cards Interactivity
+const cards = document.querySelectorAll('.build-card');
 
-        const card = this.closest('.build-card');
-        const info = card.querySelector('.build-info');
+function closeAllCards() {
+    cards.forEach(c => {
+        c.classList.remove('active');
+        const btn = c.querySelector('.view-btn');
+        if (btn) btn.textContent = 'View Details';
+    });
+}
 
-        info.classList.toggle('show');
+cards.forEach(card => {
+    const btn = card.querySelector('.view-btn');
 
-        // Change button text
-        this.textContent = info.classList.contains('show')
-            ? 'Hide Details'
-            : 'View Details';
+    // Button click
+    if (btn) {
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            const isActive = card.classList.contains('active');
+
+            closeAllCards();
+            if (!isActive) {
+                card.classList.add('active');
+                btn.textContent = 'Hide Details';
+            }
+        });
+    }
+
+    // Hover (desktop)
+    card.addEventListener('mouseenter', () => {
+        closeAllCards();
+        card.classList.add('active');
+        if (btn) btn.textContent = 'Hide Details';
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.classList.remove('active');
+        if (btn) btn.textContent = 'View Details';
+    });
+
+    // Touch (mobile)
+    card.addEventListener('touchstart', () => {
+        const isActive = card.classList.contains('active');
+
+        closeAllCards();
+        if (!isActive) {
+            card.classList.add('active');
+            if (btn) btn.textContent = 'Hide Details';
+        }
     });
 });
+
+document.querySelectorAll('.build-card').forEach(card => {
+    const btn = card.querySelector('.view-btn');
+    const img = card.querySelector('.build-img');
+
+    // Function to close all other cards
+    // const closeOthers = () => {
+    //     document.querySelectorAll('.build-card').forEach(otherCard => {
+    //         if (otherCard !== card) {
+    //             otherCard.classList.remove('active');
+    //         }
+    //     });
+    // };
+
+    // Click on "View Details" button
+    // if (btn) {
+    //     btn.addEventListener('click', e => {
+    //         e.preventDefault();
+    //         closeOthers();
+    //         card.classList.toggle('active');
+    //     });
+    // }
+
+    // Hover (mouse) on image area
+    // if (img) {
+    //     img.addEventListener('mouseenter', () => {
+    //         closeOthers();
+    //         card.classList.add('active');
+    //     });
+
+    //     img.addEventListener('mouseleave', () => {
+    //         card.classList.remove('active');
+    //     });
+
+    //     // Touch (mobile/tablet) – toggle on tap, but ensure only one is open
+    //     img.addEventListener('touchstart', e => {
+    //         // Optional: uncomment next line if you experience issues with scrolling
+    //         e.preventDefault();
+    //         closeOthers();
+    //         card.classList.toggle('active');
+    //     });
+    // }
+});
+
+
+
+
+
+// document.querySelectorAll('.build-card').forEach(card => {
+//     const btn = card.querySelector('.view-btn');
+//     const img = card.querySelector('.build-img');
+    
+//     function activateCard() {
+//         // Close all other cards first
+//         document.querySelectorAll('.build-card').forEach(otherCard => {
+//             if (otherCard !== card) {
+//                 otherCard.classList.remove('active');
+//             }
+//         });
+//         // Toggle the clicked card
+//         card.classList.toggle('active');
+//     }
+    
+//     // Click button
+//     if (btn) {
+//         btn.addEventListener('click', e => {
+//             e.preventDefault();
+//             e.stopPropagation(); // Prevent triggering card click
+//             activateCard();
+//         });
+//     }
+    
+//     // Hover (mouse enter)
+//     if (img) {
+//         img.addEventListener('mouseenter', () => {
+//             // Close all cards first
+//             document.querySelectorAll('.build-card').forEach(otherCard => {
+//                 otherCard.classList.remove('active');
+//             });
+//             // Open this card
+//             card.classList.add('active');
+//         });
+        
+//         // When leaving the card area, you might want to close it
+//         // Or keep it open if button was clicked
+//         card.addEventListener('mouseleave', (e) => {
+//             // Only auto-close if not clicked (no 'active' class from click)
+//             // Or always close on mouseleave:
+//             card.classList.remove('active');
+//         });
+//     }
+    
+//     // Touch for mobile
+//     if (img) {
+//         img.addEventListener('touchstart', (e) => {
+//             e.preventDefault();
+//             activateCard();
+//         });
+//     }
+// });
+
+// // Optional: Click outside to close all cards
+// document.addEventListener('click', (e) => {
+//     if (!e.target.closest('.build-card')) {
+//         document.querySelectorAll('.build-card').forEach(card => {
+//             card.classList.remove('active');
+//         });
+//     }
+// });
+
+
+
+
+
+// const buildCards = document.querySelectorAll('.build-card');
+
+// buildCards.forEach(card => {
+//     card.addEventListener('mouseenter', () => {
+//         // Remove active from all cards
+//         buildCards.forEach(c => c.classList.remove('active'));
+
+//         // Add active to hovered card
+//         card.classList.add('active');
+//     });
+
+//     card.addEventListener('mouseleave', () => {
+//         card.classList.remove('active');
+//     });
+// });
+
 
