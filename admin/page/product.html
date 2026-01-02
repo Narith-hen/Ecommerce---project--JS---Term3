@@ -5,9 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Cars - Admin Dashboard</title>
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/product.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/product.css">
+    <style>
+        /* Specific overrides for the Low Stock badge */
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+        .instock { background: #dcfce7; color: #166534; }
+        .lowstock { background: #fee2e2; color: #991b1b; }
+        .img-preview { width: 50px; height: 35px; object-fit: cover; border-radius: 4px; }
+        #logoutLoading {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.9); z-index: 9999;
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+        }
+        .loader-bar-container { width: 200px; height: 4px; background: #e2e8f0; border-radius: 2px; margin-bottom: 10px; overflow: hidden; }
+        #p-bar-fill { width: 0%; height: 100%; background: #3b82f6; transition: width 1s linear; }
+    </style>
 </head>
 <body>
 
@@ -56,7 +70,7 @@
                 <h2>Vehicle Inventory</h2>
                 <div class="header-actions">
                     <button class="add-btn" onclick="toggleModal()">+ Add New Car</button>
-                    <div class="filter-actions" style="margin-bottom: 20px; display: flex; gap: 10px;">
+                    <div class="filter-actions" style="margin-top: 15px; display: flex; gap: 10px;">
                         <button class="filter-btn" onclick="filterCars('All')">All</button>
                         <button class="filter-btn" onclick="filterCars('SUV')">SUVs</button>
                         <button class="filter-btn" onclick="filterCars('Luxury')">Luxury</button>
@@ -79,8 +93,6 @@
             </table>
         </section>
     </main>
-
-    <div id="toast-container" class="toast-container"></div>
 
     <div id="productModal" class="modal">
         <div class="modal-content">
@@ -129,13 +141,28 @@
     </div>
 
     <script>
-        // --- DATA LOGIC ---
-        let carInventory = JSON.parse(localStorage.getItem('myProducts')) || [];
+        // --- 1. INITIAL DATA (carProducts) ---
+        const defaultProducts = [
+            { name: "Tesla Model 3 Performance", brand: "Tesla", price: 45000, category: "Electric", stock: 12, image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=600" },
+            { name: "BMW M4 Competition", brand: "BMW", price: 78000, category: "Luxury", stock: 5, image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600" },
+            { name: "Range Rover Sport", brand: "Land Rover", price: 79000, category: "SUV", stock: 2, image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600" },
+            { name: "Audi Q8 e-tron", brand: "Audi", price: 88000, category: "Electric", stock: 8, image: "https://www.topgear.com/sites/default/files/2024/02/11426-0K2A6582.jpg?w=1290&h=726" },
+            { name: "Volvo XC90", brand: "Volvo", price: 90000, category: "SUV", stock: 4, image: "https://www.topgear.com/sites/default/files/2024/02/294655_XC90_Recharge_T8_AWD_Denim_Blue.jpg?w=1290&h=726" },
+            { name: "Bentley Bentayga", brand: "Bentley", price: 98000, category: "Luxury", stock: 1, image: "https://www.topgear.com/sites/default/files/2024/02/Bentayga%20on%20road%20-%205.jpg?w=1290&h=726" }
+        ];
+
+        // Load from LocalStorage or use defaults
+        let carInventory = JSON.parse(localStorage.getItem('myProducts'));
+        if (!carInventory || carInventory.length === 0) {
+            carInventory = defaultProducts;
+            localStorage.setItem('myProducts', JSON.stringify(carInventory));
+        }
+
         let editIndex = -1;
         let currentFilter = 'All';
-
         const carListBody = document.getElementById('car-list-body');
 
+        // --- 2. RENDER LOGIC ---
         function renderCars() {
             carListBody.innerHTML = '';
             const filtered = currentFilter === 'All' ? carInventory : carInventory.filter(c => c.category === currentFilter);
@@ -154,30 +181,30 @@
                         <td>${car.stock}</td>
                         <td><span class="badge ${isLow ? 'lowstock' : 'instock'}">${isLow ? 'Low Stock' : 'In Stock'}</span></td>
                         <td class="action-td">
-                            <button onclick="editCar(${originalIndex})"><i class="fa-solid fa-pen"></i></button>
-                            <button onclick="deleteCar(${originalIndex})" style="color:#ef4444"><i class="fa-solid fa-trash"></i></button>
+                            <button onclick="editCar(${originalIndex})" style="border:none; background:none; color:#3b82f6; cursor:pointer;"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="deleteCar(${originalIndex})" style="border:none; background:none; color:#ef4444; cursor:pointer; margin-left:10px;"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
             });
         }
 
+        // --- 3. SAVE/EDIT/DELETE ---
         function saveCar() {
-            const name = document.getElementById('p-name');
-            const brand = document.getElementById('p-brand');
-            const cat = document.getElementById('p-cat');
-            const price = document.getElementById('p-price');
-            const stock = document.getElementById('p-stock');
-            const image = document.getElementById('p-image');
+            const name = document.getElementById('p-name').value;
+            const brand = document.getElementById('p-brand').value;
+            const cat = document.getElementById('p-cat').value;
+            const price = document.getElementById('p-price').value;
+            const stock = document.getElementById('p-stock').value;
+            const image = document.getElementById('p-image').value;
 
-            // Simple Validation
-            if (!name.value || !brand.value || !cat.value || !price.value || !stock.value) {
+            if (!name || !brand || !cat || !price || !stock) {
                 alert("Please fill all required fields!");
                 return;
             }
 
-            const carData = {
-                name: name.value, brand: brand.value, category: cat.value,
-                price: price.value, stock: stock.value, image: image.value || 'https://via.placeholder.com/150'
+            const carData = { 
+                name, brand, category: cat, price, stock, 
+                image: image || 'https://via.placeholder.com/150' 
             };
 
             if (editIndex === -1) {
@@ -215,6 +242,7 @@
             }
         }
 
+        // --- 4. HELPERS ---
         function filterCars(cat) {
             currentFilter = cat;
             renderCars();
@@ -222,14 +250,14 @@
 
         function toggleModal() {
             const modal = document.getElementById('productModal');
-            const isOpen = modal.style.display === 'flex';
-            if (isOpen) {
+            if (modal.style.display === 'flex') {
                 modal.style.display = 'none';
                 editIndex = -1;
                 document.querySelectorAll('.modal-content input').forEach(i => i.value = '');
                 document.getElementById('p-cat').value = "";
                 document.getElementById('modalTitle').innerText = "Add New Vehicle";
                 document.getElementById('save-btn').innerText = "Save Vehicle";
+                updatePreview();
             } else {
                 modal.style.display = 'flex';
             }
@@ -240,17 +268,15 @@
             document.getElementById('p-preview').src = url || 'https://via.placeholder.com/150x80?text=No+Image';
         }
 
-        // --- SEARCH LOGIC ---
         function searchCars() {
             const term = document.getElementById('carSearch').value.toLowerCase();
             const rows = document.querySelectorAll('#car-list-body tr');
             rows.forEach(row => {
-                const text = row.innerText.toLowerCase();
-                row.style.display = text.includes(term) ? '' : 'none';
+                row.style.display = row.innerText.toLowerCase().includes(term) ? '' : 'none';
             });
         }
 
-        // --- LOGOUT LOGIC ---
+        // Logout Animation
         document.getElementById('logoutBtn').addEventListener('click', function() {
             if(confirm('Logout from system?')) {
                 const overlay = document.getElementById('logoutLoading');
@@ -261,6 +287,7 @@
             }
         });
 
+        // Initialize table
         renderCars();
     </script>
 </body>

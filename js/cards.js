@@ -1,12 +1,8 @@
-// 1. Data remains the same
-const carProducts = [
-    { id: 1, name: "Tesla Model 3 Performance", price: 45000, category: "Electric", year: 2023, mileage: "12,000 km", image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=600", rating: 4.9 },
-    { id: 2, name: "BMW M4 Competition", price: 78000, category: "Sports", year: 2022, mileage: "8,500 km", image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600", rating: 4.8 },
-    { id: 3, name: "Range Rover Sport", price: 79000, category: "SUV", year: 2024, mileage: "1,200 km", image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600", rating: 4.7 },
-    { id: 4, name: "Audi Q8 e-tron", price: 88000, category: "SUV", year: 2024, mileage: "1,300 km", image: "https://www.topgear.com/sites/default/files/2024/02/11426-0K2A6582.jpg?w=1290&h=726", rating: 4.7 },
-    { id: 5, name: "Volvo XC90", price: 90000, category: "SUV", year: 2024, mileage: "1,100 km", image: "https://www.topgear.com/sites/default/files/2024/02/294655_XC90_Recharge_T8_AWD_Denim_Blue.jpg?w=1290&h=726", rating: 4.7 },
-    { id: 6, name: "Bentley Bentayga", price: 98000, category: "SUV", year: 2025, mileage: "1,180 km", image: "https://www.topgear.com/sites/default/files/2024/02/Bentayga%20on%20road%20-%205.jpg?w=1290&h=726", rating: 4.3 },
-];
+// 1. DATA CONNECTION: Load from Admin's LocalStorage
+function getInventory() {
+    const storedProducts = localStorage.getItem('myProducts');
+    return storedProducts ? JSON.parse(storedProducts) : [];
+}
 
 // 2. Selectors
 const allCheckbox = document.getElementById('all-categories');
@@ -17,9 +13,9 @@ const grid = document.getElementById('product-grid');
 
 // 3. MASTER FILTER FUNCTION
 function updateFilterResults() {
-    const grid = document.getElementById('product-grid');
+    const carInventory = getInventory(); // Fetch fresh data from Admin
     
-    // 1. Show the "Flow" (Skeletons) first
+    // Show loading skeleton
     grid.innerHTML = `
         <div class="skeleton skeleton-card"></div>
         <div class="skeleton skeleton-card"></div>
@@ -27,15 +23,14 @@ function updateFilterResults() {
         <div class="skeleton skeleton-card"></div>
     `;
 
-    // 2. Wait a tiny bit (simulating loading) then show results
     setTimeout(() => {
         const maxPrice = parseInt(priceSlider.value);
         const checkedCategories = Array.from(categoryFilters)
             .filter(i => i.checked)
             .map(i => i.value);
 
-        const filteredCars = carProducts.filter(car => {
-            const matchesPrice = car.price <= maxPrice;
+        const filteredCars = carInventory.filter(car => {
+            const matchesPrice = Number(car.price) <= maxPrice;
             const matchesCategory = allCheckbox.checked || 
                                     checkedCategories.length === 0 || 
                                     checkedCategories.includes(car.category);
@@ -43,44 +38,49 @@ function updateFilterResults() {
         });
 
         renderFilteredCars(filteredCars);
-    }, 400); // 400ms is the "sweet spot" for a fast feel
+    }, 400); 
 }
 
-// 4. RENDERING FUNCTION (Fixed to allow clicking for details)
+// 4. RENDERING FUNCTION
 function renderFilteredCars(dataToDisplay) {
     if (!grid) return;
 
     if (dataToDisplay.length === 0) {
-        grid.innerHTML = `<p style="padding: 20px;">No cars found matching your criteria.</p>`;
+        grid.innerHTML = `<p style="padding: 20px; grid-column: 1/-1; text-align: center;">No cars found matching your criteria.</p>`;
         return;
     }
 
-    grid.innerHTML = dataToDisplay.map(car => `
-        <div class="product-card" onclick="showCarDetails(${car.id})">
+    grid.innerHTML = dataToDisplay.map((car, index) => `
+        <div class="product-card" onclick="showCarDetails(${index})">
             <div class="product-image">
-                <img src="${car.image}" alt="${car.name}">
+                <img src="${car.image}" alt="${car.name}" onerror="this.src='https://via.placeholder.com/300x200'">
+                <span class="category-tag">${car.category}</span>
             </div>
             <div class="product-info">
-                <p class="brand">${car.category}</p>
+                <p class="brand">${car.brand || car.category}</p>
                 <h3 class="product-title">${car.name}</h3>
-                <p class="price">$${car.price.toLocaleString()}</p>
-                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${car.id})">Add to Cart</button>
+                <p class="price">$${Number(car.price).toLocaleString()}</p>
+                <p class="stock-text" style="font-size: 12px; color: ${car.stock <= 2 ? '#ef4444' : '#64748b'}">
+                    Availability: ${car.stock} units
+                </p>
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${index})">
+                    <i class="fas fa-shopping-cart"></i> Add to Inquiry
+                </button>
             </div>
         </div>
     `).join('');
 }
 
-// 5. CART LOGIC (Crucial for the 🛒 to work)
-function addToCart(carId) {
+// 5. CART / INQUIRY LOGIC
+function addToCart(index) {
+    const carInventory = getInventory();
     let cart = JSON.parse(localStorage.getItem('susuCart')) || [];
-    const car = carProducts.find(c => c.id === carId);
+    const car = carInventory[index];
     
     if (car) {
         cart.push(car);
         localStorage.setItem('susuCart', JSON.stringify(cart));
         updateCartCount();
-        
-        // --- NEW CUSTOM ALERT LOGIC ---
         showCustomAlert(car.name);
     }
 }
@@ -88,39 +88,43 @@ function addToCart(carId) {
 function showCustomAlert(carName) {
     const alertBox = document.getElementById('custom-alert');
     const nameSpan = document.getElementById('alert-car-name');
-    
-    nameSpan.innerText = carName;
-    alertBox.classList.add('show');
-
-    // Hide it automatically after 3 seconds
-    setTimeout(() => {
-        alertBox.classList.remove('show');
-    }, 3000);
+    if (alertBox && nameSpan) {
+        nameSpan.innerText = carName;
+        alertBox.classList.add('show');
+        setTimeout(() => alertBox.classList.remove('show'), 3000);
+    }
 }
 
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem('susuCart')) || [];
-    const countElement = document.querySelector('.cart-count');
-    if (countElement) countElement.innerText = cart.length;
+    const countElements = document.querySelectorAll('.cart-count');
+    countElements.forEach(el => el.innerText = cart.length);
 }
 
 // 6. MODAL LOGIC
-function showCarDetails(carId) {
-    const car = carProducts.find(c => c.id === carId);
+function showCarDetails(index) {
+    const carInventory = getInventory();
+    const car = carInventory[index];
     const modal = document.getElementById('carModal');
     const detailsContainer = document.getElementById('modal-details');
 
     if (!car || !modal) return;
 
     detailsContainer.innerHTML = `
-        <div class="modal-grid">
-            <img src="${car.image}" alt="${car.name}" class="modal-img" style="width:100%">
-            <div class="modal-info">
-                <h2>${car.name}</h2>
+        <div class="modal-grid" style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <img src="${car.image}" alt="${car.name}" class="modal-img" style="flex: 1; min-width: 250px; border-radius: 12px;">
+            <div class="modal-info" style="flex: 1; min-width: 250px;">
+                <h2 style="margin-bottom: 10px;">${car.name}</h2>
+                <p style="color: #64748b; margin-bottom: 5px;">Brand: <strong>${car.brand || 'N/A'}</strong></p>
                 <p>Category: <strong>${car.category}</strong></p>
-                <p>Year: ${car.year} | Mileage: ${car.mileage}</p>
-                <p class="modal-price" style="font-size: 24px; color: #ff4500;">$${car.price.toLocaleString()}</p>
-                <button class="add-to-cart-btn" onclick="addToCart(${car.id})">Inquire Now</button>
+                <p class="modal-price" style="font-size: 28px; color: #3b82f6; font-weight: 700; margin: 15px 0;">
+                    $${Number(car.price).toLocaleString()}
+                </p>
+                <div style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <p>✨ Premium Inspection Guarantee</p>
+                    <p>🕒 Immediate Inventory Availability</p>
+                </div>
+                <button class="add-to-cart-btn" style="width: 100%;" onclick="addToCart(${index})">Inquire Now</button>
             </div>
         </div>
     `;
@@ -130,7 +134,7 @@ function showCarDetails(carId) {
 // 7. EVENT LISTENERS
 priceSlider.addEventListener('input', (e) => {
     priceDisplay.innerText = `$${parseInt(e.target.value).toLocaleString()}`;
-    updateFilterResults(); // Fixed name
+    updateFilterResults();
 });
 
 allCheckbox.addEventListener('change', () => {
@@ -142,9 +146,7 @@ allCheckbox.addEventListener('change', () => {
 
 categoryFilters.forEach(checkbox => {
     checkbox.addEventListener('change', () => {
-        if (checkbox.checked) {
-            allCheckbox.checked = false;
-        }
+        if (checkbox.checked) allCheckbox.checked = false;
         updateFilterResults();
     });
 });
@@ -152,19 +154,11 @@ categoryFilters.forEach(checkbox => {
 // Modal Close logic
 const modalElement = document.getElementById('carModal');
 const closeBtnElement = document.querySelector('.close-button');
-
-if (closeBtnElement) {
-    closeBtnElement.onclick = () => modalElement.style.display = "none";
-}
-
-window.onclick = (event) => {
-    if (event.target == modalElement) {
-        modalElement.style.display = "none";
-    }
-};
+if (closeBtnElement) closeBtnElement.onclick = () => modalElement.style.display = "none";
+window.onclick = (event) => { if (event.target == modalElement) modalElement.style.display = "none"; };
 
 // Initialize
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     updateFilterResults();
     updateCartCount();
 });
