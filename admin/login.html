@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Login - AutoDrive Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            color: white;
+            overflow: hidden;
+        }
+
+        .login-card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        /* Shake Animation for wrong password */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .header i { font-size: 3.5rem; color: #3b82f6; margin-bottom: 15px; text-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+        .header h2 { font-size: 1.8rem; letter-spacing: 1px; margin-bottom: 5px; }
+        .header p { color: #94a3b8; font-size: 0.85rem; margin-bottom: 2rem; }
+
+        .input-group { margin-bottom: 1.5rem; text-align: left; }
+        .input-group label { display: block; margin-bottom: 8px; color: #cbd5e1; font-size: 0.9rem; font-weight: 500; }
+        
+        .input-wrapper { position: relative; }
+        .input-wrapper i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #64748b; }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus { border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .login-btn:disabled { background: #475569; cursor: not-allowed; opacity: 0.7; }
+
+        .spinner { display: none; animation: rotate 1s linear infinite; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .error-msg {
+            margin-top: 1.5rem;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            display: none;
+            background: rgba(248, 113, 113, 0.1);
+            border: 1px solid rgba(248, 113, 113, 0.2);
+            color: #f87171;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card" id="loginCard">
+        <div class="header">
+            <h2>Admin</h2>
+            <p>Accessing Secure Dashboard</p>
+        </div>
+
+        <div class="input-group">
+            <label>Username</label>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="username" placeholder="admin">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="password" placeholder="••••••••">
+            </div>
+        </div>
+
+        <button class="login-btn" id="loginBtn" onclick="handleLogin()">
+            <i class="fa-solid fa-circle-notch spinner" id="loaderIcon"></i>
+            <span id="btnText">Sign In</span>
+        </button>
+
+        <p id="errorBox" class="error-msg"></p>
+    </div>
+
+    <script>
+        const MAX_ATTEMPTS = 3;
+        const LOCK_TIME = 1 * 60 * 1000; // 1 Minute
+
+        function handleLogin() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            const loaderIcon = document.getElementById('loaderIcon');
+            const btnText = document.getElementById('btnText');
+            const errorBox = document.getElementById('errorBox');
+            const loginCard = document.querySelector('.login-card');
+
+            // 1. HARD BLOCK CHECK: Don't even try if locked
+            const lockUntil = localStorage.getItem('lockUntil');
+            if (lockUntil && Date.now() < lockUntil) return;
+
+            // 2. INPUT VALIDATION: Basic check before processing
+            if (!user || !pass) {
+                showError("Please enter both username and password.");
+                triggerShake(loginCard);
+                return;
+            }
+
+            // 3. START LOADING: Visual security check
+            loginBtn.disabled = true;
+            loaderIcon.style.display = "block";
+            btnText.innerText = "Verifying...";
+            errorBox.style.display = "none";
+
+            setTimeout(() => {
+                // Change "1234" to your desired admin password
+                if (user === "admin" && pass === "1234") {
+                    // SUCCESS: Clear all security flags
+                    localStorage.removeItem('loginAttempts');
+                    localStorage.removeItem('lockUntil');
+                    localStorage.setItem('isLoggedIn', 'true');
+                    
+                    btnText.innerText = "Success! Entering...";
+                    window.location.href = "admin.html";
+                } else {
+                    // FAILURE: Logic for blocking
+                    loaderIcon.style.display = "none";
+                    btnText.innerText = "Sign In";
+                    loginBtn.disabled = false;
+                    triggerShake(loginCard);
+
+                    let attempts = parseInt(localStorage.getItem('loginAttempts') || 0);
+                    attempts++;
+                    localStorage.setItem('loginAttempts', attempts);
+
+                    if (attempts >= MAX_ATTEMPTS) {
+                        const blockEndTime = Date.now() + LOCK_TIME;
+                        localStorage.setItem('lockUntil', blockEndTime);
+                        startCountdown(blockEndTime);
+                    } else {
+                        showError(`Access Denied. ${MAX_ATTEMPTS - attempts} attempts remaining.`);
+                    }
+                }
+            }, 1200); // Small delay to prevent automated bot guessing
+        }
+
+        function startCountdown(endTime) {
+            const errorBox = document.getElementById('errorBox');
+            const loginBtn = document.getElementById('loginBtn');
+            const btnText = document.getElementById('btnText');
+            
+            loginBtn.disabled = true;
+            btnText.innerText = "Locked";
+            errorBox.style.display = 'block';
+
+            const timer = setInterval(() => {
+                const now = Date.now();
+                const distance = endTime - now;
+
+                if (distance <= 0) {
+                    clearInterval(timer);
+                    localStorage.removeItem('loginAttempts');
+                    localStorage.removeItem('lockUntil');
+                    errorBox.style.display = 'none';
+                    loginBtn.disabled = false;
+                    btnText.innerText = "Sign In";
+                    return;
+                }
+
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                errorBox.innerHTML = `<i class="fa-solid fa-user-shield"></i> Blocked: Try again in ${seconds}s`;
+            }, 1000);
+        }
+
+        function triggerShake(element) {
+            element.style.animation = "shake 0.4s";
+            setTimeout(() => element.style.animation = "", 400);
+        }
+
+        function showError(msg) {
+            const errorBox = document.getElementById('errorBox');
+            errorBox.innerText = msg;
+            errorBox.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
