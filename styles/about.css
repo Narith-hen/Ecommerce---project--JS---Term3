@@ -192,7 +192,7 @@ nav a:hover:after {
     position: absolute;
     width: 100px;
     height: 4px;
-    background: linear-gradient(to right, #ff4d4d, #ff9a3d);
+    background: linear-gradient(to right, #02b9dd, #02bef7);
     bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
@@ -230,7 +230,7 @@ nav a:hover:after {
     padding: 15px;
     /* text-align: center; */
     overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s, box-shadow 0.4s;
     position: relative;
     opacity: 0;
@@ -332,15 +332,16 @@ nav a:hover:after {
 }
 
 .behaviour-card {
-    background: linear-gradient(145deg,#024050);
+    /* background: linear-gradient(145deg,#e1f4fd); */
     border-radius: 15px;
     padding: 30px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s;
     position: relative;
     overflow: hidden;
     opacity: 0;
     transform: translateY(30px);
+    border: 2px solid #2a7992;
 }
 
 .behaviour-card.animated {
@@ -359,23 +360,23 @@ nav a:hover:after {
     left: 0;
     width: 100%;
     height: 5px;
-    background: linear-gradient(to right, #00b2fe);
+    /* background: linear-gradient(to right, #00b2fe); */
 }
 
 .behaviour-icon {
     font-size: 2.5rem;
     margin-bottom: 20px;
-    color: #ff9a3d;
+    color: #2a7992;
 }
 
 .behaviour-card h3 {
     font-size: 1.4rem;
     margin-bottom: 15px;
-    color: #f0f0f0;
+    color: #2a7992;
 }
 
 .behaviour-card p {
-    color: #b0b0b0;
+    color: #2a7992;
 }
 
 .accomplishments {
@@ -391,14 +392,15 @@ nav a:hover:after {
 }
 
 .accomplishment-card {
-    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    /* background: #e1f4fd; */
     border-radius: 15px;
     padding: 30px 20px;
     text-align: center;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s;
     opacity: 0;
     transform: scale(0.8);
+    border: 2px solid #2a7992;
 }
 
 .accomplishment-card.animated {
@@ -413,7 +415,7 @@ nav a:hover:after {
 .accomplishment-icon {
     font-size: 3rem;
     margin-bottom: 20px;
-    background: linear-gradient(to right, #4ddeff);
+    background: linear-gradient(to right, #2a7992);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -422,11 +424,11 @@ nav a:hover:after {
 .accomplishment-card h3 {
     font-size: 1.2rem;
     margin-bottom: 10px;
-    color: #f0f0f0;
+    color: #1f1f1f;
 }
 
 .accomplishment-card p {
-    color: #b0b0b0;
+    color: #454545;
     font-size: 0.9rem;
 }
 
@@ -434,14 +436,14 @@ nav a:hover:after {
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 10px;
-    background: linear-gradient(to right, #4ddeff, #00a2bf);
+    background: linear-gradient(to right, #2a7992);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 }
 
 footer {
-    background-color: #0a0a0f;
+    /* background-color: #0a0a0f; */
     padding: 40px 0;
     text-align: center;
     /* border-top: 1px solid #222233; */
@@ -504,6 +506,7 @@ footer {
 
     .builds-container,
     .behaviours-container,
+
     .accomplishments-container {
         grid-template-columns: 1fr;
     }
@@ -516,8 +519,8 @@ footer {
 
 
 .about-hero {
-    background: linear-gradient(135deg, #02b9dd, #024f66);
-    color: white;
+    background: white;
+    color:#024f66;
     text-align: center;
     padding: 80px 20px;
 }
@@ -594,17 +597,40 @@ footer {
 }
 
 .value-card {
-    background: #024f66;
-    color: white;
+    /* background: #e1f4fd; */
+    color: #2a7992;
     padding: 30px;
     border-radius: 15px;
+    border: 2px solid #2a7992;
     text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+    
+}
+
+.value-card:hover {
+    transform: translateY(-10px);
+}
+
+.value-card.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.value:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    /* background: linear-gradient(to right, #00b2fe); */
 }
 
 .value-card i {
     font-size: 2.5rem;
     margin-bottom: 15px;
-    color: #ffcc70;
+    color: #2a7992;
 }
 
 .value-card h3 {
@@ -626,7 +652,7 @@ footer {
     background: white;
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    /* box-shadow: 0 10px 20px rgba(0,0,0,0.1); */
     text-align: center;
 }
 
