@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management - AutoDrive Admin</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/product.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Admin Customer</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../admin.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li><a href="./product.html"><i class="fa-solid fa-box"></i> Products</a></li>
+            <li><a href="./order.html"><i class="fa-solid fa-receipt"></i> Orders</a></li>
+            <li class="active"><a href="#"><i class="fa-solid fa-users"></i> Customers</a></li>
+            <li><a href="setting.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+        </ul>
+        <div class="logout">
+            <a href="../login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <header>
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="carSearch" placeholder="Search by model or brand..." onkeyup="searchCars()">
+            </div>
+            <div class="user-info">
+                <i class="fa-solid fa-bell" style="margin-right: 15px; color: #64748b; cursor: pointer;"></i>
+                <div class="profile">
+                    <div class="user-avatar-premium">N</div>
+                    <div class="user-info-text">
+                        <span class="name">Narith</span>
+                        <span class="role">Administrator</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="management-section">
+            <section class="management-section">
+                <div class="section-header">
+                    <h2>Customer Directory</h2>
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <div class="stats-mini">
+                            <span>Total Customers: <strong id="customer-total">0</strong></span>
+                        </div>
+                        <!-- <button class="add-btn" onclick="toggleCustomerModal()">+ Add Customer</button> -->
+                    </div>
+                </div>
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customer-list"></tbody>
+                </table>
+            </section>
+
+            <!-- <div id="customerModal" class="modal">
+                <div class="modal-content">
+                    <h3>Add New Customer</h3>
+                    <div class="modal-input-group">
+                        <label>Full Name</label>
+                        <input type="name" id="c-name" placeholder="Enter full name">
+                    </div>
+                    <div style="display: flex; gap: 15px;">
+                        <div class="modal-input-group" style="flex: 1;">
+                            <label>Email</label>
+                            <input type="email" id="c-email" placeholder="example@mail.com">
+                        </div>
+                    </div>
+                    <div class="modal-input-group">
+                            <label>Account Password</label>
+                            <input type="password" id="c-password" placeholder="Set customer password">
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn-cancel" onclick="toggleCustomerModal()">Cancel</button>
+                        <button class="btn-save" onclick="saveNewCustomer()">Save Customer</button>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- <div id="editCustomerModal" class="modal">
+                <div class="modal-content">
+                    <h3>Edit Customer Details</h3>
+                    <input type="hidden" id="edit-c-id">
+                    
+                    <div class="modal-input-group">
+                        <label>Full Name</label>
+                        <input type="text" id="edit-c-name">
+                    </div>
+                    <div style="display: flex; gap: 15px;">
+                        <div class="modal-input-group" style="flex: 1;">
+                            <label>Phone Number</label>
+                            <input type="text" id="edit-c-phone">
+                        </div>
+                        <div class="modal-input-group" style="flex: 1;">
+                            <label>Email</label>
+                            <input type="email" id="edit-c-email">
+                        </div>
+                    </div>
+                    <div class="modal-input-group">
+                        <label>Set Password</label>
+                        <input type="password" id="c-password" placeholder="••••••••">
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn-cancel" onclick="toggleEditModal()">Cancel</button>
+                        <button class="btn-save" onclick="updateCustomer()">Update Changes</button>
+                    </div>
+                </div>
+            </div> -->
+        </section>
+    </main>
+
+    <script src="../js/customer.js"></script>
+</body>
+</html>

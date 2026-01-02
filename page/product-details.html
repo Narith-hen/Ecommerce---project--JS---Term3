@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Showroom - SUSU-KOKO</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="images/logo-website/logo.png" rel="icon">
+    <style>
+        :root { --primary: #2c3e50; --accent: #e74c3c; --bg: #f8f9fa; }
+        body { background: var(--bg); font-family: 'Segoe UI', sans-serif; }
+        
+        .showroom-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        
+        /* Layout */
+        .product-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; }
+        .main-content { display: grid; grid-template-columns: 1fr 350px; gap: 40px; }
+
+        /* Gallery Section */
+        .image-main img { width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        
+        /* Specs Table */
+        .specs-section { background: white; padding: 30px; border-radius: 12px; margin-top: 30px; }
+        .specs-table { width: 100%; border-collapse: collapse; }
+        .specs-table tr { border-bottom: 1px solid #eee; }
+        .specs-table td { padding: 15px 0; }
+        .spec-label { color: #888; font-weight: 500; width: 40%; }
+        .spec-value { color: var(--primary); font-weight: 600; }
+
+        /* Sidebar Action Box */
+        .action-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); position: sticky; top: 20px; }
+        .price-large { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
+        .btn-inquiry { width: 100%; padding: 18px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-inquiry:hover { background: #1a252f; }
+        .trust-badges { margin-top: 20px; font-size: 0.9rem; color: #27ae60; }
+    </style>
+</head>
+<body>
+
+<div class="showroom-container">
+    <a href="catagory.html" style="text-decoration: none; color: #666;"><i class="fas fa-arrow-left"></i> Back to Inventory</a>
+    
+    <div id="dynamic-content">
+        </div>
+</div>
+
+<script src="../js/cards.js"></script>
+<script>
+    window.onload = () => {
+        const params = new URLSearchParams(window.location.search);
+        const carId = parseInt(params.get('id'));
+        const car = carProducts.find(c => c.id === carId);
+
+        if (car) {
+            document.getElementById('dynamic-content').innerHTML = `
+                <div class="product-header">
+                    <div>
+                        <p style="color: var(--accent); font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">${car.category}</p>
+                        <h1>${car.name}</h1>
+                    </div>
+                    <div style="text-align: right">
+                        <p>Listing ID: #00${car.id}24</p>
+                        <div style="color: #f1c40f"><i class="fas fa-star"></i> ${car.rating} Dealer Rating</div>
+                    </div>
+                </div>
+
+                <div class="main-content">
+                    <div class="left-col">
+                        <div class="image-main">
+                            <img src="${car.image}" alt="${car.name}">
+                        </div>
+                        
+                        <div class="specs-section">
+                            <h3>Technical Specifications</h3>
+                            <table class="specs-table">
+                                <tr><td class="spec-label">Model Year</td><td class="spec-value">${car.year}</td></tr>
+                                <tr><td class="spec-label">Mileage</td><td class="spec-value">${car.mileage}</td></tr>
+                                <tr><td class="spec-label">Fuel Type</td><td class="spec-value">${car.category === 'Electric' ? 'Battery (EV)' : 'Gasoline'}</td></tr>
+                                <tr><td class="spec-label">Transmission</td><td class="spec-value">Automatic</td></tr>
+                                <tr><td class="spec-label">Condition</td><td class="spec-value">Excellent (Used)</td></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="right-col">
+                        <div class="action-card">
+                            <p style="margin:0; color:#888;">Starting Price</p>
+                            <div class="price-large">$${car.price.toLocaleString()}</div>
+                            <button class="btn-inquiry" onclick="addToCart(${car.id})">Reserve This Vehicle</button>
+                            <div class="trust-badges">
+                                <p><i class="fas fa-check-circle"></i> 100-Point Inspection Passed</p>
+                                <p><i class="fas fa-shield-alt"></i> 12 Months Warranty Included</p>
+                            </div>
+                            <hr>
+                            <p style="font-size: 0.85rem; color: #666; text-align: center;">Need Financing? <a href="#" style="color: var(--accent);">Calculate Monthly Payment</a></p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    };
+</script>
+</body>
+</html>

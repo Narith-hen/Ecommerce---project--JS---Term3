@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - SUSU-KOKO</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/catagory.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="images/logo-website/logo.png" rel="icon">
+    <style>
+        .cart-main { min-height: 60vh; padding: 40px 10%; }
+        .cart-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .cart-table th { text-align: left; border-bottom: 2px solid #eee; padding: 10px; }
+        .cart-item { border-bottom: 1px solid #eee; }
+        .cart-item td { padding: 15px 10px; }
+        .cart-item img { width: 60px; border-radius: 5px; }
+        .remove-btn { color: #e74c3c; cursor: pointer; border: none; background: none; font-weight: 500; transition: 0.3s; }
+        .remove-btn:hover { color: #c0392b; transform: scale(1.05); }
+        .cart-summary { margin-top: 30px; text-align: right; background: #f9f9f9; padding: 20px; border-radius: 8px; }
+        .checkout-btn { background: #0f3845; color: white; padding: 12px 30px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        
+        /* Specific styling for the removal alert */
+        .toast-alert.remove { background: #e74c3c; } /* Red color for removal */
+        .toast-alert.remove .progress-bar { background: #ffffff; }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="logo"><img src="../images/logo-website/logo.png" alt="SUSU-KOKO logo"></div>
+            <div class="search">
+                <input type="search" placeholder="Search SUSU-KOKO" aria-label="Search SUSU-KOKO">
+            </div>
+            <div class="user-actions">
+                <button class="account"><a href="loginpage.html">Sign In</a></button>
+                <a href="cart.html" class="cart">🛒 <span class="cart-count">0</span></a>
+            </div>
+        </div>
+        <nav class="main-nav container1">
+            <ul>
+                <button class="menu"><a href="../index.html">Home</a></button>
+                <button class="menu"><a href="catagory.html">Categories</a></button>
+                <button class="menu"><a href="customer.html">Customer Service</a></button>
+                <button class="menu"><a href="about.html">About Us</a></button>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="remove-alert" class="toast-alert remove">
+        <div class="toast-content">
+            <i class="fas fa-trash-alt"></i>
+            <div class="toast-message">
+                <span id="removed-car-name">Item</span> removed from cart.
+            </div>
+        </div>
+        <div class="progress-bar"></div>
+    </div>
+
+    <main class="cart-main">
+        <h1>Shopping Cart</h1>
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items-body">
+                </tbody>
+        </table>
+
+        <div class="cart-summary">
+            <h3>Total: <span id="cart-total">$0.00</span></h3>
+            <button class="checkout-btn"><a href="payment.html" style="color: white; text-decoration: none;">Proceed to Payment</a></button>
+        </div>
+    </main>
+
+    <script>
+        /**
+         * Renders the cart items from LocalStorage
+         */
+        function renderCart() {
+            const tbody = document.getElementById('cart-items-body');
+            const totalDisplay = document.getElementById('cart-total');
+            const navCartCount = document.querySelector('.cart-count');
+            
+            let cart = JSON.parse(localStorage.getItem('susuCart')) || [];
+            
+            // Update Navbar counter
+            navCartCount.innerText = cart.length;
+
+            if (cart.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:50px; color: #777;">Your cart is empty.</td></tr>';
+                totalDisplay.innerText = "$0.00";
+                return;
+            }
+
+            let total = 0;
+            tbody.innerHTML = cart.map((item, index) => {
+                total += item.price;
+                return `
+                    <tr class="cart-item">
+                        <td><img src="${item.image}" alt=""></td>
+                        <td><strong>${item.name}</strong></td>
+                        <td>$${item.price.toLocaleString()}</td>
+                        <td>
+                            <button class="remove-btn" onclick="removeItem(${index}, '${item.name}')">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            totalDisplay.innerText = `$${total.toLocaleString()}`;
+        }
+
+        /**
+         * Removes an item and triggers the Alert Flow
+         */
+        function removeItem(index, carName) {
+            let cart = JSON.parse(localStorage.getItem('susuCart')) || [];
+            
+            // 1. Remove the item from array
+            cart.splice(index, 1);
+            
+            // 2. Update LocalStorage
+            localStorage.setItem('susuCart', JSON.stringify(cart));
+            
+            // 3. Show the Removal Alert
+            showRemoveAlert(carName);
+            
+            // 4. Refresh the UI
+            renderCart();
+        }
+
+        /**
+         * Displays the red "Removed" toast notification
+         */
+        function showRemoveAlert(name) {
+            const alertBox = document.getElementById('remove-alert');
+            const nameSpan = document.getElementById('removed-car-name');
+            
+            nameSpan.innerText = name;
+            alertBox.classList.add('show');
+
+            // Hide after 3 seconds
+            setTimeout(() => {
+                alertBox.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize view on load
+        window.onload = renderCart;
+    </script>
+</body>
+</html>

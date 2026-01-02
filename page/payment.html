@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Secure Checkout - SUSU-KOKO Cars</title>
+        <link rel="stylesheet" href="../styles/main.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link rel="stylesheet" href="../styles/payment.css">
+        <link href="images/logo-website/logo.png" rel="icon">
+    </head>
+    <body>
+        <div class="checkout-container">
+            <div class="payment-form">
+                <button class="back-btn"><a href="cart.html">Back</a></button>
+                <h2><i class="fas fa-shield-alt"></i> Secure Checkout</h2>
+                <hr><br>
+
+                <h3>Contact Information</h3>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="fullName" placeholder="John Doe">
+                    <span class="error-msg" id="nameError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email" placeholder="john@example.com">
+                    <span class="error-msg" id="emailError"></span>
+                </div>
+
+                <h3>Payment Details</h3>
+                <div class="payment-methods">
+                    
+                    <div class="method active" onclick="selectPaymentMethod(this, 'card')">
+                        <i class="fas fa-credit-card"></i>
+                        <div class="method-label">Card</div>
+                    </div>
+
+                    <div class="method" onclick="selectPaymentMethod(this, 'paypal')">
+                        <i class="fab fa-paypal"></i>
+                        <div class="method-label">PayPal</div>
+                    </div>
+
+                    <div class="method" onclick="selectPaymentMethod(this, 'bank')">
+                        <i class="fas fa-university"></i>
+                        <div class="method-label">Bank Transfer</div>
+                    </div>
+                </div>
+                <div id="card-details-section">
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9101 1121" maxlength="16">
+                        <span class="error-msg" id="cardError"></span>
+                    </div>
+                    
+                    <div style="display:flex; gap:10px;">
+                        <div class="form-group" style="flex:1;">
+                            <label>Expiry Date</label>
+                            <input type="text" id="expiry" placeholder="MM/YY" maxlength="5">
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label>CVV</label>
+                            <input type="password" id="cvv" placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="pay-now-btn" onclick="processPayment()">Confirm Purchase</button>
+            </div>
+
+            <div class="order-summary">
+                <h3>Vehicle Summary</h3>
+                <div id="checkout-items">
+                </div>
+                <hr>
+                <div class="summary-item">
+                    <span>Registration Fees</span>
+                    <span>$450.00</span>
+                </div>
+                <div class="summary-item">
+                    <span>Tax (VAT)</span>
+                    <span>$1,200.00</span>
+                </div>
+                <div class="summary-item">
+                    <strong>Total Amount</strong>
+                    <strong class="total-price" id="final-total">$0.00</strong>
+                </div>
+            </div>
+        </div>
+
+        <div id="success-modal" class="modal-overlay">
+            <div class="success-card">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Reservation Confirmed!</h2>
+                <p>Your vehicle has been reserved. Our team will contact you
+                    within 24 hours.</p>
+                <button class="modal-btn"
+                    onclick="closeModalAndRedirect()">Great!</button>
+            </div>
+        </div>
+
+        <div id="loading-overlay" class="loading-overlay">
+            <div class="spinner"></div>
+            <p>Processing Secure Payment...</p>
+        </div>
+
+        <script src="../js/processPayment.js"></script>
+    </body>
+</html>

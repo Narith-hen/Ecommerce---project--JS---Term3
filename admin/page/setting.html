@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Admin Dashboard</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/product.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    :root {
+        --primary-blue: #3b82f6;
+        --danger-red: #ef4444;
+        --bg-slate: #f8fafc;
+        --text-dark: #1e293b;
+        --border-light: #e2e8f0;
+    }
+
+    body { font-family: 'Inter', sans-serif; background-color:#0f172a; }
+
+    /* Professional Overlay */
+    .modern-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        display: none; justify-content: center; align-items: center;
+        z-index: 10000;
+    }
+
+    .overlay-content { text-align: center; width: 320px; }
+
+    .progress-container {
+        width: 100%; height: 6px; background: #e2e8f0;
+        border-radius: 20px; overflow: hidden; margin-bottom: 20px;
+    }
+
+    .progress-bar {
+        width: 0%; height: 100%; background: var(--danger-red);
+        transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .status-text {
+        font-size: 12px; font-weight: 600; color: #64748b;
+        letter-spacing: 1px; text-transform: uppercase;
+    }
+
+    /* Profile UI Improvements */
+    .settings-grid {
+        display: grid; grid-template-columns: 1fr 380px;
+        gap: 30px; padding: 20px 0;
+    }
+
+    .premium-card {
+        background: white; border-radius: 16px;
+        border: 1px solid var(--border-light);
+        padding: 30px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        
+    }
+
+    .profile-badge {
+        background: #eff6ff; color: var(--primary-blue);
+        padding: 4px 12px; border-radius: 20px;
+        font-size: 0.75rem; font-weight: 600; display: inline-block;
+    }
+
+    .avatar-container { position: relative; width: 90px; height: 90px; }
+    
+    .status-dot {
+        position: absolute; bottom: 5px; right: 5px;
+        width: 15px; height: 15px; background: #22c55e;
+        border: 3px solid white; border-radius: 50%;
+    }
+
+    .info-label { font-size: 0.8rem; font-weight: 600; color: #64748b; margin-bottom: 8px; display: block; }
+
+    .read-only-box {
+        background: var(--bg-slate); border: 1px solid var(--border-light);
+        padding: 12px 16px; border-radius: 10px; color: var(--text-dark);
+        font-size: 0.95rem; font-weight: 500;
+    }
+
+    /* Enhanced Logout Button */
+    .btn-logout-premium {
+        background: #0f172a; color: white; border: none;
+        padding: 14px; border-radius: 10px; font-weight: 600;
+        cursor: pointer; transition: all 0.3s;
+        display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+
+    .btn-logout-premium:hover {
+        background: var(--danger-red); transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.3);
+    }
+</style>
+
+<body>
+
+    <div id="loadingOverlay" class="modern-overlay">
+        <div class="overlay-content">
+            <div class="progress-container">
+                 <div class="progress-bar" id="p-bar"></div>
+            </div>
+            <span class="status-text">Finalizing session closure...</span>
+        </div>
+    </div>
+
+    <nav class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Admin Central</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../admin.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li><a href="product.html"><i class="fa-solid fa-box"></i> Products</a></li>
+            <li><a href="order.html"><i class="fa-solid fa-receipt"></i> Orders</a></li>
+            <li><a href="customer.html"><i class="fa-solid fa-users"></i> Customers</a></li>
+            <li class="active"><a href="setting.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+
+        <section class="settings-grid">
+            <div class="premium-card">
+                <div style="display: flex; align-items: center; gap: 25px; margin-bottom: 40px;">
+                    <div class="avatar-container">
+                        <div class="user-avatar" style="width: 100%; height: 100%; font-size: 2.5rem; border-radius: 20px; background: linear-gradient(135deg, #3b82f6, #1d4ed8);">N</div>
+                        <div class="status-dot"></div>
+                    </div>
+                    <div>
+                        <h2 style="margin: 0; font-size: 1.75rem; color: #0f172a;">Narith Admin</h2>
+                        <span class="profile-badge">Master Access</span>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1rem; color: #475569; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fa-solid fa-user-gear"></i> General Information
+                </h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+                    <div>
+                        <span class="info-label">Display Name</span>
+                        <div class="read-only-box">Narith</div>
+                    </div>
+                    <div>
+                        <span class="info-label">Email Address</span>
+                        <div class="read-only-box">narith.admin@example.com</div>
+                    </div>
+                    <div>
+                        <span class="info-label">Unique Admin ID</span>
+                        <div class="read-only-box" style="font-family: monospace;">#ADM-8829-X</div>
+                    </div>
+                    <div>
+                        <span class="info-label">Active Since</span>
+                        <div class="read-only-box">January 2024</div>
+                    </div>
+                </div>
+            
+            </div>
+
+            <div class="premium-card" style="display: flex; flex-direction: column; background: #fff;">
+                <div style="flex-grow: 1;">
+                    <h3 style="font-size: 1rem; color: #475569; margin-bottom: 20px;">
+                        <i class="fa-solid fa-shield-check"></i> Security Status
+                    </h3>
+                    
+                    <div style="background: #f8fafc; padding: 15px; border-radius: 12px; margin-bottom: 15px;">
+                        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 10px; display: flex; justify-content: space-between;">
+                            <span>2FA Authentication</span>
+                            <span style="color: #22c55e; font-weight: 700;">ACTIVE</span>
+                        </p>
+                        <div style="width: 100%; height: 4px; background: #e2e8f0; border-radius: 2px;">
+                            <div style="width: 100%; height: 100%; background: #22c55e; border-radius: 2px;"></div>
+                        </div>
+                    </div>
+
+                    <p style="font-size: 0.85rem; color: #94a3b8; padding-left: 5px;">
+                        <i class="fa-solid fa-clock-rotate-left"></i> Password updated 92 days ago
+                    </p>
+                </div>
+
+                <div style="background: #fff1f2; border: 1px dashed #fecdd3; padding: 25px; border-radius: 16px; margin-top: 40px;">
+                    <h4 style="color: #be123c; margin-bottom: 8px; font-size: 1rem;">Terminate Session</h4>
+                    <p style="font-size: 0.8rem; color: #e11d48; margin-bottom: 20px; line-height: 1.5;">
+                        Logging out will clear your security tokens and local cache.
+                    </p>
+                    
+                    <button id="logoutBtn" class="btn-logout-premium" style="width: 100%;">
+                        <i class="fa-solid fa-power-off"></i> Secure Logout
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            if(confirm('Are you sure you want to end your session?')) {
+                const overlay = document.getElementById('loadingOverlay');
+                const progressBar = document.getElementById('p-bar');
+                
+                overlay.style.display = 'flex';
+                
+                // Professional staggered loading animation
+                setTimeout(() => { progressBar.style.width = '25%'; }, 100);
+                setTimeout(() => { progressBar.style.width = '65%'; }, 500);
+                setTimeout(() => { progressBar.style.width = '100%'; }, 1000);
+
+                setTimeout(() => {
+                    localStorage.clear();
+                    window.location.href = '../login.html';
+                }, 1400);
+            }
+        });
+    </script>
+</body>
+</html>

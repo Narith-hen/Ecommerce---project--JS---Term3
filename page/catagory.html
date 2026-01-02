@@ -6,9 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Shop SUSU-KOKO</title>
         <link rel="stylesheet" href="../styles/main.css">
+        <link rel="stylesheet" href="../styles/catagory.css">
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-            <link href="../images/logo-website/logo.png" rel="icon" >
+        <link href="../images/logo-website/logo.png" rel="icon">
     </head>
 
     <body>
@@ -18,32 +19,18 @@
             <div class="topbar-inner">
                 <!-- Logo -->
                 <div class="logo"><img src="../images/logo-website/logo.png"
-                        alt></div>
+                        alt="SUSU-KOKO logo"></div>
 
                 <!-- Search -->
                 <div class="search">
-                    <select aria-label="Search category">
-                        <option>All</option>
-                        <option>Cars</option>
-                        <option>Motors</option>
-                        <option>Bicycles</option>
-                    </select>
                     <input type="search" placeholder="Search SUSU-KOKO"
                         aria-label="Search SUSU-KOKO">
-                    <button class="btn" aria-label="Search">🔍</button>
                 </div>
 
                 <!-- User actions -->
                 <div class="user-actions">
-                    <a href="loginpage.html" class="account">
-                        Hello, sign in<br>
-                        <strong>Account &amp; Lists</strong>
-                    </a>
-
-                    <a href="orders.html" class="orders">
-                        Returns<br>
-                        <strong>&amp; Orders</strong>
-                    </a>
+                    <button class="account"><a href="loginpage.html">Sign
+                            In</a></button>
 
                     <a href="cart.html" class="cart">
                         🛒 <span class="cart-count">0</span>
@@ -53,138 +40,179 @@
             <!-- Main navigation -->
             <nav class="main-nav container1">
                 <ul>
-                    <button class="menu"><a href="../index.html">Home</a></button>
-                    <button class="menu"><a href="catagory.html">Categories</a></button>
-                    <button class="menu"><a href="customer.html">Customer Service</a></button>
+                    <button class="menu"><a
+                            href="../index.html">Home</a></button>
+                    <button class="menu"><a
+                            href="catagory.html">Categories</a></button>
+                    <button class="menu"><a href="customer.html">Customer
+                            Service</a></button>
                     <button class="menu"><a href="about.html">About
                             Us</a></button>
                 </ul>
             </nav>
         </header>
 
-        
+        <div id="carModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <div id="modal-details">
+                    </div>
+            </div>
+        </div>
 
-
-        <footer class="footer">
-
-            <!-- TOP LINKS -->
-            <div class="footer-container">
-
-                <div class="footer-column">
-                    <h4>Get support</h4>
-                    <a href="#">Help Center</a>
-                    <a href="#">Live chat</a>
-                    <a href="#">Check order status</a>
-                    <a href="#">Refunds</a>
-                    <a href="#">Report abuse</a>
+        <div id="custom-alert" class="toast-alert">
+            <div class="toast-content">
+                <i class="fas fa-check-circle"></i>
+                <div class="toast-message">
+                    <span id="alert-car-name">Car</span> added to inquiry!
                 </div>
+            </div>
+            <div class="progress-bar"></div>
+        </div>
 
-                <div class="footer-column">
-                    <h4>Payments and protections</h4>
-                    <a href="#">Safe and easy payments</a>
-                    <a href="#">Alibaba.com Business Edge Credit Card</a>
-                    <a href="#">Money-back policy</a>
-                    <a href="#">On-time shipping</a>
-                    <a href="#">After-sales protections</a>
-                    <a href="#">Product monitoring services</a>
-                </div>
-
-                <div class="footer-column">
-                    <h4>Source on Alibaba.com</h4>
-                    <a href="#">Request for Quotation</a>
-                    <a href="#">Membership program</a>
-                    <a href="#">Sales tax and VAT</a>
-                    <a href="#">Alibaba.com Reads</a>
-                </div>
-
-                <div class="footer-column">
-                    <h4>Sell on Alibaba.com</h4>
-                    <a href="#">Start selling</a>
-                    <a href="#">Seller Central</a>
-                    <a href="#">Become a Verified Supplier</a>
-                    <a href="#">Partnerships</a>
-                    <a href="#">Download the app for suppliers</a>
-                </div>
-
-                <div class="footer-column">
-                    <h4>Get to know us</h4>
-                    <a href="#">About Alibaba.com</a>
-                    <a href="#">Corporate responsibility</a>
-                    <a href="#">News center</a>
-                    <a href="#">Careers</a>
-
-                    <h4 class="mt">Stay Connected</h4>
-                    <div class="social-icons">
-                        <i class="fab fa-facebook"></i>
-                        <i class="fab fa-linkedin"></i>
-                        <i class="fab fa-twitter"></i>
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-youtube"></i>
-                        <i class="fab fa-tiktok"></i>
+        <main class="category-container">
+           <aside class="sidebar">
+                <h3>Filters</h3>
+                <div class="filter-group">
+                    <h4>Price Range</h4>
+                    <input type="range" id="price-slider" min="0" max="100000" value="100000" step="1000">
+                    <div class="price-labels">
+                        <span>$0</span>
+                        <span id="price-display">$100,000</span>
                     </div>
                 </div>
-
-            </div>
-
-            <!-- PAYMENT ICONS -->
-            <div class="payments">
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png">
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png">
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/UnionPay_logo.svg/1280px-UnionPay_logo.svg.png">
-                <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg">
-                <img
-                    src="https://bredcambodia.com.kh/wp-content/uploads/2022/12/KHQR-available-here-logo-with-bg-1024x422.png">
-                <img
-                    src="https://images.vexels.com/media/users/3/144837/isolated/preview/40f189daa5c0279718484ca5f5569f78-crypto-icon.png">
-                <img
-                    src="https://lh3.googleusercontent.com/1d_Ubja0DGaHuhzY8zJga9oG7gS0xwPomKryvehUMEnT667MbNI_SIV2uf6C_BYcX17dlpioO28Qr-dq9ngIbUVcOpNxBrF_D9_yJ7mfDRFG5zbN7Q=s1000">
-            </div>
-
-            <!-- BOTTOM ACTIONS -->
-            <div class="footer-actions">
-                <div class="left">
-                    <p>Partnerships with</p>
-                    <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP9EUT0zXSexJy8G_Ke6jmjAccikkDZMQHNQ&s">
-                    <img
-                        src="https://play-lh.googleusercontent.com/VMjt3oarASIkskhjZHdB9vo1_8nLJ-0MpN7RKBB6qBauJ-_o-qMXofLSzTcaxKxigsM=w480-h960-rw">
-                    <img
-                        src="https://play-lh.googleusercontent.com/4YBwUQTQHMAgv7xHhAUharBvlZh_B34VqPB8NqupibU8wkA8X3S91R1sLtWDZvl1T3J_-CET5sa4Z3JxnxmV3A=w480-h960-rw">
-                    <img
-                        src="https://play-lh.googleusercontent.com/OZT5RP4KtP8OkEYy0f1EeOR257Mk5j8hgrYYzEi7O5q5txeXBZrENfe4-7QKAwRBAA=w480-h960-rw">
-                    <img
-                        src="https://play-lh.googleusercontent.com/weU8O2dHEQffcEyHeK11qTUMS-AQvlHW1IolQDM1XLuZN0ggl6Zr9kUwBqHwXr7i5T0=w480-h960-rw">
-                    <img
-                        src="https://play-lh.googleusercontent.com/A8bangMCdTPS1Xa9hbuc4pcXxUspKpJhDHWW3QSw3OB-VMtUv6NCnqAd7pUv2C-2OnjJHn0Xmv1cs6c2hFUZMw=w480-h960-rw">
-                    <img
-                        src="https://play-lh.googleusercontent.com/9EjpLk2v3rb1QThCBb8Ep03I7U9aVByTzrc_G77JtKd4O98uA-H4t-c-Ep9sgB1_5g=w480-h960-rw">
+                <div class="filter-group">
+                    <h4>Categories</h4>
+                    <label><input type="checkbox" id="all-categories" checked> Show All</label>
+                    <label><input type="checkbox" class="category-filter" value="Electric"> Electric</label>
+                    <label><input type="checkbox" class="category-filter" value="Sports"> Sports</label>
+                    <label><input type="checkbox" class="category-filter" value="SUV"> SUV</label>
                 </div>
+            </aside>
 
-                <div class="right">
-                    <span>Trade on the go with the SUSU-KOKO.com app</span>
-                    <img
-                        src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg">
-                    <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg">
+            <section class="products-section">
+                <div class="product-grid" id="product-grid"></div>
+            </section>
+        </main>
+    </header>
+
+
+
+
+    <footer class="footer">
+
+        <!-- TOP LINKS -->
+        <div class="footer-container">
+
+            <div class="footer-column">
+                <h4>Get support</h4>
+                <a href="#">Help Center</a>
+                <a href="#">Live chat</a>
+                <a href="#">Check order status</a>
+                <a href="#">Refunds</a>
+                <a href="#">Report abuse</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>Payments and protections</h4>
+                <a href="#">Safe and easy payments</a>
+                <a href="#">Alibaba.com Business Edge Credit Card</a>
+                <a href="#">Money-back policy</a>
+                <a href="#">On-time shipping</a>
+                <a href="#">After-sales protections</a>
+                <a href="#">Product monitoring services</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>Source on Alibaba.com</h4>
+                <a href="#">Request for Quotation</a>
+                <a href="#">Membership program</a>
+                <a href="#">Sales tax and VAT</a>
+                <a href="#">Alibaba.com Reads</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>Sell on Alibaba.com</h4>
+                <a href="#">Start selling</a>
+                <a href="#">Seller Central</a>
+                <a href="#">Become a Verified Supplier</a>
+                <a href="#">Partnerships</a>
+                <a href="#">Download the app for suppliers</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>Get to know us</h4>
+                <a href="#">About Alibaba.com</a>
+                <a href="#">Corporate responsibility</a>
+                <a href="#">News center</a>
+                <a href="#">Careers</a>
+
+                <h4 class="mt">Stay Connected</h4>
+                <div class="social-icons">
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-linkedin"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-youtube"></i>
+                    <i class="fab fa-tiktok"></i>
                 </div>
             </div>
 
-            <!-- COPYRIGHT -->
+        </div>
+
+        <!-- PAYMENT ICONS -->
+        <div class="payments">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png">
+            <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/UnionPay_logo.svg/1280px-UnionPay_logo.svg.png">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg">
+            <img
+                src="https://bredcambodia.com.kh/wp-content/uploads/2022/12/KHQR-available-here-logo-with-bg-1024x422.png">
+            <img
+                src="https://images.vexels.com/media/users/3/144837/isolated/preview/40f189daa5c0279718484ca5f5569f78-crypto-icon.png">
+            <img
+                src="https://lh3.googleusercontent.com/1d_Ubja0DGaHuhzY8zJga9oG7gS0xwPomKryvehUMEnT667MbNI_SIV2uf6C_BYcX17dlpioO28Qr-dq9ngIbUVcOpNxBrF_D9_yJ7mfDRFG5zbN7Q=s1000">
+        </div>
+
+        <!-- BOTTOM ACTIONS -->
+        <div class="footer-actions">
+            <div class="left">
+                <p>Partnerships with</p>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP9EUT0zXSexJy8G_Ke6jmjAccikkDZMQHNQ&s">
+                <img
+                    src="https://play-lh.googleusercontent.com/VMjt3oarASIkskhjZHdB9vo1_8nLJ-0MpN7RKBB6qBauJ-_o-qMXofLSzTcaxKxigsM=w480-h960-rw">
+                <img
+                    src="https://play-lh.googleusercontent.com/4YBwUQTQHMAgv7xHhAUharBvlZh_B34VqPB8NqupibU8wkA8X3S91R1sLtWDZvl1T3J_-CET5sa4Z3JxnxmV3A=w480-h960-rw">
+                <img
+                    src="https://play-lh.googleusercontent.com/OZT5RP4KtP8OkEYy0f1EeOR257Mk5j8hgrYYzEi7O5q5txeXBZrENfe4-7QKAwRBAA=w480-h960-rw">
+                <img
+                    src="https://play-lh.googleusercontent.com/weU8O2dHEQffcEyHeK11qTUMS-AQvlHW1IolQDM1XLuZN0ggl6Zr9kUwBqHwXr7i5T0=w480-h960-rw">
+                <img
+                    src="https://play-lh.googleusercontent.com/A8bangMCdTPS1Xa9hbuc4pcXxUspKpJhDHWW3QSw3OB-VMtUv6NCnqAd7pUv2C-2OnjJHn0Xmv1cs6c2hFUZMw=w480-h960-rw">
+                <img
+                    src="https://play-lh.googleusercontent.com/9EjpLk2v3rb1QThCBb8Ep03I7U9aVByTzrc_G77JtKd4O98uA-H4t-c-Ep9sgB1_5g=w480-h960-rw">
+            </div>
+
+            <div class="right">
+                <span>Trade on the go with the SUSU-KOKO.com app</span>
+                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg">
+            </div>
+        </div>
+
+        <!-- COPYRIGHT -->
             <div class="footer-bottom">
                 <p>
-                    AliExpress | 1688.com | Tmall Taobao World | Alipay |
-                    Lazada | Taobao Global
+                    TEAM DEVELOPER | NARITH HEN | SATAN BUNTIT | CHANSEYHA
+                    HOEURN
                 </p>
                 <p>© 2000–2025 SUSU-KOKO.com All rights reserved.</p>
             </div>
-
-        </footer>
+    </footer>
 
         <script src="../js/main.js"></script>
+        <script src="../js/cards.js"></script>
     </body>
 
 </html>

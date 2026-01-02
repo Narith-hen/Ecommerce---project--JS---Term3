@@ -51,7 +51,7 @@ body {
 }
 
 .container {
-    max-width: 1600px;
+    max-width: 1400px;
     margin: 0 70px;
     padding: 0 16px;
 }
@@ -65,9 +65,7 @@ body {
     color: white;
 }
 
-.user-actions a{
-    color: white;
-}
+
 /* Topbar */
 .topbar {
     background: var(--nav-bg);
@@ -161,10 +159,16 @@ body {
     color: #fff
 }
 
-.user-actions .account,
-.user-actions .orders {
+.user-actions .account{
     font-size: 13px;
-    line-height: 1
+    line-height: 1;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+}
+.user-actions .account a{
+    color: var(--color-400);
+    font-weight:bold ;
 }
 
 .cart {
@@ -627,7 +631,7 @@ body {
 .recommended-features {
     list-style: none;
     padding: 0;
-    margin: 10px 0 16px;
+    margin: 10px 10px  16px;
     color: rgba(255, 255, 255, 0.9);
 }
 
@@ -680,8 +684,9 @@ body {
 
 /* Panels */
 .panels-section {
-    background: var(--color-section-bg);
-    padding: 28px 0
+    /* background: var(--color-section-bg); */
+    padding: 28px;
+
 }
 
 .panels {
@@ -1308,3 +1313,4 @@ img {
 .footer-bottom p {
     margin-bottom: 6px;
 }
+

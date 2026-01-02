@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce JS Term3 - Admin</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/product.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Admin Dashboard</span>
+        </div>
+        <ul class="nav-links">
+            <li class="active"><a href="admin.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li><a href="./page/product.html"><i class="fa-solid fa-box"></i> Products</a></li>
+            <li><a href="./page/order.html"><i class="fa-solid fa-receipt"></i> Orders</a></li>
+            <li><a href="./page/customer.html"><i class="fa-solid fa-users"></i> Customers</a></li>
+            <li><a href="./page/setting.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <header>
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="carSearch" placeholder="Search by model or brand..." onkeyup="searchCars()">
+            </div>
+            <div class="user-info">
+                <i class="fa-solid fa-bell" style="margin-right: 15px; color: #64748b; cursor: pointer;"></i>
+                <div class="profile">
+                    <div class="user-avatar-premium">N</div>
+                    <div class="user-info-text">
+                        <span class="name">Narith</span>
+                        <span class="role">Administrator</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="stats-grid">
+            <div class="stat-card highlighted">
+                <div class="stat-info">
+                    <p>Total Revenue</p>
+                    <h3 id="stat-revenue">$79,650</h3>
+                    <span class="trend up"><i class="fa-solid fa-arrow-up"></i> 12%</span>
+                </div>
+                <i class="fa-solid fa-dollar-sign icon-box"></i>
+            </div>
+            <div class="stat-card">
+                <div class="stat-info">
+                    <p>Total Orders</p>
+                    <h3 id="stat-orders">1,240</h3>
+                </div>
+                <i class="fa-solid fa-shopping-bag icon-box"></i>
+            </div>
+            <div class="stat-card">
+                <div class="stat-info">
+                    <p>Fleet Usage</p>
+                    <h3 id="product-count">85%</h3>
+                </div>
+                <i class="fa-solid fa-car icon-box"></i>
+            </div>
+            <div class="stat-card">
+                <div class="stat-info">
+                    <p>Rating</p>
+                    <h3>8,5</h3>
+                </div>
+                <i class="fa-solid fa-star icon-box"></i>
+            </div>
+        </section>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <div class="analytics-card" style="margin-bottom: 24px;">
+            <div class="card-header">
+                <h3>Inventory Result</h3>
+                <div class="header-actions">
+                    <span class="stats-mini">Total Stock: <strong id="total-stock-val">0</strong></span>
+                </div>
+            </div>
+            <div class="chart-wrapper" style="position: relative; height:300px; width:100%">
+                <canvas id="inventoryChart"></canvas>
+            </div>
+        </div>
+
+            <div class="data-column-side">
+                <div class="analytics-card text-center">
+                    <h3>Fleet Status</h3>
+                    <div class="circular-progress-box">
+                        <div class="circle-inner">45%</div>
+                    </div>
+                    <ul class="data-list">
+                        <li><span class="dot sedan"></span> Sedan <small>25%</small></li>
+                        <li><span class="dot suv"></span> SUV <small>15%</small></li>
+                        <li><span class="dot luxury"></span> Luxury <small>5%</small></li>
+                    </ul>
+                    <button class="btn-save" style="width: 100%; margin-top: 15px;">Detailed Report</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <h3>Add New Vehicle</h3>
+            
+            <div class="modal-input-group">
+                <label>Image URL</label>
+                <input type="text" id="p-image" placeholder="https://images.unsplash.com/...">
+            </div>
+
+            <div style="display: flex; gap: 15px;">
+                <div class="modal-input-group" style="flex: 1;">
+                    <label>Car Model</label>
+                    <input type="text" id="p-name" placeholder="Camry">
+                </div>
+                <div class="modal-input-group" style="flex: 1;">
+                    <label>Brand</label>
+                    <input type="text" id="p-brand" placeholder="Toyota">
+                </div>
+            </div>
+
+            <div class="modal-input-group">
+                <label>Category</label>
+                <select id="p-cat">
+                    <option value="Sedan">Sedan</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Luxury">Luxury</option>
+                </select>
+            </div>
+
+            <div style="display: flex; gap: 15px;">
+                <div class="modal-input-group" style="flex: 1;">
+                    <label>Price ($)</label>
+                    <input type="number" id="p-price" placeholder="25000">
+                </div>
+                <div class="modal-input-group" style="flex: 1;">
+                    <label>Stock Quantity</label>
+                    <input type="number" id="p-stock" placeholder="10">
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="toggleModal()">Cancel</button>
+                <button class="btn-save" onclick="saveProduct()">Save Vehicle</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
