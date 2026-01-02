@@ -1,0 +1,39 @@
+    /* Specific styles for the Product Page Grid */
+        body { font-family: 'Inter', sans-serif; }
+        .badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; display: inline-block; }
+        .instock { background: #dcfce7; color: #15803d; }
+        .lowstock { background: #fee2e2; color: #b91c1c; }
+        .img-preview { width: 60px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid #eee; }
+
+        /* Premium Profile Style */
+        .profile { display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 5px 10px; border-radius: 8px; transition: 0.2s; }
+        .profile:hover { background: rgba(0,0,0,0.05); }
+        .user-avatar-premium {
+            width: 38px; height: 38px;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+        }
+        .user-info-text { display: flex; flex-direction: column; }
+        .user-info-text .name { font-size: 14px; font-weight: 600; color: #1e293b; line-height: 1.2; }
+        .user-info-text .role { font-size: 11px; color: #64748b; }
+
+        /* Logout Overlay */
+        #logoutLoading {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
+            display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 99999;
+        }
+        .loader-bar-container { width: 250px; height: 6px; background: #e2e8f0; border-radius: 10px; overflow: hidden; margin-bottom: 15px; }
+        #p-bar-fill { width: 0%; height: 100%; background: #ef4444; transition: width 0.4s ease; }
+
+        /* Input Error Styling */
+        .input-error { border: 1.5px solid #ef4444 !important; background-color: #fef2f2 !important; }
+        
+        /* Action buttons styling */
+        .action-td button { 
+            border: none; background: #f1f5f9; padding: 8px; border-radius: 6px; 
+            cursor: pointer; margin-right: 5px; transition: 0.2s; color: #64748b;
+        }
+        .action-td button:hover { background: #e2e8f0; color: #1e293b; }

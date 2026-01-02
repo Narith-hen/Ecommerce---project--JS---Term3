@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecommerce JS Term3 - Admin</title>
     <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/product.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -19,81 +20,89 @@
             <li><a href="./page/product.html"><i class="fa-solid fa-box"></i> Products</a></li>
             <li><a href="./page/order.html"><i class="fa-solid fa-receipt"></i> Orders</a></li>
             <li><a href="./page/customer.html"><i class="fa-solid fa-users"></i> Customers</a></li>
-            <li><a href="#"><i class="fa-solid fa-layer-group"></i> Categories</a></li>
-            <li><a href="#"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
-            <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            <li><a href="./page/setting.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
         </ul>
-        <div class="logout">
-            <a href="#"><i class="fa-solid fa-right-from-bracket">Logout</i></a>
-        </div>
     </nav>
 
     <main class="main-content">
         <header>
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search statistics...">
+                <input type="text" id="carSearch" placeholder="Search by model or brand..." onkeyup="searchCars()">
             </div>
             <div class="user-info">
-                <i class="fa-solid fa-bell"></i>
+                <i class="fa-solid fa-bell" style="margin-right: 15px; color: #64748b; cursor: pointer;"></i>
                 <div class="profile">
-                    <img src="img/profile.png" alt="Admin">
-                    <span>Narith</span>
+                    <div class="user-avatar-premium">N</div>
+                    <div class="user-info-text">
+                        <span class="name">Narith</span>
+                        <span class="role">Administrator</span>
+                    </div>
                 </div>
             </div>
         </header>
 
         <section class="stats-grid">
-            <div class="stat-card">
+            <div class="stat-card highlighted">
                 <div class="stat-info">
                     <p>Total Revenue</p>
-                    <h3 id="stat-revenue">$0</h3>
+                    <h3 id="stat-revenue">$79,650</h3>
                     <span class="trend up"><i class="fa-solid fa-arrow-up"></i> 12%</span>
                 </div>
-                <i class="fa-solid fa-dollar-sign icon blue"></i>
+                <i class="fa-solid fa-dollar-sign icon-box"></i>
             </div>
             <div class="stat-card">
                 <div class="stat-info">
                     <p>Total Orders</p>
-                    <h3 id="stat-orders">0</h3>
+                    <h3 id="stat-orders">1,240</h3>
                 </div>
-                <i class="fa-solid fa-shopping-bag icon purple"></i>
+                <i class="fa-solid fa-shopping-bag icon-box"></i>
             </div>
             <div class="stat-card">
                 <div class="stat-info">
-                    <p>Products in Fleet</p>
-                    <h3 id="product-count">0</h3>
+                    <p>Fleet Usage</p>
+                    <h3 id="product-count">85%</h3>
                 </div>
-                <i class="fa-solid fa-car icon orange"></i>
+                <i class="fa-solid fa-car icon-box"></i>
             </div>
             <div class="stat-card">
                 <div class="stat-info">
-                    <p>Active Customers</p>
-                    <h3 id="stat-customers">0</h3>
+                    <p>Rating</p>
+                    <h3>8,5</h3>
                 </div>
-                <i class="fa-solid fa-user-group icon green"></i>
+                <i class="fa-solid fa-star icon-box"></i>
             </div>
         </section>
 
-        <section class="management-section">
-            <div class="section-header">
-                <h2>Product Management</h2>
-                <button class="add-btn" onclick="toggleModal()">+ Add Product</button>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <div class="analytics-card" style="margin-bottom: 24px;">
+            <div class="card-header">
+                <h3>Inventory Result</h3>
+                <div class="header-actions">
+                    <span class="stats-mini">Total Stock: <strong id="total-stock-val">0</strong></span>
+                </div>
             </div>
-            <table class="product-table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Stock</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="product-list">
-                    </tbody>
-            </table>
-        </section>
+            <div class="chart-wrapper" style="position: relative; height:300px; width:100%">
+                <canvas id="inventoryChart"></canvas>
+            </div>
+        </div>
+
+            <div class="data-column-side">
+                <div class="analytics-card text-center">
+                    <h3>Fleet Status</h3>
+                    <div class="circular-progress-box">
+                        <div class="circle-inner">45%</div>
+                    </div>
+                    <ul class="data-list">
+                        <li><span class="dot sedan"></span> Sedan <small>25%</small></li>
+                        <li><span class="dot suv"></span> SUV <small>15%</small></li>
+                        <li><span class="dot luxury"></span> Luxury <small>5%</small></li>
+                    </ul>
+                    <button class="btn-save" style="width: 100%; margin-top: 15px;">Detailed Report</button>
+                </div>
+            </div>
+        </div>
     </main>
 
     <div id="productModal" class="modal">

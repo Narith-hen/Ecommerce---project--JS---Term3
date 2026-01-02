@@ -53,10 +53,7 @@ function selectPaymentMethod(element, type) {
  * 3. PROCESS PAYMENT & VALIDATION
  */
 function processPayment() {
-    // 1. Get the ACTIVE method element
-    const activeMethodElement = document.querySelector('.method.active');
-    
-    // 2. Reset Errors (same as your current code)
+    // 1. Reset Errors
     const inputs = document.querySelectorAll('input');
     const errorSpans = document.querySelectorAll('.error-msg');
     inputs.forEach(input => input.classList.remove('invalid', 'shake'));
@@ -64,53 +61,65 @@ function processPayment() {
 
     let isFormValid = true;
 
-    // 3. Contact Validation
-    const nameInput = document.getElementById('fullName');
-    if (nameInput.value.trim().length < 2) {
-        showInputError(nameInput, "nameError", "Full Name is required");
+    // 2. Form Values
+    const nameValue = document.getElementById('fullName').value.trim();
+    const emailValue = document.getElementById('email').value.trim();
+
+    // 3. Validation
+    if (nameValue.length < 2) {
+        showInputError(document.getElementById('fullName'), "nameError", "Full Name is required");
         isFormValid = false;
     }
 
-    const emailInput = document.getElementById('email');
-    if (!validateEmail(emailInput.value)) {
-        showInputError(emailInput, "emailError", "Valid email is required");
+    if (!validateEmail(emailValue)) {
+        showInputError(document.getElementById('email'), "emailError", "Valid email is required");
         isFormValid = false;
     }
 
-    // 4. IMPROVED CARD VALIDATION CHECK
-    // Instead of checking text, we check if the Card Section is currently visible
+    // 4. Card Validation (only if visible)
     const cardSection = document.getElementById('card-details-section');
-    
     if (cardSection.style.display !== 'none') {
         const cardInput = document.getElementById('cardNumber');
-        const expiryInput = document.getElementById('expiry');
-        const cvvInput = document.getElementById('cvv');
-
         if (cardInput.value.replace(/\s/g, '').length < 16) {
             showInputError(cardInput, "cardError", "Enter 16-digit card number");
             isFormValid = false;
         }
-        if (expiryInput.value.length < 5) {
-            expiryInput.classList.add('invalid', 'shake');
-            isFormValid = false;
-        }
-        if (cvvInput.value.length < 3) {
-            cvvInput.classList.add('invalid', 'shake');
-            isFormValid = false;
-        }
     }
 
-    // 5. Finalize if valid
     if (!isFormValid) return;
 
+    // 5. SUCCESS FLOW: START PROCESSING
     const loading = document.getElementById('loading-overlay');
     const modal = document.getElementById('success-modal');
 
     loading.style.display = 'flex';
 
     setTimeout(() => {
+        // --- KEY IMPROVEMENT: SAVE TO LOCALSTORAGE FOR ADMIN ---
+        const cart = JSON.parse(localStorage.getItem('susuCart')) || [];
+        const existingOrders = JSON.parse(localStorage.getItem('myOrders')) || [];
+
+        // Create the order object
+        const newOrder = {
+            id: Math.floor(1000 + Math.random() * 9000), // Random Order ID
+            customerName: nameValue,
+            customerEmail: emailValue,
+            // Join car names if there are multiple
+            name: cart.map(item => item.name).join(", "), 
+            price: cart.reduce((total, item) => total + item.price, 0) + 1650, // Price + Fees
+            date: new Date().toLocaleDateString('en-GB'), // Format: DD/MM/YYYY
+            status: "Completed"
+        };
+
+        // Add to the admin's list
+        existingOrders.push(newOrder);
+        localStorage.setItem('myOrders', JSON.stringify(existingOrders));
+
+        // 6. UI Updates
         loading.style.display = 'none';
         modal.style.display = 'flex';
+        
+        // Clear the cart so they don't pay twice
         localStorage.removeItem('susuCart'); 
     }, 2000);
 }

@@ -1,8 +1,4 @@
-let customers = JSON.parse(localStorage.getItem('carShopCustomers')) || [
-    { id: 1, name: "Sok Rathana", phone: "012-345-678", email: "rathana@example.com", interest: "Luxury Sedan", status: "Active" },
-    { id: 2, name: "Vannak Khemera", phone: "099-888-777", email: "vannak@example.com", interest: "Electric SUV", status: "Active" },
-    { id: 3, name: "Chan Leakhena", phone: "010-222-333", email: "leak@example.com", interest: "SUV", status: "Lead" }
-];
+let customers = JSON.parse(localStorage.getItem('carShopCustomers')) || [];
 
 function saveToStorage() {
     localStorage.setItem('carShopCustomers', JSON.stringify(customers));
@@ -13,65 +9,94 @@ function toggleCustomerModal() {
     const modal = document.getElementById('customerModal');
     modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
 }
+// Open modal and fill with current data
+function openEditModal(id) {
+    const customer = customers.find(c => c.id === id);
+    if (customer) {
+        document.getElementById('edit-c-id').value = customer.id;
+        document.getElementById('edit-c-name').value = customer.name;
+        document.getElementById('edit-c-phone').value = customer.phone;
+        document.getElementById('edit-c-email').value = customer.email;
+        // Use interest or role depending on how your data is saved
+        document.getElementById('edit-c-interest').value = customer.interest || customer.role || "Customer";
+        
+        toggleEditModal();
+    }
+}
 
+// Save the updated information
+function updateCustomer() {
+    const id = parseInt(document.getElementById('edit-c-id').value);
+    const index = customers.findIndex(c => c.id === id);
+
+    if (index !== -1) {
+        customers[index].name = document.getElementById('edit-c-name').value;
+        customers[index].phone = document.getElementById('edit-c-phone').value;
+        customers[index].email = document.getElementById('edit-c-email').value;
+        customers[index].interest = document.getElementById('edit-c-interest').value;
+        // Also update role if you are using that field for the tag
+        customers[index].role = document.getElementById('edit-c-interest').value;
+
+        saveToStorage();
+        renderCustomers();
+        toggleEditModal();
+    }
+}
 // Save New Customer
 function saveNewCustomer() {
     const name = document.getElementById('c-name').value;
     const phone = document.getElementById('c-phone').value;
     const email = document.getElementById('c-email').value;
-    const interest = document.getElementById('c-interest').value;
+    const password = document.getElementById('c-password').value; // New logic
 
-    if (!name || !phone || !email) {
-        alert("Please fill all fields");
+    if(!name || !password) {
+        alert("Name and Password are required!");
         return;
     }
 
     const newCustomer = {
         id: Date.now(),
-        name: name,
-        phone: phone,
-        email: email,
-        password: "password123", // Give them a default password for the website
-        interest: interest,
-        status: "Lead"
+        name,
+        phone,
+        email,
+        password // Saving the password string
     };
 
+    // Save to your localStorage logic...
     customers.push(newCustomer);
-    saveToStorage();
+    localStorage.setItem('myCustomers', JSON.stringify(customers));
     renderCustomers();
     toggleCustomerModal();
-    
-    // Clear form
-    document.querySelectorAll('.modal-content input').forEach(inp => inp.value = '');
 }
 
+// Updated renderCustomers function to include the Edit Button
 function renderCustomers() {
     const customerList = document.getElementById('customer-list');
     const totalDisplay = document.getElementById('customer-total');
-    
     if (!customerList) return;
-    
+
+    // Use global variable
     customerList.innerHTML = '';
-    totalDisplay.innerText = customers.length;
+    if (totalDisplay) totalDisplay.innerText = customers.length;
 
     customers.forEach(customer => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td>
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <div class="user-avatar">${customer.name.charAt(0)}</div>
+                    <div class="user-avatar">${customer.name ? customer.name.charAt(0) : 'U'}</div>
                     <div>
                         <strong>${customer.name}</strong><br>
-                        <small style="color: #64748b;">${customer.phone}</small>
                     </div>
                 </div>
             </td>
             <td>${customer.email}</td>
-            <td><span class="interest-tag">${customer.interest}</span></td>
-            <td><span class="status-badge ${customer.status.toLowerCase()}">${customer.status}</span></td>
+            <td><span class="interest-tag">${customer.interest || customer.role || 'Customer'}</span></td>
+            <td><span class="status-badge active">${customer.status || 'Active'}</span></td>
             <td>
-                <button class="edit-btn" onclick="contactCustomer('${customer.email}')"><i class="fa-solid fa-envelope"></i></button>
-                <button class="delete-btn" onclick="deleteCustomer(${customer.id})"><i class="fa-solid fa-trash"></i></button>
+                <button class="delete-btn" onclick="deleteCustomer(${customer.id})">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
             </td>
         `;
         customerList.appendChild(tr);

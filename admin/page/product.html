@@ -6,32 +6,30 @@
     <title>Manage Cars - Admin Dashboard</title>
     <link rel="stylesheet" href="../styles/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Specific styles for the Product Page Grid */
-        .badge { padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; }
-        .instock { background: rgba(40, 167, 69, 0.2); color: #28a745; }
-        .lowstock { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
-        .img-preview { width: 50px; height: 35px; object-fit: cover; border-radius: 4px; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/product.css">
 </head>
 <body>
+
+    <div id="logoutLoading">
+        <div class="loader-bar-container"><div id="p-bar-fill"></div></div>
+        <span style="font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase;">Signing Out...</span>
+    </div>
 
     <nav class="sidebar">
         <div class="logo">
             <i class="fa-solid fa-car-side"></i>
-            <span>AutoDrive Admin</span>
+            <span>Admin Product</span>
         </div>
         <ul class="nav-links">
             <li><a href="../admin.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
             <li class="active"><a href="product.html"><i class="fa-solid fa-box"></i> Products</a></li>
             <li><a href="order.html"><i class="fa-solid fa-receipt"></i> Orders</a></li>
-            <li><a href="#"><i class="fa-solid fa-users"></i> Customers</a></li>
-            <li><a href="#"><i class="fa-solid fa-layer-group"></i> Categories</a></li>
-            <li><a href="#"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
-            <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            <li><a href="customer.html"><i class="fa-solid fa-users"></i> Customers</a></li>
+            <li><a href="setting.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
         </ul>
         <div class="logout">
-            <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            <a href="javascript:void(0)" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
         </div>
     </nav>
 
@@ -42,10 +40,13 @@
                 <input type="text" id="carSearch" placeholder="Search by model or brand..." onkeyup="searchCars()">
             </div>
             <div class="user-info">
-                <i class="fa-solid fa-bell"></i>
+                <i class="fa-solid fa-bell" style="margin-right: 15px; color: #64748b; cursor: pointer;"></i>
                 <div class="profile">
-                    <img src="../img/profile.png" alt="Admin">
-                    <span>Narith</span>
+                    <div class="user-avatar-premium">N</div>
+                    <div class="user-info-text">
+                        <span class="name">Narith</span>
+                        <span class="role">Administrator</span>
+                    </div>
                 </div>
             </div>
         </header>
@@ -68,16 +69,13 @@
                 <thead>
                     <tr>
                         <th>N.O</th> <th>Image</th>
-                        <th>Car Model</th>
-                        <th>Brand</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Stock</th>
-                        <th>Status</th>
+                        <th>Car Model</th> <th>Brand</th>
+                        <th>Category</th> <th>Price</th>
+                        <th>Stock</th> <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody id="car-list-body"> </tbody>
+                <tbody id="car-list-body"></tbody>
             </table>
         </section>
     </main>
@@ -86,57 +84,184 @@
 
     <div id="productModal" class="modal">
         <div class="modal-content">
-    <h3>Add New Vehicle</h3>
-    
-    <div style="text-align: center; margin-bottom: 10px;">
-        <img id="p-preview" src="https://via.placeholder.com/150x80?text=No+Image" 
-             style="width: 150px; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid #334155;">
-    </div>
-
-    <div class="modal-input-group">
-        <label for="p-image">Vehicle Image URL</label>
-        <input type="text" id="p-image" placeholder="https://example.com/car.jpg" oninput="updatePreview()">
-    </div>
-
-    <div style="display: flex; gap: 15px;">
-        <div class="modal-input-group" style="flex: 1;">
-            <label for="p-name">Car Model *</label>
-            <input type="text" id="p-name" placeholder="e.g. Camry">
+            <h3 id="modalTitle">Add New Vehicle</h3>
+            <div style="text-align: center; margin-bottom: 10px;">
+                <img id="p-preview" src="https://via.placeholder.com/150x80?text=No+Image" style="width: 150px; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid #ddd;">
+            </div>
+            <div class="modal-input-group">
+                <label>Image URL</label>
+                <input type="text" id="p-image" placeholder="https://example.com/car.jpg" oninput="updatePreview()">
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <div class="modal-input-group" style="flex: 1;">
+                    <label>Car Model *</label>
+                    <input type="text" id="p-name">
+                </div>
+                <div class="modal-input-group" style="flex: 1;">
+                    <label>Brand *</label>
+                    <input type="text" id="p-brand">
+                </div>
+            </div>
+            <div class="modal-input-group">
+                <label>Category *</label>
+                <select id="p-cat">
+                    <option value="" disabled selected>Select category</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Luxury">Luxury</option>
+                    <option value="Electric">Electric</option>
+                </select>
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <div class="modal-input-group" style="flex: 1;">
+                    <label>Price ($) *</label>
+                    <input type="number" id="p-price">
+                </div>
+                <div class="modal-input-group" style="flex: 1;">
+                    <label>Stock *</label>
+                    <input type="number" id="p-stock">
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="toggleModal()">Cancel</button>
+                <button class="add-btn" id="save-btn" onclick="saveCar()">Save Vehicle</button>
+            </div>
         </div>
-        <div class="modal-input-group" style="flex: 1;">
-            <label for="p-brand">Brand *</label>
-            <input type="text" id="p-brand" placeholder="e.g. Toyota">
-        </div>
     </div>
 
-    <div class="modal-input-group">
-        <label for="p-cat">Vehicle Category *</label>
-        <select id="p-cat">
-            <option value="" disabled selected>Please select a category</option>
-            <option value="SUV">SUV</option>
-            <option value="Luxury">Luxury</option>
-            <option value="Electric">Electric</option>
-        </select>
-    </div>
+    <script>
+        // --- DATA LOGIC ---
+        let carInventory = JSON.parse(localStorage.getItem('myProducts')) || [];
+        let editIndex = -1;
+        let currentFilter = 'All';
 
-    <div style="display: flex; gap: 15px;">
-        <div class="modal-input-group" style="flex: 1;">
-            <label for="p-price">Price ($) *</label>
-            <input type="number" id="p-price" placeholder="0.00">
-        </div>
-        <div class="modal-input-group" style="flex: 1;">
-            <label for="p-stock">Stock Quantity *</label>
-            <input type="number" id="p-stock" placeholder="0">
-        </div>
-    </div>
-    
-    <div class="modal-actions">
-        <button class="btn-cancel" onclick="toggleModal()">Cancel</button>
-        <button class="add-btn" id="save-btn" onclick="saveCar()">Save Vehicle</button>
-    </div>
-</div>
-    </div>
+        const carListBody = document.getElementById('car-list-body');
 
-    <script src="../js/product.js"></script>
+        function renderCars() {
+            carListBody.innerHTML = '';
+            const filtered = currentFilter === 'All' ? carInventory : carInventory.filter(c => c.category === currentFilter);
+
+            filtered.forEach((car, index) => {
+                const originalIndex = carInventory.indexOf(car);
+                const isLow = car.stock <= 2;
+                carListBody.innerHTML += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td><img src="${car.image}" class="img-preview" onerror="this.src='https://via.placeholder.com/50'"></td>
+                        <td><strong>${car.name}</strong></td>
+                        <td>${car.brand}</td>
+                        <td>${car.category}</td>
+                        <td>$${Number(car.price).toLocaleString()}</td>
+                        <td>${car.stock}</td>
+                        <td><span class="badge ${isLow ? 'lowstock' : 'instock'}">${isLow ? 'Low Stock' : 'In Stock'}</span></td>
+                        <td class="action-td">
+                            <button onclick="editCar(${originalIndex})"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="deleteCar(${originalIndex})" style="color:#ef4444"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function saveCar() {
+            const name = document.getElementById('p-name');
+            const brand = document.getElementById('p-brand');
+            const cat = document.getElementById('p-cat');
+            const price = document.getElementById('p-price');
+            const stock = document.getElementById('p-stock');
+            const image = document.getElementById('p-image');
+
+            // Simple Validation
+            if (!name.value || !brand.value || !cat.value || !price.value || !stock.value) {
+                alert("Please fill all required fields!");
+                return;
+            }
+
+            const carData = {
+                name: name.value, brand: brand.value, category: cat.value,
+                price: price.value, stock: stock.value, image: image.value || 'https://via.placeholder.com/150'
+            };
+
+            if (editIndex === -1) {
+                carInventory.push(carData);
+            } else {
+                carInventory[editIndex] = carData;
+                editIndex = -1;
+            }
+
+            localStorage.setItem('myProducts', JSON.stringify(carInventory));
+            renderCars();
+            toggleModal();
+        }
+
+        window.editCar = function(index) {
+            editIndex = index;
+            const car = carInventory[index];
+            document.getElementById('p-name').value = car.name;
+            document.getElementById('p-brand').value = car.brand;
+            document.getElementById('p-cat').value = car.category;
+            document.getElementById('p-price').value = car.price;
+            document.getElementById('p-stock').value = car.stock;
+            document.getElementById('p-image').value = car.image;
+            updatePreview();
+            document.getElementById('modalTitle').innerText = "Edit Vehicle";
+            document.getElementById('save-btn').innerText = "Update Vehicle";
+            toggleModal();
+        }
+
+        window.deleteCar = function(index) {
+            if(confirm("Delete this vehicle?")) {
+                carInventory.splice(index, 1);
+                localStorage.setItem('myProducts', JSON.stringify(carInventory));
+                renderCars();
+            }
+        }
+
+        function filterCars(cat) {
+            currentFilter = cat;
+            renderCars();
+        }
+
+        function toggleModal() {
+            const modal = document.getElementById('productModal');
+            const isOpen = modal.style.display === 'flex';
+            if (isOpen) {
+                modal.style.display = 'none';
+                editIndex = -1;
+                document.querySelectorAll('.modal-content input').forEach(i => i.value = '');
+                document.getElementById('p-cat').value = "";
+                document.getElementById('modalTitle').innerText = "Add New Vehicle";
+                document.getElementById('save-btn').innerText = "Save Vehicle";
+            } else {
+                modal.style.display = 'flex';
+            }
+        }
+
+        function updatePreview() {
+            const url = document.getElementById('p-image').value;
+            document.getElementById('p-preview').src = url || 'https://via.placeholder.com/150x80?text=No+Image';
+        }
+
+        // --- SEARCH LOGIC ---
+        function searchCars() {
+            const term = document.getElementById('carSearch').value.toLowerCase();
+            const rows = document.querySelectorAll('#car-list-body tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(term) ? '' : 'none';
+            });
+        }
+
+        // --- LOGOUT LOGIC ---
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            if(confirm('Logout from system?')) {
+                const overlay = document.getElementById('logoutLoading');
+                const bar = document.getElementById('p-bar-fill');
+                overlay.style.display = 'flex';
+                setTimeout(() => bar.style.width = '100%', 100);
+                setTimeout(() => window.location.href = '../login.html', 1200);
+            }
+        });
+
+        renderCars();
+    </script>
 </body>
 </html>

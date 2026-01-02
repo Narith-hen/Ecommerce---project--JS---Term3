@@ -1,155 +1,192 @@
+// --- Data State ---
 let products = JSON.parse(localStorage.getItem('myProducts')) || [];
-let editIndex = -1; // -1 means we are adding a new product, not editing
+let editIndex = -1; // -1 = Adding, otherwise = Index of product being edited
 
-const productList = document.getElementById('product-list');
-const productCount = document.getElementById('product-count');
+// --- DOM Elements ---
+const productListBody = document.getElementById('product-list');
 
-function renderDashboard() {
-    productList.innerHTML = '';
-    productCount.innerText = products.length;
+/**
+ * 1. Renders the Main Dashboard Stats
+ */
+function updateDashboardStats() {
+    const orders = JSON.parse(localStorage.getItem('myOrders')) || [];
+    const products = JSON.parse(localStorage.getItem('myProducts')) || []; // Ensure products are loaded
+
+    const totalRevenue = orders.reduce((sum, order) => sum + Number(order.price || 0), 0);
+    const totalOrders = orders.length;
+    const totalProducts = products.length;
+    const activeCustomers = new Set(orders.map(o => o.customerName)).size;
+
+    // ADD CHECKS: Only update if the element actually exists on the current page
+    const elRev = document.getElementById('stat-revenue');
+    const elOrd = document.getElementById('stat-orders');
+    const elCount = document.getElementById('product-count');
+    const elCust = document.getElementById('stat-customers');
+
+    if (elRev) elRev.innerText = `$${totalRevenue.toLocaleString()}`;
+    if (elOrd) elOrd.innerText = totalOrders;
+    if (elCount) elCount.innerText = totalProducts;
+    if (elCust) elCust.innerText = activeCustomers;
+}
+
+/**
+ * 2. Renders the Product Table
+ */
+function renderProductTable() {
+    if (!productListBody) return;
+    productListBody.innerHTML = '';
+
+    if (products.length === 0) {
+        productListBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No vehicles in fleet.</td></tr>';
+        return;
+    }
 
     products.forEach((product, index) => {
         const row = `
             <tr>
-                <td>${product.name}</td>
-                <td><span class="category-tag">${product.category}</span></td>
-                <td>$${Number(product.price).toLocaleString()}</td>
-                <td>${product.stock}</td>
                 <td>
-                    <button onclick="editProduct(${index})" style="background:transparent; border:none; color:#3b82f6; cursor:pointer; margin-right:10px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <img src="${product.image || 'https://via.placeholder.com/40'}" style="width: 40px; height: 30px; object-fit: cover; border-radius: 4px;">
+                        <div>
+                            <strong>${product.name}</strong><br>
+                            <small style="color: #64748b;">${product.brand || 'AutoDrive'}</small>
+                        </div>
+                    </div>
+                </td>
+                <td><span class="status-badge" style="background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 12px;">${product.category}</span></td>
+                <td>$${Number(product.price).toLocaleString()}</td>
+                <td>${product.stock} Units</td>
+                <td>
+                    <button onclick="editProduct(${index})" style="background:none; border:none; color:#3b82f6; cursor:pointer; font-size: 1.1rem;">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </button>
-                    <button onclick="deleteProduct(${index})" style="background:transparent; border:none; color:#ef4444; cursor:pointer;">
+                    <button onclick="deleteProduct(${index})" style="background:none; border:none; color:#ef4444; cursor:pointer; font-size: 1.1rem; margin-left: 10px;">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </td>
             </tr>
         `;
-        productList.innerHTML += row;
+        productListBody.innerHTML += row;
     });
 }
 
-function toggleModal() {
-    const modal = document.getElementById('productModal');
-    modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
-    
-    // If closing modal, reset edit state
-    if (modal.style.display === 'none') {
-        editIndex = -1;
-        resetForm();
-    }
-}
+/**
+ * 3. Save / Update Product Logic
+ */
+function saveProduct() {
+    const name = document.getElementById('p-name').value;
+    const brand = document.getElementById('p-brand').value;
+    const category = document.getElementById('p-cat').value;
+    const price = document.getElementById('p-price').value;
+    const stock = document.getElementById('p-stock').value;
+    const image = document.getElementById('p-image').value;
 
-// 1. Function to load product data into the Modal for editing
-function editProduct(index) {
-    editIndex = index; // Set the index to the product we want to edit
-    const product = products[index];
-
-    // Fill the inputs with current data
-    document.getElementById('p-name').value = product.name;
-    document.getElementById('p-cat').value = product.category;
-    document.getElementById('p-price').value = product.price;
-    document.getElementById('p-stock').value = product.stock;
-
-    // Change Modal title and button text for better UX
-    document.querySelector('#productModal h3').innerText = "Edit Product";
-    document.querySelector('.add-btn').innerText = "Update Product";
-
-    toggleModal();
-}
-
-// 2. Updated Save Function (Handles both Add and Update)
-function saveCar() {
-    // 1. Grab all input elements
-    const inputs = {
-        name: document.getElementById('p-name'),
-        brand: document.getElementById('p-brand'),
-        category: document.getElementById('p-cat'),
-        price: document.getElementById('p-price'),
-        stock: document.getElementById('p-stock'),
-        image: document.getElementById('p-image')
-    };
-
-    const errorMsg = document.getElementById('error-message');
-    let isValid = true;
-
-    // 2. Simple Validation Loop
-    // We check all fields except image (which can be optional)
-    for (let key in inputs) {
-        if (key !== 'image' && !inputs[key].value.trim()) {
-            inputs[key].classList.add('input-error'); // Add red border
-            isValid = false;
-        } else {
-            inputs[key].classList.remove('input-error');
-        }
-    }
-
-    // 3. If not valid, stop here and show message
-    if (!isValid) {
-        errorMsg.style.display = 'block';
+    if (!name || !price) {
+        alert("Please enter at least the Car Model and Price.");
         return;
     }
 
-    // 4. If valid, hide error message and proceed
-    errorMsg.style.display = 'none';
-
-    const carData = {
-        name: inputs.name.value,
-        brand: inputs.brand.value,
-        category: inputs.category.value,
-        price: inputs.price.value,
-        stock: inputs.stock.value,
-        image: inputs.image.value || 'https://via.placeholder.com/300x200?text=No+Image'
-    };
+    const carData = { name, brand, category, price, stock, image };
 
     if (editIndex === -1) {
-        carInventory.push(carData);
+        products.push(carData);
     } else {
-        carInventory[editIndex] = carData;
+        products[editIndex] = carData;
         editIndex = -1;
     }
 
-    localStorage.setItem('myProducts', JSON.stringify(carInventory));
-    renderCars();
+    localStorage.setItem('myProducts', JSON.stringify(products));
+    
+    // Refresh UI
+    toggleModal();
+    renderProductTable();
+    updateDashboardStats();
+}
+
+/**
+ * 4. Helper Functions
+ */
+function toggleModal() {
+    const modal = document.getElementById('productModal');
+    modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+    if (modal.style.display === 'none') resetForm();
+}
+
+function editProduct(index) {
+    editIndex = index;
+    const p = products[index];
+    
+    document.getElementById('p-name').value = p.name;
+    document.getElementById('p-brand').value = p.brand;
+    document.getElementById('p-cat').value = p.category;
+    document.getElementById('p-price').value = p.price;
+    document.getElementById('p-stock').value = p.stock;
+    document.getElementById('p-image').value = p.image;
+
+    document.querySelector('#productModal h3').innerText = "Edit Vehicle";
     toggleModal();
 }
 
-function resetForm() {
-    document.getElementById('p-name').value = '';
-    document.getElementById('p-cat').value = '';
-    document.getElementById('p-price').value = '';
-    document.getElementById('p-stock').value = '';
-    document.querySelector('#productModal h3').innerText = "Add New Product";
-    document.querySelector('.add-btn').innerText = "Save Product";
-}
-
 function deleteProduct(index) {
-    if(confirm("Are you sure you want to delete this product?")) {
+    if (confirm("Permanently remove this vehicle from fleet?")) {
         products.splice(index, 1);
         localStorage.setItem('myProducts', JSON.stringify(products));
-        renderDashboard();
+        renderProductTable();
+        updateDashboardStats();
     }
 }
 
-// Function to update the Stat Cards on the Dashboard
-function updateDashboardStats() {
-    const products = JSON.parse(localStorage.getItem('myProducts')) || [];
-    const orders = JSON.parse(localStorage.getItem('myOrders')) || [];
-
-    // 1. Calculate Total Revenue from all orders
-    const totalRevenue = orders.reduce((sum, order) => sum + Number(order.price), 0);
-
-    // 2. Update HTML elements by ID
-    const revenueEl = document.getElementById('stat-revenue');
-    const ordersEl = document.getElementById('stat-orders');
-    const productCountEl = document.getElementById('product-count');
-
-    if (revenueEl) revenueEl.innerText = `$${totalRevenue.toLocaleString()}`;
-    if (ordersEl) ordersEl.innerText = orders.length;
-    if (productCountEl) productCountEl.innerText = products.length;
+function resetForm() {
+    editIndex = -1;
+    document.querySelectorAll('.modal-content input').forEach(i => i.value = '');
+    document.querySelector('#productModal h3').innerText = "Add New Vehicle";
 }
 
-// Call this whenever the Dashboard loads
-document.addEventListener('DOMContentLoaded', updateDashboardStats);
+// --- Initialization ---
+document.addEventListener('DOMContentLoaded', () => {
+    updateDashboardStats();
+    renderProductTable();
+});
 
-renderDashboard();
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('inventoryChart').getContext('2d');
+    
+    // Create a gradient for the bars/lines
+    const blueGradient = ctx.createLinearGradient(0, 0, 0, 400);
+    blueGradient.addColorStop(0, 'rgba(59, 130, 246, 1)');
+    blueGradient.addColorStop(1, 'rgba(59, 130, 246, 0.1)');
+
+    const inventoryChart = new Chart(ctx, {
+        type: 'bar', // or 'line' for the wave look in your reference
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Stock Level',
+                data: [65, 59, 80, 81, 56, 95],
+                backgroundColor: blueGradient,
+                borderColor: '#3b82f6',
+                borderWidth: 2,
+                borderRadius: 5,
+                barPercentage: 0.5,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false } // Hide legend for cleaner look
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' }, // Subtle dark grid
+                    ticks: { color: '#94a3b8' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#94a3b8' }
+                }
+            }
+        }
+    });
+});
