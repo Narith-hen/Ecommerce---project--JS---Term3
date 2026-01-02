@@ -67,9 +67,17 @@ body {
 
 
 /* Topbar */
+/* .topbar {
+    background: var(--nav-bg);
+} */
+
 .topbar {
     background: var(--nav-bg);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
+
 
 .topbar-inner {
     background: var(--color-400);

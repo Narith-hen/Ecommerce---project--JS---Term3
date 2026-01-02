@@ -1,6 +1,11 @@
+
 .topbar1 {
     background: var(--nav-bg);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
+
 
 .topbar1-inner {
     background: var(--color-400);
