@@ -1,99 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Shop SUSU-KOKO</title>
-        <link rel="stylesheet" href="../styles/main.css">
-        <link rel="stylesheet" href="../styles/catagory.css">
-        <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link href="../images/logo-website/logo.png" rel="icon">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop SUSU-KOKO</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/catagory.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="../images/logo-website/logo.png" rel="icon">
+</head>
 
-    <body>
-        <!-- navbar -->
-        <header class="topbar">
-            <div class="container1"></div>
-            <div class="topbar-inner">
-                <!-- Logo -->
-                <div class="logo"><img src="../images/logo-website/logo.png"
-                        alt="SUSU-KOKO logo"></div>
+<body>
+    <!-- navbar -->
+    <header class="topbar">
+        <div class="container1"></div>
+        <div class="topbar-inner">
+            <!-- Logo -->
+            <div class="logo"><img src="../images/logo-website/logo.png" alt="SUSU-KOKO logo"></div>
 
-                <!-- Search -->
-                <div class="search">
-                    <input type="search" placeholder="Search SUSU-KOKO"
-                        aria-label="Search SUSU-KOKO">
-                </div>
-
-                <!-- User actions -->
-                <div class="user-actions">
-                    <button class="account"><a href="loginpage.html">Sign
-                            In</a></button>
-
-                    <a href="cart.html" class="cart">
-                        🛒 <span class="cart-count">0</span>
-                    </a>
-                </div>
+            <!-- Search -->
+            <div class="search">
+                <input type="search" placeholder="Search SUSU-KOKO" aria-label="Search SUSU-KOKO">
             </div>
-            <!-- Main navigation -->
-            <nav class="main-nav container1">
-                <ul>
-                    <button class="menu"><a
-                            href="../index.html">Home</a></button>
-                    <button class="menu"><a
-                            href="catagory.html">Categories</a></button>
-                    <button class="menu"><a href="customer.html">Customer
-                            Service</a></button>
-                    <button class="menu"><a href="about.html">About
-                            Us</a></button>
-                </ul>
-            </nav>
-        </header>
 
-        <div id="carModal" class="modal">
-            <div class="modal-content">
-                <span class="close-button">&times;</span>
-                <div id="modal-details">
-                    </div>
+            <!-- User actions -->
+            <div class="user-actions">
+                <button class="account"><a href="loginpage.html">Sign
+                        In</a></button>
+
+                <a href="cart.html" class="cart">
+                    🛒 <span class="cart-count">0</span>
+                </a>
             </div>
         </div>
+        <!-- Main navigation -->
+        <nav class="main-nav container1">
+            <ul>
+                <button class="menu"><a href="../index.html">Home</a></button>
+                <button class="menu"><a href="catagory.html">Categories</a></button>
+                <button class="menu"><a href="customer.html">Customer
+                        Service</a></button>
+                <button class="menu"><a href="about.html">About
+                        Us</a></button>
+            </ul>
+        </nav>
+    </header>
 
-        <div id="custom-alert" class="toast-alert">
-            <div class="toast-content">
-                <i class="fas fa-check-circle"></i>
-                <div class="toast-message">
-                    <span id="alert-car-name">Car</span> added to inquiry!
+    <div id="carModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div id="modal-details">
+            </div>
+        </div>
+    </div>
+
+    <div id="custom-alert" class="toast-alert">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <div class="toast-message">
+                <span id="alert-car-name">Car</span> added to inquiry!
+            </div>
+        </div>
+        <div class="progress-bar"></div>
+    </div>
+
+    <main class="category-container">
+        <aside class="sidebar">
+            <h3>Filters</h3>
+            <div class="filter-group">
+                <h4>Price Range</h4>
+                <input type="range" id="price-slider" min="0" max="100000" value="100000" step="1000">
+                <div class="price-labels">
+                    <span>$0</span>
+                    <span id="price-display">$100,000</span>
                 </div>
             </div>
-            <div class="progress-bar"></div>
-        </div>
+            <div class="filter-group">
+                <h4>Categories</h4>
+                <label><input type="checkbox" id="all-categories" checked> Show All</label>
+                <label><input type="checkbox" class="category-filter" value="Electric"> Electric</label>
+                <label><input type="checkbox" class="category-filter" value="Sports"> Sports</label>
+                <label><input type="checkbox" class="category-filter" value="SUV"> SUV</label>
+            </div>
+        </aside>
 
-        <main class="category-container">
-           <aside class="sidebar">
-                <h3>Filters</h3>
-                <div class="filter-group">
-                    <h4>Price Range</h4>
-                    <input type="range" id="price-slider" min="0" max="100000" value="100000" step="1000">
-                    <div class="price-labels">
-                        <span>$0</span>
-                        <span id="price-display">$100,000</span>
-                    </div>
-                </div>
-                <div class="filter-group">
-                    <h4>Categories</h4>
-                    <label><input type="checkbox" id="all-categories" checked> Show All</label>
-                    <label><input type="checkbox" class="category-filter" value="Electric"> Electric</label>
-                    <label><input type="checkbox" class="category-filter" value="Sports"> Sports</label>
-                    <label><input type="checkbox" class="category-filter" value="SUV"> SUV</label>
-                </div>
-            </aside>
-
-            <section class="products-section">
-                <div class="product-grid" id="product-grid"></div>
-            </section>
-        </main>
+        <section class="products-section">
+            <div class="product-grid" id="product-grid"></div>
+        </section>
+    </main>
     </header>
 
 
@@ -202,17 +197,17 @@
         </div>
 
         <!-- COPYRIGHT -->
-            <div class="footer-bottom">
-                <p>
-                    TEAM DEVELOPER | NARITH HEN | SATAN BUNTIT | CHANSEYHA
-                    HOEURN
-                </p>
-                <p>© 2000–2025 SUSU-KOKO.com All rights reserved.</p>
-            </div>
+        <div class="footer-bottom">
+            <p>
+                TEAM DEVELOPER | NARITH HEN | SATAN BUNTIT | CHANSEYHA
+                HOEURN
+            </p>
+            <p>© 2000–2025 SUSU-KOKO.com All rights reserved.</p>
+        </div>
     </footer>
 
-        <script src="../js/main.js"></script>
-        <script src="../js/cards.js"></script>
-    </body>
+    <script src="../js/main.js"></script>
+    <script src="../js/cards.js"></script>
+</body>
 
 </html>
