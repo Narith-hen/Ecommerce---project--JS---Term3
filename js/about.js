@@ -89,3 +89,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     }
 });
+
+
+
+document.querySelectorAll('.view-details').forEach(button => {
+    button.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const card = this.closest('.build-card');
+        const info = card.querySelector('.build-info');
+
+        info.classList.toggle('show');
+
+        // Change button text
+        this.textContent = info.classList.contains('show')
+            ? 'Hide Details'
+            : 'View Details';
+    });
+});
+
