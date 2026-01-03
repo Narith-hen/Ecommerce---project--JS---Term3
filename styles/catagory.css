@@ -329,7 +329,6 @@
 
 .text-gradient {
     background: linear-gradient(to right, #ff4500, #ff8c00);
-    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -424,7 +423,6 @@
 
 .text-gradient {
     background: linear-gradient(to right, var(--accent), #ff8c00);
-    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 900;
 }
