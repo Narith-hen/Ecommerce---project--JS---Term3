@@ -14,54 +14,68 @@
 </header>
 
 <main class="container">
+
+    <!-- Role Page -->
     <div class="card" id="rolePage">
         <h1>Welcome</h1>
         <p>Please select your account type to continue.</p>
         <button class="btn-primary" onclick="setRole('customer')" style="margin-bottom: 12px;">
             <i class="fa-solid fa-user"></i> I am a Customer
         </button>
-        <!-- <button class="btn-primary btn-secondary"><a href="../admin/login.html">I am an Admin</a></button> -->
          <button class="btn-primary btn-secondary" onclick="handleAdminClick(event)">
             <i class="fa-solid fa-user-shield"></i> 
             <span id="adminBtnText">I am an Admin</span>
             <i id="adminSpinner" class="fa-solid fa-circle-notch fa-spin hidden" style="margin-left: 10px;"></i>
         </button>
     </div>
-    
+    <!-- Loading over lay -->
     <div id="loaderOverlay" class="loader-overlay hidden">
-    <div class="loader-box">
-        <i class="fa-solid fa-circle-notch fa-spin"></i>
-        <p>Verifying Admin Access...</p>
-        <span class="secure-text"><i class="fa-solid fa-lock"></i> Secure Connection</span>
+        <div class="loader-box">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+            <p>Verifying Admin Access...</p>
+            <span class="secure-text"><i class="fa-solid fa-lock"></i> Secure Connection</span>
+        </div>
     </div>
-</div>
 
+    <!-- Login page -->
     <div class="card hidden" id="loginPage">
         <a href="#" class="back-link" onclick="showRoleSelection()"><i class="fa-solid fa-arrow-left"></i> Back</a>
         <h1>Sign in</h1>
         <label>Email</label>
-        <input type="email" id="loginEmail">
+        <input type="email" id="loginEmail" placeholder="Enter email address acc">
         <label>Password</label>
-        <input type="password" id="loginPass">
+        <input type="password" id="loginPass" placeholder="Enter your password ">
         <button class="btn-primary" id="loginBtn">Continue</button>
         <hr>
         <p>New to AutoDrive? <a href="#" class="link" onclick="showCreateAccount()">Create account</a></p>
     </div>
 
+    <!-- create account page -->
     <div class="card hidden" id="createAccountPage">
-        <a href="#" class="back-link" onclick="showRoleSelection()"><i class="fa-solid fa-arrow-left"></i> Back</a>
+        <a href="#" class="back-link" onclick="showLogin()"><i class="fa-solid fa-arrow-left"></i> Back</a>
         <h1>Create account</h1>
+        
         <label>Your name</label>
         <input type="text" id="regName" placeholder="First and last name">
+        
         <label>Email</label>
-        <input type="email" id="regEmail">
+        <input type="email" id="regEmail" placeholder="example@gmail.com">
+
+        <div id="adminPhoneField" class="hidden">
+            <label>Admin Mobile Number</label>
+            <input type="tel" id="regPhone" placeholder="+855 00 000 000">
+        </div>
+
         <label>Password</label>
         <input type="password" id="regPass" placeholder="At least 6 characters">
+        
         <label>Verify password</label>
-        <input type="password" id="regVerify">
+        <input type="password" id="regVerify" placeholder="Verify password">
+        
         <button class="btn-primary" id="regContinueBtn">Continue</button>
     </div>
 
+    <!-- verify page -->
     <div class="card hidden" id="verifyPage">
         <h1>Verify Email</h1>
         <p>Enter the code sent to your email.</p>
