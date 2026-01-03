@@ -1,0 +1,176 @@
+:root {
+    --primary-color: #232f3e;    /* Deep Blue */
+    --accent-color: #febd69;     /* Amazon-style Orange */
+    --text-dark: #111111;
+    --text-muted: #565959;
+    --bg-light: #f0f2f2;
+    --white: #ffffff;
+    --border-radius: 8px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+    margin: 0;
+    padding-bottom: 50px;
+}
+
+/* --- Header Section --- */
+.cs-header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.cs-header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.cs-header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* --- Help Categories (Grid) --- */
+.help-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: -40px auto 40px; /* Overlap the header slightly */
+    padding: 0 20px;
+}
+
+.help-card {
+    background: var(--white);
+    padding: 40px 10px;
+    text-align: center;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: transform 0.2s, border 0.2s;
+    font-weight: bold;
+    border: 1px solid transparent;
+}
+
+.help-card:hover {
+    transform: translateY(-5px);
+    border: 1px solid var(--accent-color);
+}
+
+/* --- Content Sections --- */
+.section {
+    max-width: 900px;
+    margin: 30px auto;
+    background: var(--white);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.section h2 {
+    border-bottom: 2px solid var(--bg-light);
+    padding-bottom: 10px;
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+ul {
+    padding-left: 20px;
+    color: var(--text-muted);
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+/* --- FAQ Accordion Styles --- */
+.faq {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.faq-question {
+    width: 100%;
+    text-align: left;
+    padding: 15px;
+    background: #f9f9f9;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+.faq-question:hover {
+    background: #eeeeee;
+}
+
+.faq-answer {
+    padding: 0 15px;
+    max-height: 0; /* Hidden by default */
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    background: white;
+    color: var(--text-muted);
+}
+
+/* Class to be toggled by JS */
+.faq.active .faq-answer {
+    max-height: 200px;
+    padding: 15px;
+}
+
+/* --- Contact Form --- */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.contact-form input, 
+.contact-form textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.contact-form button {
+    background-color: var(--accent-color);
+    color: var(--text-dark);
+    border: 1px solid #a88734;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.contact-form button:hover {
+    background-color: #f7ca00;
+}
+
+/* --- Security Badge --- */
+.security {
+    text-align: center;
+    background: #e7f3ff;
+    border: 1px solid #adcfff;
+    color: #004b91;
+    font-weight: bold;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 600px) {
+    .cs-header h1 { font-size: 1.8rem; }
+    .section { margin: 15px; padding: 20px; }
+}
