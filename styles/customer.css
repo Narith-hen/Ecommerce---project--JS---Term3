@@ -146,9 +146,9 @@ ul li {
 }
 
 .contact-form button {
-    background-color: var(--accent-color);
-    color: var(--text-dark);
-    border: 1px solid #a88734;
+    background-color:#174c5d;
+    color: white;
+    border: 1px solid #0f3845;
     padding: 12px;
     font-weight: bold;
     border-radius: 4px;
@@ -157,7 +157,7 @@ ul li {
 }
 
 .contact-form button:hover {
-    background-color: #f7ca00;
+    background-color: #2a7992;
 }
 
 /* --- Security Badge --- */
