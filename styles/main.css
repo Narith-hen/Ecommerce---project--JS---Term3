@@ -1329,3 +1329,36 @@ img {
     margin-bottom: 6px;
 }
 
+.user-profile-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.profile-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.profile-link:hover {
+    color: var(--color-100);
+}
+
+.logout-mini-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.5);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 10px;
+}
+
+.logout-mini-btn:hover {
+    background: #ff4d4d;
+    border-color: #ff4d4d;
+}
