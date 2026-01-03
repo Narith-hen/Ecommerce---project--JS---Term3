@@ -20,7 +20,8 @@ body {
     background-color: rgba(0, 0, 0, 0.6);
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    /* increased so the modal is above header and loader */
+    z-index: 20000;
     animation: fadeIn 0.4s ease-out;
 }
 
@@ -32,6 +33,8 @@ body {
 /* Discount Card (same as before) */
 .discount-card {
     position: relative;
+    /* make sure the card itself stacks above other elements inside the overlay */
+    z-index: 20001;
     width: 500px;
     max-width: 90%;
     background-image: url("../images/Nav-Car/Car4.jpg");
@@ -51,6 +54,8 @@ body {
     position: absolute;
     top: 15px;
     right: 15px;
+    /* ensure the button overlays everything inside the modal */
+    z-index: 20002;
     background: rgba(255, 255, 255, 0.3);
     color: white;
     border: none;
