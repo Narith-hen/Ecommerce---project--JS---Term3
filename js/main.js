@@ -121,7 +121,7 @@ window.addEventListener('load', () => {
       setTimeout(() => {
         loader.classList.add('hidden');
         try { sessionStorage.setItem('siteLoaderShown', 'true'); } catch (e) { }
-      }, 800);
+      }, 900);
     }
   }, 90);
 });
